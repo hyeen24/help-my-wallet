@@ -105,10 +105,30 @@ export type Theme = {
   altTextColor: string;
 };
 
-export interface AuthContextType {
+export type AuthContextType = {
   user: any;
   loading: boolean;
   signInUser: (username: string, password: string) => Promise<void>;
   signOutUser: () => Promise<void>;
-  registerUser: (username: string, password: string) => Promise<void>;
+  registerUser: (params: SignUpParameters) => Promise<void>;
 };
+
+export type SignUpParameters = {
+  name: string;
+  password: string;
+  email: string;
+  phone_number: string;
+};
+
+export type CodeConfirmationParameters = {
+  username: string;
+  confirmationCode: string;
+};
+
+export interface OTPInputProps extends TextInputProps {
+    inputStyle?: TextStyle;
+    setPinReady?: React.Dispatch<React.SetStateAction<boolean>>; 
+    code?: string; 
+    setCode?: any; 
+    maxLength?: number;
+  }

@@ -2,12 +2,17 @@ import { StyleSheet, View, Text, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'expo-router'
 import Colors from '@/constants/Colors';
+import { Amplify } from 'aws-amplify';
+import amplifyconfig from '../src/amplifyconfiguration.json';
+
+Amplify.configure(amplifyconfig);
 
 const index = () => {
     const router = useRouter();
     useEffect(() => {
         setTimeout(() => {
-                router.push("/(auth)/welcome");
+                // router.push("/(auth)/welcome");
+                router.push("/(auth)/verification");
             }, 2000);
     },[])
   return ( 

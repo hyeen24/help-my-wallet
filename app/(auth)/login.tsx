@@ -26,7 +26,8 @@ const login = () => {
           Alert.alert('Login','Please ensure password has the minimum length of 8 characters.')
           return;
         }
-
+    
+    console.log("email: ", email, "password: ", password)
     const isLoggedIn = await signInUser(email.toLowerCase() , password);
     console.log(email, password)
     console.log("isLoggedIn: ",isLoggedIn)
