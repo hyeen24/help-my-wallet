@@ -15,6 +15,9 @@
       "auth": {
         "helpmywalletb1518867": {},
         "HelpMyWallet": {}
+      },
+      "storage": {
+        "s3helpmywalletstorage9c586961": {}
       }
     }
   }

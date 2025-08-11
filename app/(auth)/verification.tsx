@@ -7,6 +7,7 @@ import OTPInput from '@/components/OTPInput'
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import Colors from '@/constants/Colors'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useAuth } from '@/contexts/AuthContext'
 
 
 const verification = () => {
@@ -19,19 +20,30 @@ const verification = () => {
     const [pinReady, setPinReady] = useState(false);
     const router = useRouter();
     const [newPassword, setNewPassword] = useState("");
-
     const { theme, colorScheme } = useTheme();
+    const { handleSignUpConfirmation } = useAuth();
 
 
     const handleVerification = async () => {
+      console.log("username: ", username);
+      console.log("code: ", code);
         // Checks if code meets the requirement
         if (code.length < 6 ) {
             Alert.alert("Verification Error", "Verification code must be 6 digits.")
         } else {
-            const response = await handleSignUpConfirmation(username.toString(), code)
+            const response = await handleSignUpConfirmation({
+                username: username as string,
+                confirmationCode: code
+            })
 
             if (response.success == true) {
-                router.navigate('/(auth)/login')
+              Alert.alert("Verification Success", "Your account has been successfully verified.", [
+                {
+                  text: "Login",
+                  onPress: () => {
+                    router.push("/(auth)/login");
+                  }
+                }])
             } else {
                 Alert.alert("Verification Failed", response.msg)
             }   

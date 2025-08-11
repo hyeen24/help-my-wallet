@@ -2,8 +2,10 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-nativ
 import React from 'react'
 import Colors from '@/constants/Colors'
 import { InputProps } from '@/types'
+import { useTheme } from '@/contexts/ThemeContext'
 
 const Input = (props: InputProps) => {
+  const { theme } = useTheme();
   return (
     <View style={[styles.container, props.containerStyle && props.containerStyle]}>
         {
@@ -11,9 +13,10 @@ const Input = (props: InputProps) => {
         }
       <TextInput
         style={[styles.input,
-            props.inputStyle
+            props.inputStyle,
+            { color: theme.textColor}
         ]}
-        placeholderTextColor={Colors.white}
+        placeholderTextColor={theme.textColor}
         ref={props.inputRef && props.inputRef}
         {...props}/>
         
@@ -41,7 +44,6 @@ const styles = StyleSheet.create({
     },
     input : {
         flex:1,
-        color: Colors.white,
         fontSize: 14,
         opacity: 0.8
     },

@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import Colors from '@/constants/Colors';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import Button from '@/components/Button';
+import { useAuth } from '@/contexts/AuthContext';
 
 const welcome = () => {
     const router = useRouter();

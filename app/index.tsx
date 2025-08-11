@@ -4,15 +4,17 @@ import { useRouter } from 'expo-router'
 import Colors from '@/constants/Colors';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from '../src/amplifyconfiguration.json';
+import { generateClient } from 'aws-amplify/api';
 
 Amplify.configure(amplifyconfig);
+const client = generateClient();
 
 const index = () => {
     const router = useRouter();
     useEffect(() => {
         setTimeout(() => {
-                // router.push("/(auth)/welcome");
-                router.push("/(auth)/verification");
+                router.push("/(tabs)/home");
+                // router.push("/addCategory");
             }, 2000);
     },[])
   return ( 

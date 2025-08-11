@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { TextInput, TextInputProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
+import { type ConfirmResetPasswordInput } from "aws-amplify/auth";
 
 
 export interface ExpenseType {
@@ -110,14 +111,20 @@ export type AuthContextType = {
   loading: boolean;
   signInUser: (username: string, password: string) => Promise<void>;
   signOutUser: () => Promise<void>;
-  registerUser: (params: SignUpParameters) => Promise<void>;
+  registerUser: (params: SignUpParameters) => Promise<
+    | { success: { isSignUpComplete: boolean; userId: string | undefined; nextStep: any }; message: string }
+    | { error: true; message: string }
+  >;
+  handleSignUpConfirmation: (params: CodeConfirmationParameters) => Promise<any>;
+  handleResetPassword: (username: string) => Promise<any>;
+  handleConfirmResetPassword: (params: ConfirmResetPasswordInput) => Promise<void>;
+  userAttributes: Partial<Record<string, string>> | null;
 };
 
 export type SignUpParameters = {
   name: string;
   password: string;
   email: string;
-  phone_number: string;
 };
 
 export type CodeConfirmationParameters = {
@@ -132,3 +139,9 @@ export interface OTPInputProps extends TextInputProps {
     setCode?: any; 
     maxLength?: number;
   }
+
+export interface ResetPasswordsProps {
+  emailConfirm: string;
+  setEmailConfirm: (value: string) => void;
+  setResetPasswordStage: (stage: "retrieve" | "reset" | "new") => void;
+}

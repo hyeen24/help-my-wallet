@@ -14,7 +14,6 @@ const Register = () => {
   
   // variables
     const [name, setName] = useState("");
-  const [ phoneNumber, setPhoneNumber ] = useState("");
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [ email, setEmail ] = useState("");
   const { user, registerUser, loading } = useAuth();
@@ -23,13 +22,13 @@ const Register = () => {
 
   // Handling Register, It first checks the field then It will call the handleSignUp from Context
   const handleRegister = async () => {
-    if (!email || !password || !phoneNumber) {
+    if (!email || !password || !name) {
       Alert.alert('Fail to Sign Up', 'Please fill up all fields.');
       return;
     }
 
-    if (phoneNumber.length < 8 || phoneNumber.length > 15) {
-      Alert.alert('Fail to Sign Up', 'Please ensure phone number has the minimum length of 10 and maximum length of 15 characters.');
+    if (!name || name.length < 5) {
+      Alert.alert('Fail to Sign Up', 'Please enter a valid name with at least 5 characters.');
       return;
     }
 
@@ -38,19 +37,25 @@ const Register = () => {
       return;
     }
     
-    if (password.length < 8 ) {
-      Alert.alert('Fail to Sign Up','Please ensure password has the minimum length of 8 characters.')
-      return;
-    }
+    if (
+          password.length < 8 ||
+          !/[a-z]/.test(password) ||       // no lowercase
+          !/[A-Z]/.test(password) ||       // no uppercase
+          !/\d/.test(password) ||          // no digit
+          !/[!@#$%^&*(),.?":{}|<>]/.test(password) // no special char
+        ) {
+          Alert.alert(
+            'Fail to Sign Up',
+            'Password must be at least 8 characters long, contain uppercase and lowercase letters, a number, and a special character.'
+          );
+          return;
+        }
 
     const res = await registerUser({
         name: toTitleCase(name),
         email: email.toLowerCase(),
-        phone_number: phoneNumber,
         password: password
     });
-
-    console.log("res: ", res);
     
     if (res.success) {
         Alert.alert("Success", `Account created successfully.`, [
@@ -97,23 +102,35 @@ const Register = () => {
           color={Colors.neutral300}/>}
           />
           <Input 
-          placeholder="Enter your phone number" 
-          onChangeText={(value) => {setPhoneNumber(value)}}
-          iconLeft={<Feather name='phone' size={26}
-          color={Colors.neutral300}/>}
-          />
-          <Input 
           placeholder="Enter your password" 
           secureTextEntry
           onChangeText={(value) => {setPassword(value)}}
           iconLeft={<AntDesign name='lock' size={26}
           color={Colors.neutral300}/>}
           />
+          <View>
+            <Text style={{ fontSize: 15, color: Colors.white }}>
+              {'\u2022'} Minimum 8 characters {password.length >= 8 ? '✅' : ''}
+            </Text>
 
-          {password.length < 8 && (
-              <Text style={{ fontSize: 15, color: Colors.white}} > {'\u2022'} Minimum 8 characters</Text>
-            )}
-          
+            <Text style={{ fontSize: 15, color: Colors.white }}>
+              {'\u2022'} At least one lowercase character {/[a-z]/.test(password) ? '✅' : ''}
+            </Text>
+
+            <Text style={{ fontSize: 15, color: Colors.white }}>
+              {'\u2022'} At least one uppercase character {/[A-Z]/.test(password) ? '✅' : ''}
+            </Text>
+
+            <Text style={{ fontSize: 15, color: Colors.white }}>
+              {'\u2022'} At least one numeral (0-9) {/\d/.test(password) ? '✅' : ''}
+            </Text>
+
+            <Text style={{ fontSize: 15, color: Colors.white }}>
+              {'\u2022'} At least one symbol character {/[!@#$%^&*(),.?":{}|<>]/.test(password) ? '✅' : ''}
+            </Text>
+          </View>
+
+
         </View>
 
         <Button loading={loading} onPress={handleRegister}>

@@ -1,4 +1,27 @@
 {
+  "api": {
+    "HelpMyWallet": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "auth": {
     "HelpMyWallet": {
       "customAuth": false,
@@ -19,8 +42,7 @@
         },
         "signupAttributes": [
           "EMAIL",
-          "NAME",
-          "PHONE_NUMBER"
+          "NAME"
         ],
         "socialProviders": [],
         "usernameAttributes": [
@@ -32,6 +54,13 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "storage": {
+    "s3helpmywalletstorage9c586961": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }
