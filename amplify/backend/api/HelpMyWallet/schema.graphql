@@ -1,11 +1,3 @@
-type Expense @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  amount: Float
-  description: String
-  author_id: ID!
-  expensegroupID: ID! @index(name: "byExpenseGroup")
-}
-
 enum IncomeOrExpense {
   INCOME
   EXPENSE
@@ -24,7 +16,6 @@ type ExpenseGroup @model @auth(rules: [{allow: public}]) {
   name: String!
   author_id: ID!
   color: String
-  Expenses: [Expense] @hasMany(indexName: "byExpenseGroup", fields: ["id"])
 }
 
 enum IncomeRecurrence {
@@ -76,6 +67,6 @@ type Transactions @model @auth(rules: [{allow: public}]) {
   author_id: ID!
   category_id: ID
   transaction_type: TransactionType!
-  merchantID: ID! @index(name: "byMerchant")
+  merchantID: ID @index(name: "byMerchant")
 }
  

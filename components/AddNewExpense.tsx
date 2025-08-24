@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import Input from './Input';
 import { useTheme } from '@/contexts/ThemeContext';
 import { FontAwesome6, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
-import { CreateExpenseGroupInput, CreateExpenseInput, CreateTransactionsInput, ExpenseGroup, TransactionType } from '@/src/API';
+import { CreateExpenseGroupInput, CreateExpenseInput, ExpenseGroup, TransactionType } from '@/src/API';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from './Button';
 import AddNewExpenseGroup from './AddNewExpenseGroup';
@@ -12,6 +12,7 @@ import { generateClient } from 'aws-amplify/api';
 import * as mutations from '../src/graphql/mutations';
 import { router } from 'expo-router';
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { CreateTransactionsInput } from '@/types';
 
 const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) => {
     const { theme } = useTheme();
@@ -43,7 +44,6 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
         category_id: "",
         transaction_date: new Date().toISOString().split('T')[0],
         transaction_type: TransactionType.DEBIT,
-        merchantID: ""
     });
 
     
@@ -149,25 +149,26 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
                     category_id: existingGroup
                 }
             } 
-            console.log(expensePayload)
+            // console.log(expensePayload)
 
-            // try {
-            //     const result = await client.graphql({
-            //         query: mutations.createTransactions,
-            //         variables : {
-            //             input: expensePayload
-            //         }
-            //     })
-            //     console.log(result)
-            //     Alert.alert("New Expense Added", "Your expense has been updated successfully.", [
-            //               {
-            //                 text: "OK",
-            //                 onPress: () => router.push("/(tabs)/home"),
-            //               },
-            //             ]);
-            // } catch (error) {
-            //     Alert.alert("Error Creating Expense", error)
-            // }
+            try {
+                const result = await client.graphql({
+                    query: mutations.createTransactions,
+                    variables : {
+                        input: expensePayload
+                    }
+                })
+                console.log(result)
+                Alert.alert("New Expense Added", "Your expense has been updated successfully.", [
+                          {
+                            text: "OK",
+                            onPress: () => router.push("/(tabs)/home"),
+                          },
+                        ]);
+            } catch (error) {
+                console.log(error)
+                Alert.alert("Error Creating Expense", error.message)
+            }
         }    
     }
 

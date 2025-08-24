@@ -8,54 +8,6 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateExpense = /* GraphQL */ `subscription OnCreateExpense($filter: ModelSubscriptionExpenseFilterInput) {
-  onCreateExpense(filter: $filter) {
-    id
-    amount
-    description
-    author_id
-    expensegroupID
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateExpenseSubscriptionVariables,
-  APITypes.OnCreateExpenseSubscription
->;
-export const onUpdateExpense = /* GraphQL */ `subscription OnUpdateExpense($filter: ModelSubscriptionExpenseFilterInput) {
-  onUpdateExpense(filter: $filter) {
-    id
-    amount
-    description
-    author_id
-    expensegroupID
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateExpenseSubscriptionVariables,
-  APITypes.OnUpdateExpenseSubscription
->;
-export const onDeleteExpense = /* GraphQL */ `subscription OnDeleteExpense($filter: ModelSubscriptionExpenseFilterInput) {
-  onDeleteExpense(filter: $filter) {
-    id
-    amount
-    description
-    author_id
-    expensegroupID
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteExpenseSubscriptionVariables,
-  APITypes.OnDeleteExpenseSubscription
->;
 export const onCreateCalendar = /* GraphQL */ `subscription OnCreateCalendar($filter: ModelSubscriptionCalendarFilterInput) {
   onCreateCalendar(filter: $filter) {
     id
@@ -112,10 +64,6 @@ export const onCreateExpenseGroup = /* GraphQL */ `subscription OnCreateExpenseG
     name
     author_id
     color
-    Expenses {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -133,10 +81,6 @@ export const onUpdateExpenseGroup = /* GraphQL */ `subscription OnUpdateExpenseG
     name
     author_id
     color
-    Expenses {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -154,10 +98,6 @@ export const onDeleteExpenseGroup = /* GraphQL */ `subscription OnDeleteExpenseG
     name
     author_id
     color
-    Expenses {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename

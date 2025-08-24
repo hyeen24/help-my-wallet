@@ -152,3 +152,15 @@ export type AddNewExpenseGroupProps = {
     categoryColor: string;
     setCategoryColor: (color: string) => void;
 };
+
+export type CreateTransactionsInput = {
+    id?: string | null | undefined;
+    post_date?: string | null | undefined;
+    transaction_date: string;
+    amount: number;
+    description: string;
+    created_at?: string | null | undefined;
+    author_id: string;
+    category_id?: string | null | undefined;
+    transaction_type: TransactionType;
+}

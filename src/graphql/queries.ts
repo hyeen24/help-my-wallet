@@ -8,78 +8,6 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getExpense = /* GraphQL */ `query GetExpense($id: ID!) {
-  getExpense(id: $id) {
-    id
-    amount
-    description
-    author_id
-    expensegroupID
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetExpenseQueryVariables,
-  APITypes.GetExpenseQuery
->;
-export const listExpenses = /* GraphQL */ `query ListExpenses(
-  $filter: ModelExpenseFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listExpenses(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      amount
-      description
-      author_id
-      expensegroupID
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListExpensesQueryVariables,
-  APITypes.ListExpensesQuery
->;
-export const expensesByExpensegroupID = /* GraphQL */ `query ExpensesByExpensegroupID(
-  $expensegroupID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelExpenseFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  expensesByExpensegroupID(
-    expensegroupID: $expensegroupID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      amount
-      description
-      author_id
-      expensegroupID
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ExpensesByExpensegroupIDQueryVariables,
-  APITypes.ExpensesByExpensegroupIDQuery
->;
 export const getCalendar = /* GraphQL */ `query GetCalendar($id: ID!) {
   getCalendar(id: $id) {
     id
@@ -126,10 +54,6 @@ export const getExpenseGroup = /* GraphQL */ `query GetExpenseGroup($id: ID!) {
     name
     author_id
     color
-    Expenses {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -193,12 +117,12 @@ export const listIncomes = /* GraphQL */ `query ListIncomes(
       amount
       name
       author_id
-      recurrence
       icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
+        Icon_name
+        Icon_type
+        __typename
+      }
+      recurrence
       start_date
       end_date
       createdAt

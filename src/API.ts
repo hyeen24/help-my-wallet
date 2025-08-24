@@ -1226,11 +1226,7 @@ export type ListIncomesQuery = {
       amount: number,
       name: string,
       author_id: string,
-      icon?:  {
-      __typename: "Icon",
-      Icon_name?: string | null,
-      Icon_type?: string | null,
-    } | null,
+      
       recurrence: IncomeRecurrence,
       start_date: string,
       end_date?: string | null,
