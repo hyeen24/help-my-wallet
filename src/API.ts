@@ -2,6 +2,117 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
+export type CreateExpenseInput = {
+  id?: string | null,
+  amount?: number | null,
+  description?: string | null,
+  author_id: string,
+  expensegroupID: string,
+};
+
+export type ModelExpenseConditionInput = {
+  amount?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
+  author_id?: ModelIDInput | null,
+  expensegroupID?: ModelIDInput | null,
+  and?: Array< ModelExpenseConditionInput | null > | null,
+  or?: Array< ModelExpenseConditionInput | null > | null,
+  not?: ModelExpenseConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export enum ModelAttributeTypes {
+  binary = "binary",
+  binarySet = "binarySet",
+  bool = "bool",
+  list = "list",
+  map = "map",
+  number = "number",
+  numberSet = "numberSet",
+  string = "string",
+  stringSet = "stringSet",
+  _null = "_null",
+}
+
+
+export type ModelStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type ModelSizeInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type Expense = {
+  __typename: "Expense",
+  id: string,
+  amount?: number | null,
+  description?: string | null,
+  author_id: string,
+  expensegroupID: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateExpenseInput = {
+  id: string,
+  amount?: number | null,
+  description?: string | null,
+  author_id?: string | null,
+  expensegroupID?: string | null,
+};
+
+export type DeleteExpenseInput = {
+  id: string,
+};
+
 export type CreateCalendarInput = {
   id?: string | null,
   date?: string | null,
@@ -28,77 +139,9 @@ export type ModelCalendarConditionInput = {
   updatedAt?: ModelStringInput | null,
 };
 
-export type ModelStringInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
-export enum ModelAttributeTypes {
-  binary = "binary",
-  binarySet = "binarySet",
-  bool = "bool",
-  list = "list",
-  map = "map",
-  number = "number",
-  numberSet = "numberSet",
-  string = "string",
-  stringSet = "stringSet",
-  _null = "_null",
-}
-
-
-export type ModelSizeInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-};
-
 export type ModelIncomeOrExpenseInput = {
   eq?: IncomeOrExpense | null,
   ne?: IncomeOrExpense | null,
-};
-
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
-export type ModelFloatInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
 };
 
 export type Calendar = {
@@ -124,95 +167,49 @@ export type DeleteCalendarInput = {
   id: string,
 };
 
-export type CreateExpenseInput = {
+export type CreateExpenseGroupInput = {
   id?: string | null,
   name: string,
-  amount: number,
   author_id: string,
   color?: string | null,
 };
 
-export type ModelExpenseConditionInput = {
+export type ModelExpenseGroupConditionInput = {
   name?: ModelStringInput | null,
-  amount?: ModelFloatInput | null,
   author_id?: ModelIDInput | null,
   color?: ModelStringInput | null,
-  and?: Array< ModelExpenseConditionInput | null > | null,
-  or?: Array< ModelExpenseConditionInput | null > | null,
-  not?: ModelExpenseConditionInput | null,
+  and?: Array< ModelExpenseGroupConditionInput | null > | null,
+  or?: Array< ModelExpenseGroupConditionInput | null > | null,
+  not?: ModelExpenseGroupConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
 };
 
-export type Expense = {
-  __typename: "Expense",
+export type ExpenseGroup = {
+  __typename: "ExpenseGroup",
   id: string,
   name: string,
-  amount: number,
   author_id: string,
   color?: string | null,
-  Merchants?: ModelMerchantConnection | null,
+  Expenses?: ModelExpenseConnection | null,
   createdAt: string,
   updatedAt: string,
 };
 
-export type ModelMerchantConnection = {
-  __typename: "ModelMerchantConnection",
-  items:  Array<Merchant | null >,
+export type ModelExpenseConnection = {
+  __typename: "ModelExpenseConnection",
+  items:  Array<Expense | null >,
   nextToken?: string | null,
 };
 
-export type Merchant = {
-  __typename: "Merchant",
-  id: string,
-  merchant_name: string,
-  authour_id: string,
-  image?: string | null,
-  category_id?: string | null,
-  keywords?: Array< string | null > | null,
-  Transactions?: ModelTransactionsConnection | null,
-  expenseID: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelTransactionsConnection = {
-  __typename: "ModelTransactionsConnection",
-  items:  Array<Transactions | null >,
-  nextToken?: string | null,
-};
-
-export type Transactions = {
-  __typename: "Transactions",
-  id: string,
-  post_date?: string | null,
-  transaction_date: string,
-  amount: number,
-  description: string,
-  created_at?: string | null,
-  author_id: string,
-  category_id?: string | null,
-  transaction_type: TransactionType,
-  merchantID: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export enum TransactionType {
-  CREDIT = "CREDIT",
-  DEBIT = "DEBIT",
-}
-
-
-export type UpdateExpenseInput = {
+export type UpdateExpenseGroupInput = {
   id: string,
   name?: string | null,
-  amount?: number | null,
   author_id?: string | null,
   color?: string | null,
 };
 
-export type DeleteExpenseInput = {
+export type DeleteExpenseGroupInput = {
   id: string,
 };
 
@@ -298,20 +295,18 @@ export type DeleteIncomeInput = {
 export type CreateMerchantInput = {
   id?: string | null,
   merchant_name: string,
-  authour_id: string,
+  author_id: string,
   image?: string | null,
   category_id?: string | null,
   keywords?: Array< string | null > | null,
-  expenseID: string,
 };
 
 export type ModelMerchantConditionInput = {
   merchant_name?: ModelStringInput | null,
-  authour_id?: ModelIDInput | null,
+  author_id?: ModelIDInput | null,
   image?: ModelStringInput | null,
   category_id?: ModelIDInput | null,
   keywords?: ModelStringInput | null,
-  expenseID?: ModelIDInput | null,
   and?: Array< ModelMerchantConditionInput | null > | null,
   or?: Array< ModelMerchantConditionInput | null > | null,
   not?: ModelMerchantConditionInput | null,
@@ -319,14 +314,54 @@ export type ModelMerchantConditionInput = {
   updatedAt?: ModelStringInput | null,
 };
 
-export type UpdateMerchantInput = {
+export type Merchant = {
+  __typename: "Merchant",
   id: string,
-  merchant_name?: string | null,
-  authour_id?: string | null,
+  merchant_name: string,
+  author_id: string,
   image?: string | null,
   category_id?: string | null,
   keywords?: Array< string | null > | null,
-  expenseID?: string | null,
+  Transactions?: ModelTransactionsConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelTransactionsConnection = {
+  __typename: "ModelTransactionsConnection",
+  items:  Array<Transactions | null >,
+  nextToken?: string | null,
+};
+
+export type Transactions = {
+  __typename: "Transactions",
+  id: string,
+  post_date?: string | null,
+  transaction_date: string,
+  amount: number,
+  description: string,
+  created_at?: string | null,
+  author_id: string,
+  category_id?: string | null,
+  transaction_type: TransactionType,
+  merchantID: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export enum TransactionType {
+  CREDIT = "CREDIT",
+  DEBIT = "DEBIT",
+}
+
+
+export type UpdateMerchantInput = {
+  id: string,
+  merchant_name?: string | null,
+  author_id?: string | null,
+  image?: string | null,
+  category_id?: string | null,
+  keywords?: Array< string | null > | null,
 };
 
 export type DeleteMerchantInput = {
@@ -385,6 +420,25 @@ export type DeleteTransactionsInput = {
   id: string,
 };
 
+export type ModelExpenseFilterInput = {
+  id?: ModelIDInput | null,
+  amount?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
+  author_id?: ModelIDInput | null,
+  expensegroupID?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelExpenseFilterInput | null > | null,
+  or?: Array< ModelExpenseFilterInput | null > | null,
+  not?: ModelExpenseFilterInput | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelCalendarFilterInput = {
   id?: ModelIDInput | null,
   date?: ModelStringInput | null,
@@ -404,22 +458,21 @@ export type ModelCalendarConnection = {
   nextToken?: string | null,
 };
 
-export type ModelExpenseFilterInput = {
+export type ModelExpenseGroupFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
-  amount?: ModelFloatInput | null,
   author_id?: ModelIDInput | null,
   color?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelExpenseFilterInput | null > | null,
-  or?: Array< ModelExpenseFilterInput | null > | null,
-  not?: ModelExpenseFilterInput | null,
+  and?: Array< ModelExpenseGroupFilterInput | null > | null,
+  or?: Array< ModelExpenseGroupFilterInput | null > | null,
+  not?: ModelExpenseGroupFilterInput | null,
 };
 
-export type ModelExpenseConnection = {
-  __typename: "ModelExpenseConnection",
-  items:  Array<Expense | null >,
+export type ModelExpenseGroupConnection = {
+  __typename: "ModelExpenseGroupConnection",
+  items:  Array<ExpenseGroup | null >,
   nextToken?: string | null,
 };
 
@@ -447,11 +500,10 @@ export type ModelIncomeConnection = {
 export type ModelMerchantFilterInput = {
   id?: ModelIDInput | null,
   merchant_name?: ModelStringInput | null,
-  authour_id?: ModelIDInput | null,
+  author_id?: ModelIDInput | null,
   image?: ModelStringInput | null,
   category_id?: ModelIDInput | null,
   keywords?: ModelStringInput | null,
-  expenseID?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelMerchantFilterInput | null > | null,
@@ -459,11 +511,11 @@ export type ModelMerchantFilterInput = {
   not?: ModelMerchantFilterInput | null,
 };
 
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
+export type ModelMerchantConnection = {
+  __typename: "ModelMerchantConnection",
+  items:  Array<Merchant | null >,
+  nextToken?: string | null,
+};
 
 export type ModelTransactionsFilterInput = {
   id?: ModelIDInput | null,
@@ -483,34 +535,19 @@ export type ModelTransactionsFilterInput = {
   not?: ModelTransactionsFilterInput | null,
 };
 
-export type ModelSubscriptionCalendarFilterInput = {
+export type ModelSubscriptionExpenseFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  date?: ModelSubscriptionStringInput | null,
-  type?: ModelSubscriptionStringInput | null,
-  author_id?: ModelSubscriptionIDInput | null,
   amount?: ModelSubscriptionFloatInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  author_id?: ModelSubscriptionIDInput | null,
+  expensegroupID?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCalendarFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCalendarFilterInput | null > | null,
+  and?: Array< ModelSubscriptionExpenseFilterInput | null > | null,
+  or?: Array< ModelSubscriptionExpenseFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
-};
-
-export type ModelSubscriptionStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -537,16 +574,42 @@ export type ModelSubscriptionFloatInput = {
   notIn?: Array< number | null > | null,
 };
 
-export type ModelSubscriptionExpenseFilterInput = {
+export type ModelSubscriptionStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionCalendarFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  date?: ModelSubscriptionStringInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  author_id?: ModelSubscriptionIDInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionCalendarFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCalendarFilterInput | null > | null,
+};
+
+export type ModelSubscriptionExpenseGroupFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
-  amount?: ModelSubscriptionFloatInput | null,
   author_id?: ModelSubscriptionIDInput | null,
   color?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionExpenseFilterInput | null > | null,
-  or?: Array< ModelSubscriptionExpenseFilterInput | null > | null,
+  and?: Array< ModelSubscriptionExpenseGroupFilterInput | null > | null,
+  or?: Array< ModelSubscriptionExpenseGroupFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIncomeFilterInput = {
@@ -566,11 +629,10 @@ export type ModelSubscriptionIncomeFilterInput = {
 export type ModelSubscriptionMerchantFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   merchant_name?: ModelSubscriptionStringInput | null,
-  authour_id?: ModelSubscriptionIDInput | null,
+  author_id?: ModelSubscriptionIDInput | null,
   image?: ModelSubscriptionStringInput | null,
   category_id?: ModelSubscriptionIDInput | null,
   keywords?: ModelSubscriptionStringInput | null,
-  expenseID?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
@@ -592,6 +654,60 @@ export type ModelSubscriptionTransactionsFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionTransactionsFilterInput | null > | null,
   or?: Array< ModelSubscriptionTransactionsFilterInput | null > | null,
+};
+
+export type CreateExpenseMutationVariables = {
+  input: CreateExpenseInput,
+  condition?: ModelExpenseConditionInput | null,
+};
+
+export type CreateExpenseMutation = {
+  createExpense?:  {
+    __typename: "Expense",
+    id: string,
+    amount?: number | null,
+    description?: string | null,
+    author_id: string,
+    expensegroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateExpenseMutationVariables = {
+  input: UpdateExpenseInput,
+  condition?: ModelExpenseConditionInput | null,
+};
+
+export type UpdateExpenseMutation = {
+  updateExpense?:  {
+    __typename: "Expense",
+    id: string,
+    amount?: number | null,
+    description?: string | null,
+    author_id: string,
+    expensegroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteExpenseMutationVariables = {
+  input: DeleteExpenseInput,
+  condition?: ModelExpenseConditionInput | null,
+};
+
+export type DeleteExpenseMutation = {
+  deleteExpense?:  {
+    __typename: "Expense",
+    id: string,
+    amount?: number | null,
+    description?: string | null,
+    author_id: string,
+    expensegroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type CreateCalendarMutationVariables = {
@@ -648,21 +764,20 @@ export type DeleteCalendarMutation = {
   } | null,
 };
 
-export type CreateExpenseMutationVariables = {
-  input: CreateExpenseInput,
-  condition?: ModelExpenseConditionInput | null,
+export type CreateExpenseGroupMutationVariables = {
+  input: CreateExpenseGroupInput,
+  condition?: ModelExpenseGroupConditionInput | null,
 };
 
-export type CreateExpenseMutation = {
-  createExpense?:  {
-    __typename: "Expense",
+export type CreateExpenseGroupMutation = {
+  createExpenseGroup?:  {
+    __typename: "ExpenseGroup",
     id: string,
     name: string,
-    amount: number,
     author_id: string,
     color?: string | null,
-    Merchants?:  {
-      __typename: "ModelMerchantConnection",
+    Expenses?:  {
+      __typename: "ModelExpenseConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -670,21 +785,20 @@ export type CreateExpenseMutation = {
   } | null,
 };
 
-export type UpdateExpenseMutationVariables = {
-  input: UpdateExpenseInput,
-  condition?: ModelExpenseConditionInput | null,
+export type UpdateExpenseGroupMutationVariables = {
+  input: UpdateExpenseGroupInput,
+  condition?: ModelExpenseGroupConditionInput | null,
 };
 
-export type UpdateExpenseMutation = {
-  updateExpense?:  {
-    __typename: "Expense",
+export type UpdateExpenseGroupMutation = {
+  updateExpenseGroup?:  {
+    __typename: "ExpenseGroup",
     id: string,
     name: string,
-    amount: number,
     author_id: string,
     color?: string | null,
-    Merchants?:  {
-      __typename: "ModelMerchantConnection",
+    Expenses?:  {
+      __typename: "ModelExpenseConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -692,21 +806,20 @@ export type UpdateExpenseMutation = {
   } | null,
 };
 
-export type DeleteExpenseMutationVariables = {
-  input: DeleteExpenseInput,
-  condition?: ModelExpenseConditionInput | null,
+export type DeleteExpenseGroupMutationVariables = {
+  input: DeleteExpenseGroupInput,
+  condition?: ModelExpenseGroupConditionInput | null,
 };
 
-export type DeleteExpenseMutation = {
-  deleteExpense?:  {
-    __typename: "Expense",
+export type DeleteExpenseGroupMutation = {
+  deleteExpenseGroup?:  {
+    __typename: "ExpenseGroup",
     id: string,
     name: string,
-    amount: number,
     author_id: string,
     color?: string | null,
-    Merchants?:  {
-      __typename: "ModelMerchantConnection",
+    Expenses?:  {
+      __typename: "ModelExpenseConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -799,7 +912,7 @@ export type CreateMerchantMutation = {
     __typename: "Merchant",
     id: string,
     merchant_name: string,
-    authour_id: string,
+    author_id: string,
     image?: string | null,
     category_id?: string | null,
     keywords?: Array< string | null > | null,
@@ -807,7 +920,6 @@ export type CreateMerchantMutation = {
       __typename: "ModelTransactionsConnection",
       nextToken?: string | null,
     } | null,
-    expenseID: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -823,7 +935,7 @@ export type UpdateMerchantMutation = {
     __typename: "Merchant",
     id: string,
     merchant_name: string,
-    authour_id: string,
+    author_id: string,
     image?: string | null,
     category_id?: string | null,
     keywords?: Array< string | null > | null,
@@ -831,7 +943,6 @@ export type UpdateMerchantMutation = {
       __typename: "ModelTransactionsConnection",
       nextToken?: string | null,
     } | null,
-    expenseID: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -847,7 +958,7 @@ export type DeleteMerchantMutation = {
     __typename: "Merchant",
     id: string,
     merchant_name: string,
-    authour_id: string,
+    author_id: string,
     image?: string | null,
     category_id?: string | null,
     keywords?: Array< string | null > | null,
@@ -855,7 +966,6 @@ export type DeleteMerchantMutation = {
       __typename: "ModelTransactionsConnection",
       nextToken?: string | null,
     } | null,
-    expenseID: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -930,6 +1040,71 @@ export type DeleteTransactionsMutation = {
   } | null,
 };
 
+export type GetExpenseQueryVariables = {
+  id: string,
+};
+
+export type GetExpenseQuery = {
+  getExpense?:  {
+    __typename: "Expense",
+    id: string,
+    amount?: number | null,
+    description?: string | null,
+    author_id: string,
+    expensegroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListExpensesQueryVariables = {
+  filter?: ModelExpenseFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListExpensesQuery = {
+  listExpenses?:  {
+    __typename: "ModelExpenseConnection",
+    items:  Array< {
+      __typename: "Expense",
+      id: string,
+      amount?: number | null,
+      description?: string | null,
+      author_id: string,
+      expensegroupID: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ExpensesByExpensegroupIDQueryVariables = {
+  expensegroupID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelExpenseFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ExpensesByExpensegroupIDQuery = {
+  expensesByExpensegroupID?:  {
+    __typename: "ModelExpenseConnection",
+    items:  Array< {
+      __typename: "Expense",
+      id: string,
+      amount?: number | null,
+      description?: string | null,
+      author_id: string,
+      expensegroupID: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetCalendarQueryVariables = {
   id: string,
 };
@@ -970,20 +1145,19 @@ export type ListCalendarsQuery = {
   } | null,
 };
 
-export type GetExpenseQueryVariables = {
+export type GetExpenseGroupQueryVariables = {
   id: string,
 };
 
-export type GetExpenseQuery = {
-  getExpense?:  {
-    __typename: "Expense",
+export type GetExpenseGroupQuery = {
+  getExpenseGroup?:  {
+    __typename: "ExpenseGroup",
     id: string,
     name: string,
-    amount: number,
     author_id: string,
     color?: string | null,
-    Merchants?:  {
-      __typename: "ModelMerchantConnection",
+    Expenses?:  {
+      __typename: "ModelExpenseConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -991,20 +1165,19 @@ export type GetExpenseQuery = {
   } | null,
 };
 
-export type ListExpensesQueryVariables = {
-  filter?: ModelExpenseFilterInput | null,
+export type ListExpenseGroupsQueryVariables = {
+  filter?: ModelExpenseGroupFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListExpensesQuery = {
-  listExpenses?:  {
-    __typename: "ModelExpenseConnection",
+export type ListExpenseGroupsQuery = {
+  listExpenseGroups?:  {
+    __typename: "ModelExpenseGroupConnection",
     items:  Array< {
-      __typename: "Expense",
+      __typename: "ExpenseGroup",
       id: string,
       name: string,
-      amount: number,
       author_id: string,
       color?: string | null,
       createdAt: string,
@@ -1072,7 +1245,7 @@ export type GetMerchantQuery = {
     __typename: "Merchant",
     id: string,
     merchant_name: string,
-    authour_id: string,
+    author_id: string,
     image?: string | null,
     category_id?: string | null,
     keywords?: Array< string | null > | null,
@@ -1080,7 +1253,6 @@ export type GetMerchantQuery = {
       __typename: "ModelTransactionsConnection",
       nextToken?: string | null,
     } | null,
-    expenseID: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1099,38 +1271,10 @@ export type ListMerchantsQuery = {
       __typename: "Merchant",
       id: string,
       merchant_name: string,
-      authour_id: string,
+      author_id: string,
       image?: string | null,
       category_id?: string | null,
       keywords?: Array< string | null > | null,
-      expenseID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type MerchantsByExpenseIDQueryVariables = {
-  expenseID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelMerchantFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type MerchantsByExpenseIDQuery = {
-  merchantsByExpenseID?:  {
-    __typename: "ModelMerchantConnection",
-    items:  Array< {
-      __typename: "Merchant",
-      id: string,
-      merchant_name: string,
-      authour_id: string,
-      image?: string | null,
-      category_id?: string | null,
-      keywords?: Array< string | null > | null,
-      expenseID: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1218,6 +1362,57 @@ export type TransactionsByMerchantIDQuery = {
   } | null,
 };
 
+export type OnCreateExpenseSubscriptionVariables = {
+  filter?: ModelSubscriptionExpenseFilterInput | null,
+};
+
+export type OnCreateExpenseSubscription = {
+  onCreateExpense?:  {
+    __typename: "Expense",
+    id: string,
+    amount?: number | null,
+    description?: string | null,
+    author_id: string,
+    expensegroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateExpenseSubscriptionVariables = {
+  filter?: ModelSubscriptionExpenseFilterInput | null,
+};
+
+export type OnUpdateExpenseSubscription = {
+  onUpdateExpense?:  {
+    __typename: "Expense",
+    id: string,
+    amount?: number | null,
+    description?: string | null,
+    author_id: string,
+    expensegroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteExpenseSubscriptionVariables = {
+  filter?: ModelSubscriptionExpenseFilterInput | null,
+};
+
+export type OnDeleteExpenseSubscription = {
+  onDeleteExpense?:  {
+    __typename: "Expense",
+    id: string,
+    amount?: number | null,
+    description?: string | null,
+    author_id: string,
+    expensegroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateCalendarSubscriptionVariables = {
   filter?: ModelSubscriptionCalendarFilterInput | null,
 };
@@ -1269,20 +1464,19 @@ export type OnDeleteCalendarSubscription = {
   } | null,
 };
 
-export type OnCreateExpenseSubscriptionVariables = {
-  filter?: ModelSubscriptionExpenseFilterInput | null,
+export type OnCreateExpenseGroupSubscriptionVariables = {
+  filter?: ModelSubscriptionExpenseGroupFilterInput | null,
 };
 
-export type OnCreateExpenseSubscription = {
-  onCreateExpense?:  {
-    __typename: "Expense",
+export type OnCreateExpenseGroupSubscription = {
+  onCreateExpenseGroup?:  {
+    __typename: "ExpenseGroup",
     id: string,
     name: string,
-    amount: number,
     author_id: string,
     color?: string | null,
-    Merchants?:  {
-      __typename: "ModelMerchantConnection",
+    Expenses?:  {
+      __typename: "ModelExpenseConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -1290,20 +1484,19 @@ export type OnCreateExpenseSubscription = {
   } | null,
 };
 
-export type OnUpdateExpenseSubscriptionVariables = {
-  filter?: ModelSubscriptionExpenseFilterInput | null,
+export type OnUpdateExpenseGroupSubscriptionVariables = {
+  filter?: ModelSubscriptionExpenseGroupFilterInput | null,
 };
 
-export type OnUpdateExpenseSubscription = {
-  onUpdateExpense?:  {
-    __typename: "Expense",
+export type OnUpdateExpenseGroupSubscription = {
+  onUpdateExpenseGroup?:  {
+    __typename: "ExpenseGroup",
     id: string,
     name: string,
-    amount: number,
     author_id: string,
     color?: string | null,
-    Merchants?:  {
-      __typename: "ModelMerchantConnection",
+    Expenses?:  {
+      __typename: "ModelExpenseConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -1311,20 +1504,19 @@ export type OnUpdateExpenseSubscription = {
   } | null,
 };
 
-export type OnDeleteExpenseSubscriptionVariables = {
-  filter?: ModelSubscriptionExpenseFilterInput | null,
+export type OnDeleteExpenseGroupSubscriptionVariables = {
+  filter?: ModelSubscriptionExpenseGroupFilterInput | null,
 };
 
-export type OnDeleteExpenseSubscription = {
-  onDeleteExpense?:  {
-    __typename: "Expense",
+export type OnDeleteExpenseGroupSubscription = {
+  onDeleteExpenseGroup?:  {
+    __typename: "ExpenseGroup",
     id: string,
     name: string,
-    amount: number,
     author_id: string,
     color?: string | null,
-    Merchants?:  {
-      __typename: "ModelMerchantConnection",
+    Expenses?:  {
+      __typename: "ModelExpenseConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -1413,7 +1605,7 @@ export type OnCreateMerchantSubscription = {
     __typename: "Merchant",
     id: string,
     merchant_name: string,
-    authour_id: string,
+    author_id: string,
     image?: string | null,
     category_id?: string | null,
     keywords?: Array< string | null > | null,
@@ -1421,7 +1613,6 @@ export type OnCreateMerchantSubscription = {
       __typename: "ModelTransactionsConnection",
       nextToken?: string | null,
     } | null,
-    expenseID: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1436,7 +1627,7 @@ export type OnUpdateMerchantSubscription = {
     __typename: "Merchant",
     id: string,
     merchant_name: string,
-    authour_id: string,
+    author_id: string,
     image?: string | null,
     category_id?: string | null,
     keywords?: Array< string | null > | null,
@@ -1444,7 +1635,6 @@ export type OnUpdateMerchantSubscription = {
       __typename: "ModelTransactionsConnection",
       nextToken?: string | null,
     } | null,
-    expenseID: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1459,7 +1649,7 @@ export type OnDeleteMerchantSubscription = {
     __typename: "Merchant",
     id: string,
     merchant_name: string,
-    authour_id: string,
+    author_id: string,
     image?: string | null,
     category_id?: string | null,
     keywords?: Array< string | null > | null,
@@ -1467,7 +1657,6 @@ export type OnDeleteMerchantSubscription = {
       __typename: "ModelTransactionsConnection",
       nextToken?: string | null,
     } | null,
-    expenseID: string,
     createdAt: string,
     updatedAt: string,
   } | null,

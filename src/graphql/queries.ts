@@ -8,6 +8,78 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getExpense = /* GraphQL */ `query GetExpense($id: ID!) {
+  getExpense(id: $id) {
+    id
+    amount
+    description
+    author_id
+    expensegroupID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetExpenseQueryVariables,
+  APITypes.GetExpenseQuery
+>;
+export const listExpenses = /* GraphQL */ `query ListExpenses(
+  $filter: ModelExpenseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listExpenses(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      amount
+      description
+      author_id
+      expensegroupID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListExpensesQueryVariables,
+  APITypes.ListExpensesQuery
+>;
+export const expensesByExpensegroupID = /* GraphQL */ `query ExpensesByExpensegroupID(
+  $expensegroupID: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelExpenseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  expensesByExpensegroupID(
+    expensegroupID: $expensegroupID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      amount
+      description
+      author_id
+      expensegroupID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ExpensesByExpensegroupIDQueryVariables,
+  APITypes.ExpensesByExpensegroupIDQuery
+>;
 export const getCalendar = /* GraphQL */ `query GetCalendar($id: ID!) {
   getCalendar(id: $id) {
     id
@@ -48,14 +120,13 @@ export const listCalendars = /* GraphQL */ `query ListCalendars(
   APITypes.ListCalendarsQueryVariables,
   APITypes.ListCalendarsQuery
 >;
-export const getExpense = /* GraphQL */ `query GetExpense($id: ID!) {
-  getExpense(id: $id) {
+export const getExpenseGroup = /* GraphQL */ `query GetExpenseGroup($id: ID!) {
+  getExpenseGroup(id: $id) {
     id
     name
-    amount
     author_id
     color
-    Merchants {
+    Expenses {
       nextToken
       __typename
     }
@@ -65,15 +136,15 @@ export const getExpense = /* GraphQL */ `query GetExpense($id: ID!) {
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetExpenseQueryVariables,
-  APITypes.GetExpenseQuery
+  APITypes.GetExpenseGroupQueryVariables,
+  APITypes.GetExpenseGroupQuery
 >;
-export const listExpenses = /* GraphQL */ `query ListExpenses(
-  $filter: ModelExpenseFilterInput
+export const listExpenseGroups = /* GraphQL */ `query ListExpenseGroups(
+  $filter: ModelExpenseGroupFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listExpenses(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listExpenseGroups(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       name
@@ -88,8 +159,8 @@ export const listExpenses = /* GraphQL */ `query ListExpenses(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListExpensesQueryVariables,
-  APITypes.ListExpensesQuery
+  APITypes.ListExpenseGroupsQueryVariables,
+  APITypes.ListExpenseGroupsQuery
 >;
 export const getIncome = /* GraphQL */ `query GetIncome($id: ID!) {
   getIncome(id: $id) {
@@ -128,11 +199,6 @@ export const listIncomes = /* GraphQL */ `query ListIncomes(
       createdAt
       updatedAt
       __typename
-      icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
     }
     nextToken
     __typename
@@ -146,7 +212,7 @@ export const getMerchant = /* GraphQL */ `query GetMerchant($id: ID!) {
   getMerchant(id: $id) {
     id
     merchant_name
-    authour_id
+    author_id
     image
     category_id
     keywords
@@ -154,7 +220,6 @@ export const getMerchant = /* GraphQL */ `query GetMerchant($id: ID!) {
       nextToken
       __typename
     }
-    expenseID
     createdAt
     updatedAt
     __typename
@@ -173,11 +238,10 @@ export const listMerchants = /* GraphQL */ `query ListMerchants(
     items {
       id
       merchant_name
-      authour_id
+      author_id
       image
       category_id
       keywords
-      expenseID
       createdAt
       updatedAt
       __typename
@@ -189,40 +253,6 @@ export const listMerchants = /* GraphQL */ `query ListMerchants(
 ` as GeneratedQuery<
   APITypes.ListMerchantsQueryVariables,
   APITypes.ListMerchantsQuery
->;
-export const merchantsByExpenseID = /* GraphQL */ `query MerchantsByExpenseID(
-  $expenseID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelMerchantFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  merchantsByExpenseID(
-    expenseID: $expenseID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      merchant_name
-      authour_id
-      image
-      category_id
-      keywords
-      expenseID
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.MerchantsByExpenseIDQueryVariables,
-  APITypes.MerchantsByExpenseIDQuery
 >;
 export const getTransactions = /* GraphQL */ `query GetTransactions($id: ID!) {
   getTransactions(id: $id) {

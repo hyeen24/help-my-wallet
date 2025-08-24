@@ -8,6 +8,63 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createExpense = /* GraphQL */ `mutation CreateExpense(
+  $input: CreateExpenseInput!
+  $condition: ModelExpenseConditionInput
+) {
+  createExpense(input: $input, condition: $condition) {
+    id
+    amount
+    description
+    author_id
+    expensegroupID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateExpenseMutationVariables,
+  APITypes.CreateExpenseMutation
+>;
+export const updateExpense = /* GraphQL */ `mutation UpdateExpense(
+  $input: UpdateExpenseInput!
+  $condition: ModelExpenseConditionInput
+) {
+  updateExpense(input: $input, condition: $condition) {
+    id
+    amount
+    description
+    author_id
+    expensegroupID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateExpenseMutationVariables,
+  APITypes.UpdateExpenseMutation
+>;
+export const deleteExpense = /* GraphQL */ `mutation DeleteExpense(
+  $input: DeleteExpenseInput!
+  $condition: ModelExpenseConditionInput
+) {
+  deleteExpense(input: $input, condition: $condition) {
+    id
+    amount
+    description
+    author_id
+    expensegroupID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteExpenseMutationVariables,
+  APITypes.DeleteExpenseMutation
+>;
 export const createCalendar = /* GraphQL */ `mutation CreateCalendar(
   $input: CreateCalendarInput!
   $condition: ModelCalendarConditionInput
@@ -65,16 +122,16 @@ export const deleteCalendar = /* GraphQL */ `mutation DeleteCalendar(
   APITypes.DeleteCalendarMutationVariables,
   APITypes.DeleteCalendarMutation
 >;
-export const createExpense = /* GraphQL */ `mutation CreateExpense(
-  $input: CreateExpenseInput!
-  $condition: ModelExpenseConditionInput
+export const createExpenseGroup = /* GraphQL */ `mutation CreateExpenseGroup(
+  $input: CreateExpenseGroupInput!
+  $condition: ModelExpenseGroupConditionInput
 ) {
-  createExpense(input: $input, condition: $condition) {
+  createExpenseGroup(input: $input, condition: $condition) {
     id
     name
     author_id
     color
-    Merchants {
+    Expenses {
       nextToken
       __typename
     }
@@ -84,20 +141,19 @@ export const createExpense = /* GraphQL */ `mutation CreateExpense(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateExpenseMutationVariables,
-  APITypes.CreateExpenseMutation
+  APITypes.CreateExpenseGroupMutationVariables,
+  APITypes.CreateExpenseGroupMutation
 >;
-export const updateExpense = /* GraphQL */ `mutation UpdateExpense(
-  $input: UpdateExpenseInput!
-  $condition: ModelExpenseConditionInput
+export const updateExpenseGroup = /* GraphQL */ `mutation UpdateExpenseGroup(
+  $input: UpdateExpenseGroupInput!
+  $condition: ModelExpenseGroupConditionInput
 ) {
-  updateExpense(input: $input, condition: $condition) {
+  updateExpenseGroup(input: $input, condition: $condition) {
     id
     name
-    amount
     author_id
     color
-    Merchants {
+    Expenses {
       nextToken
       __typename
     }
@@ -107,20 +163,19 @@ export const updateExpense = /* GraphQL */ `mutation UpdateExpense(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateExpenseMutationVariables,
-  APITypes.UpdateExpenseMutation
+  APITypes.UpdateExpenseGroupMutationVariables,
+  APITypes.UpdateExpenseGroupMutation
 >;
-export const deleteExpense = /* GraphQL */ `mutation DeleteExpense(
-  $input: DeleteExpenseInput!
-  $condition: ModelExpenseConditionInput
+export const deleteExpenseGroup = /* GraphQL */ `mutation DeleteExpenseGroup(
+  $input: DeleteExpenseGroupInput!
+  $condition: ModelExpenseGroupConditionInput
 ) {
-  deleteExpense(input: $input, condition: $condition) {
+  deleteExpenseGroup(input: $input, condition: $condition) {
     id
     name
-    amount
     author_id
     color
-    Merchants {
+    Expenses {
       nextToken
       __typename
     }
@@ -130,8 +185,8 @@ export const deleteExpense = /* GraphQL */ `mutation DeleteExpense(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteExpenseMutationVariables,
-  APITypes.DeleteExpenseMutation
+  APITypes.DeleteExpenseGroupMutationVariables,
+  APITypes.DeleteExpenseGroupMutation
 >;
 export const createIncome = /* GraphQL */ `mutation CreateIncome(
   $input: CreateIncomeInput!
@@ -218,7 +273,7 @@ export const createMerchant = /* GraphQL */ `mutation CreateMerchant(
   createMerchant(input: $input, condition: $condition) {
     id
     merchant_name
-    authour_id
+    author_id
     image
     category_id
     keywords
@@ -226,7 +281,6 @@ export const createMerchant = /* GraphQL */ `mutation CreateMerchant(
       nextToken
       __typename
     }
-    expenseID
     createdAt
     updatedAt
     __typename
@@ -243,7 +297,7 @@ export const updateMerchant = /* GraphQL */ `mutation UpdateMerchant(
   updateMerchant(input: $input, condition: $condition) {
     id
     merchant_name
-    authour_id
+    author_id
     image
     category_id
     keywords
@@ -251,7 +305,6 @@ export const updateMerchant = /* GraphQL */ `mutation UpdateMerchant(
       nextToken
       __typename
     }
-    expenseID
     createdAt
     updatedAt
     __typename
@@ -268,7 +321,7 @@ export const deleteMerchant = /* GraphQL */ `mutation DeleteMerchant(
   deleteMerchant(input: $input, condition: $condition) {
     id
     merchant_name
-    authour_id
+    author_id
     image
     category_id
     keywords
@@ -276,7 +329,6 @@ export const deleteMerchant = /* GraphQL */ `mutation DeleteMerchant(
       nextToken
       __typename
     }
-    expenseID
     createdAt
     updatedAt
     __typename
