@@ -11,7 +11,7 @@ import IncomeBlock from '@/components/IncomeBlock';
 import TransactionBlock from '@/components/TransactionBlock';
 import { useTheme } from '@/contexts/ThemeContext';
 import { generateClient } from 'aws-amplify/api';
-import { listExpenses, listIncomes } from '@/src/graphql/queries';
+import { listExpenseGroups, listExpenses, listIncomes } from '@/src/graphql/queries';
 import { list } from 'aws-amplify/storage';
 
 const home = () => {
@@ -20,7 +20,16 @@ const home = () => {
   const client = generateClient();
   const [ incomes, setIncomes ] = useState([]);
   const [ expenseList, setExpenseList ] = useState([]);
-  
+  const [dataDate, setDataDate] = useState<Date>(new Date());
+  const [dataMonth, setDataMonth] = useState<string>(
+    String(new Date().getMonth() + 1)
+  );
+  const [dataYear, setDataYear] = useState<string>(
+    String(new Date().getFullYear())
+  );
+  const [dataMonthName, setDataMonthName] = useState<string>(
+    new Date().toLocaleString("default", { month: "long" })
+  );
   
 
   useEffect(() => {
@@ -31,23 +40,23 @@ const home = () => {
     try {
         const [incomeResult, expenseResult] = await Promise.all([
           client.graphql({ query: listIncomes }),
-          client.graphql({ query: listExpenses })
+          client.graphql({ query: listExpenseGroups })
         ]);
 
         const incomes = incomeResult.data?.listIncomes?.items ?? [];
-        const expenses = expenseResult.data?.listExpenses?.items ?? [];
+        const expenses = expenseResult.data?.listExpenseGroups?.items ?? [];
 
         // console.log("Incomes fetched:", incomes);
-        // console.log("Expenses fetched:", expenses);
+        console.log("Expenses fetched:", expenses);
 
         setIncomes(incomes);
         setExpenseList(expenses);
+        // console.log(expenses)
 
       } catch (err) {
         console.error("Error fetching data:", err);
         Alert.alert("Error", err.message || "An error occurred");
       }
-
       
 
       try {
@@ -57,11 +66,47 @@ const home = () => {
               accessLevel: 'private',
           }
         })
-        console.log('Listed Items:', response.items);
+        // console.log('Listed Items:', response.items);
       } catch(error) {
         console.log('Error ',error);
+      }  
+    }
+  
+    const updateMonthData = (to: any) => {
+      if (to === "next") {
+        const nextMonthDate = new Date(dataDate);
+        nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
+
+        const newDataMonthName = nextMonthDate.toLocaleString("default", {
+          month: "long",
+        });
+        const newDataYear = String(nextMonthDate.getFullYear());
+        const newDataMonth = String(nextMonthDate.getMonth() + 1); // Months are 0-indexed in JS
+
+        setDataDate(nextMonthDate);
+        setDataMonth(newDataMonth); // Months are 0-indexed in JS
+        setDataYear(newDataYear);
+        setDataMonthName(newDataMonthName);
+        // console.log("Updated Month:", newDataMonth, "Year:", newDataYear, "Name:", newDataMonthName);
       }
-    
+
+      if (to === "previous") {
+        const previousMonthDate = new Date(dataDate);
+        previousMonthDate.setMonth(previousMonthDate.getMonth() - 1);
+
+        const newDataMonthName = previousMonthDate.toLocaleString("default", {
+          month: "long",
+        });
+        const newDataYear = String(previousMonthDate.getFullYear());
+        const newDataMonth = String(previousMonthDate.getMonth() + 1); // Months are 0-indexed in JS
+
+        setDataDate(previousMonthDate);
+        setDataMonth(newDataMonth);
+        setDataYear(newDataYear);
+        setDataMonthName(newDataMonthName);
+        console.log("Updated Month:", newDataMonth, "Year:", newDataYear, "Name:", newDataMonthName);
+      }
+      // fetchData();
     }
   
   // 
@@ -80,7 +125,7 @@ const home = () => {
         <View
           style={[
             styles.container,
-            { paddingTop: 70, backgroundColor: theme.backgroundColor },
+            { paddingTop: 80, backgroundColor: theme.backgroundColor },
           ]}
         >
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -107,18 +152,18 @@ const home = () => {
                 {/* Previous Month */}    
                 <Button
                   style={{ backgroundColor: "transparent" }}
-                  onPress={() => {}}
+                  onPress={() => updateMonthData("previous")}
                 >
                   <AntDesign name="left" size={16} color={theme.textColor} />
                 </Button>
                 {/* Current Month - Year*/}
                 <Text style={{ color: theme.textColor }}>
-                   Month - Year
+                   {dataMonthName} - {dataYear}
                 </Text>
                 {/* Next Month */}
                 <Button
                   style={{ backgroundColor: "transparent" }}
-                  onPress={() => {}}
+                  onPress={() => updateMonthData("next")}
                 >
                   <AntDesign name="right" size={16} color={theme.textColor} />
                 </Button>
@@ -185,7 +230,11 @@ const home = () => {
           </ScrollView>
           <TouchableOpacity
             style={styles.floatingAddBtn}
-            onPress={() => {router.push("/addCategory")}}
+            onPress={() => {router.push({
+              pathname: "/addCategory",
+            params: {
+              expenseList : JSON.stringify(expenseList)
+            }})}}
           >
             <Feather
               name="plus"

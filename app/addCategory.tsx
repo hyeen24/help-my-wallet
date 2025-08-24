@@ -11,6 +11,7 @@ import AddNewIncome from '@/components/AddNewIncome'
 import AddNewExpense from '@/components/AddNewExpense'
 import AddNewMerchant from '@/components/AddNewMerchant'
 import { generateClient } from 'aws-amplify/api'
+import { useLocalSearchParams } from 'expo-router'
 
 
 
@@ -19,7 +20,8 @@ const addCategory = () => {
   const { theme } = useTheme();
   const [selectedType, setSelectedType] = useState<"income" | "expenses" | "merchant" | null>("income");
   const [categoryName, setCategoryName] = useState("");
-  
+  const { expenseList } = useLocalSearchParams();
+  const parsedExpenseList = expenseList ? JSON.parse(expenseList as string) : [];
 
   // Toggle between income, expenses, and merchant
   const toggleRadio = (type: "income" | "expenses" | "merchant") => {
@@ -83,7 +85,7 @@ const addCategory = () => {
               )}
 
             {selectedType === "expenses" && (
-              <AddNewExpense/>
+              <AddNewExpense expenseGroups={parsedExpenseList} />
             )}
 
             {selectedType === "merchant" && (

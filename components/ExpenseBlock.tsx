@@ -73,6 +73,7 @@ const ExpenseBlock = ({expenseList} : {expenseList: ExpenseType[]}) => {
                 <FlatList 
                   data={expenseList} 
                   renderItem={renderItem} 
+                  
                   horizontal 
                   showsHorizontalScrollIndicator={false}/> 
             )

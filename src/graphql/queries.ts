@@ -194,6 +194,11 @@ export const listIncomes = /* GraphQL */ `query ListIncomes(
       name
       author_id
       recurrence
+      icon {
+      Icon_name
+      Icon_type
+      __typename
+    }
       start_date
       end_date
       createdAt

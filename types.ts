@@ -145,3 +145,10 @@ export interface ResetPasswordsProps {
   setEmailConfirm: (value: string) => void;
   setResetPasswordStage: (stage: "retrieve" | "reset" | "new") => void;
 }
+
+export type AddNewExpenseGroupProps = {
+    categoryName: string;
+    setCategoryName: (name: string) => void;
+    categoryColor: string;
+    setCategoryColor: (color: string) => void;
+};

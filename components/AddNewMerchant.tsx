@@ -9,7 +9,6 @@ import Button from './Button';
 import { useAuth } from '@/contexts/AuthContext';
 import { generateClient } from 'aws-amplify/api';
 import { uploadData, list } from 'aws-amplify/storage';
-import { Storage } from 'aws-amplify';
 
 const AddNewMerchant = () => {
     const { theme } = useTheme();
@@ -39,14 +38,6 @@ const AddNewMerchant = () => {
   };
 
   const addMerchant = async () => {
-    // const payload = {
-    //     merchant_name: categoryName,
-    //     author_id: user.userId || "",
-
-
-
-    // }
-    // console.log(filename)
 
     try {
     const result = await uploadData({
@@ -62,20 +53,14 @@ const AddNewMerchant = () => {
     console.log('Error : ', error);
     }
 
-
-    // if (result) {
-    //     const key = result.key || "";      
-
-    //     await list({
-    //         prefix: 'photos/',
-    //         options:  {
-    //             accessLevel: 'private',
-    //         }
-    //     }).then((res)=> {
-    //         console.log('Listed Items:', res.items);
-    //     })
+    // try {
+    //     const payload = {
+    //         merchant_name : categoryName,
+    //         author_id: user.userId || "",
+    //         image: `photos/${filename}`,
+    //         keywords: 
     //     }
-
+    // }
       
 
   }
@@ -122,7 +107,7 @@ const AddNewMerchant = () => {
                 }}
                 style={{
                 width: 100,
-                height: 100,
+                height: 120,
                 justifyContent: "center",
                 alignItems: "center",
                 borderRadius: 10,

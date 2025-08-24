@@ -54,6 +54,8 @@ const IncomeBlock = ({incomeList, onRefresh} : {incomeList: IncomeType[],  onRef
             amount = strWithDecimals.split('.');
         }
 
+        // console.log(item)
+
         let iconFamily = item.icon.Icon_type;
         let iconName = item.icon.Icon_name;
 
