@@ -11,26 +11,59 @@ import IncomeBlock from '@/components/IncomeBlock';
 import TransactionBlock from '@/components/TransactionBlock';
 import { useTheme } from '@/contexts/ThemeContext';
 import { generateClient } from 'aws-amplify/api';
-import { listIncomes } from '@/src/graphql/queries';
+import { listExpenses, listIncomes } from '@/src/graphql/queries';
+import { list } from 'aws-amplify/storage';
 
 const home = () => {
   const { theme, colorScheme } = useTheme();
   const isLoading = false; // Replace with actual loading state
   const client = generateClient();
   const [ incomes, setIncomes ] = useState([]);
+  const [ expenseList, setExpenseList ] = useState([]);
+  
+  
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-      // console.log("Fetching data...");
-      const result = await client.graphql({ query: listIncomes });
-      // console.log("Data fetched:", result.data);
-      const incomes = result.data.listIncomes.items;
-      setIncomes(incomes);
- 
+    try {
+        const [incomeResult, expenseResult] = await Promise.all([
+          client.graphql({ query: listIncomes }),
+          client.graphql({ query: listExpenses })
+        ]);
+
+        const incomes = incomeResult.data?.listIncomes?.items ?? [];
+        const expenses = expenseResult.data?.listExpenses?.items ?? [];
+
+        // console.log("Incomes fetched:", incomes);
+        // console.log("Expenses fetched:", expenses);
+
+        setIncomes(incomes);
+        setExpenseList(expenses);
+
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        Alert.alert("Error", err.message || "An error occurred");
+      }
+
+      
+
+      try {
+        const response = await list({
+          prefix: 'photos/',
+          options:  {
+              accessLevel: 'private',
+          }
+        })
+        console.log('Listed Items:', response.items);
+      } catch(error) {
+        console.log('Error ',error);
+      }
+    
     }
+  
   // 
   return (
      <>
@@ -146,7 +179,7 @@ const home = () => {
               </View>
             </View>
 
-            {/* <ExpenseBlock expenseList={expenseCategories} /> */}
+            <ExpenseBlock expenseList={expenseList} />
             <IncomeBlock incomeList={incomes} onRefresh={fetchData} />
             {/* <TransactionBlock transactionList={transactions} /> */}
           </ScrollView>

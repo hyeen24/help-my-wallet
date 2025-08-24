@@ -77,7 +77,6 @@ export const listExpenses = /* GraphQL */ `query ListExpenses(
     items {
       id
       name
-      amount
       author_id
       color
       createdAt

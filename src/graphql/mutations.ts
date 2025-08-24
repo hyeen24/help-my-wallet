@@ -72,7 +72,6 @@ export const createExpense = /* GraphQL */ `mutation CreateExpense(
   createExpense(input: $input, condition: $condition) {
     id
     name
-    amount
     author_id
     color
     Merchants {

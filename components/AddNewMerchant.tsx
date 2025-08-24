@@ -6,11 +6,18 @@ import * as ImagePicker from "expo-image-picker";
 import Input from './Input';
 import Colors from '@/constants/Colors';
 import Button from './Button';
+import { useAuth } from '@/contexts/AuthContext';
+import { generateClient } from 'aws-amplify/api';
+import { uploadData, list } from 'aws-amplify/storage';
+import { Storage } from 'aws-amplify';
 
 const AddNewMerchant = () => {
     const { theme } = useTheme();
     const [ categoryName, setCategoryName ] = React.useState("");
     const [image, setImage] = useState<string | null>(null);
+    const [ filename, setFilename ] = useState("");
+    const { user } = useAuth();
+    const client = generateClient();
 
 
     const pickImage = async () => {
@@ -27,8 +34,51 @@ const AddNewMerchant = () => {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      setFilename(result.assets[0].fileName ?? "")
     }
   };
+
+  const addMerchant = async () => {
+    // const payload = {
+    //     merchant_name: categoryName,
+    //     author_id: user.userId || "",
+
+
+
+    // }
+    // console.log(filename)
+
+    try {
+    const result = await uploadData({
+        key: `photos/${filename}`,
+        // path: `photos/${filename}`,
+        data: image || "",
+        options: {
+            accessLevel: 'private'
+        }
+    }).result;
+    console.log('Succeeded: ', result);
+    } catch (error) {
+    console.log('Error : ', error);
+    }
+
+
+    // if (result) {
+    //     const key = result.key || "";      
+
+    //     await list({
+    //         prefix: 'photos/',
+    //         options:  {
+    //             accessLevel: 'private',
+    //         }
+    //     }).then((res)=> {
+    //         console.log('Listed Items:', res.items);
+    //     })
+    //     }
+
+      
+
+  }
 
 
   return (
@@ -100,7 +150,7 @@ const AddNewMerchant = () => {
                 )}
             </TouchableOpacity>
         </View>
-        <Button onPress={() => {}}>
+        <Button onPress={addMerchant}>
             <Text style={[styles.groupHeaderTxt, {color:Colors.white}]}>Add Merchant</Text>
         </Button>
     </View>

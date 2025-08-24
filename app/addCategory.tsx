@@ -17,13 +17,13 @@ import { generateClient } from 'aws-amplify/api'
 const addCategory = () => {
   
   const { theme } = useTheme();
-  const [selectedType, setSelectedType] = useState<"income" | "expenses" | "merchant" | null>(null);
+  const [selectedType, setSelectedType] = useState<"income" | "expenses" | "merchant" | null>("income");
   const [categoryName, setCategoryName] = useState("");
   
 
   // Toggle between income, expenses, and merchant
   const toggleRadio = (type: "income" | "expenses" | "merchant") => {
-    setSelectedType((prev) => (prev === type ? null : type));
+    setSelectedType((prev) => (prev === type ? prev : type));
   };
 
   return (
@@ -52,7 +52,7 @@ const addCategory = () => {
                 focusable={true}
                 focused={selectedType === "income"}
                 onPress={() => toggleRadio("income")}
-                style={{ borderRadius: 10 , width: 100}}
+                style={{ borderRadius: 10 , width: 120}}
               />
 
               <CustomIconButton
@@ -67,7 +67,7 @@ const addCategory = () => {
                 focusable={true}
                 focused={selectedType === "expenses"}
                 onPress={() => toggleRadio("expenses")}
-                style={{ borderRadius: 10, width: 100 }}
+                style={{ borderRadius: 10, width: 120 }}
               />
               <CustomIconButton
                 icon={<Entypo name="shop" size={18} color={theme.textColor} />}
@@ -75,7 +75,7 @@ const addCategory = () => {
                 focusable={true}
                 focused={selectedType === "merchant"}
                 onPress={() => toggleRadio("merchant")}
-                style={{ borderRadius: 10 , width: 100}}
+                style={{ borderRadius: 10 , width: 120}}
               />
             </View>
             {selectedType === "income" && (

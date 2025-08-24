@@ -9,6 +9,9 @@ import Button from './Button';
 import { toTitleCase } from '@/utils/stringUtils';
 import { useRouter } from 'expo-router';
 import { useTheme } from '@/contexts/ThemeContext';
+import { generateClient } from 'aws-amplify/api';
+import * as mutations from '../src/graphql/mutations';
+import { useAuth } from '@/contexts/AuthContext';
 
 const AddNewExpense = () => {
     const [categoryName, setCategoryName] = useState("");
@@ -17,6 +20,8 @@ const AddNewExpense = () => {
     const [merchantData, setMerchantData] = useState([]);
     const { theme } = useTheme();
     const router = useRouter();
+    const client = generateClient();
+    const { user } = useAuth();
 
     const fetchMerchantCategories = async () => {
         // try {
@@ -31,12 +36,41 @@ const AddNewExpense = () => {
         // }
     };
 
+    
+
     useEffect(() => {
         fetchMerchantCategories();
     }, []);
 
     const createNewExpensesGroup = async () => {
-  
+        const payLoad = {
+            name: categoryName,
+            color: categoryColor,
+            author_id: user.userId || "",
+        }
+
+        try {
+
+        const response = await client.graphql({
+            query: mutations.createExpense,
+            variables: { input: payLoad }
+            });
+            Alert.alert("New Expense Created", "Your expense group has been added successfully.", [
+                {
+                text: "OK",
+                onPress: () => router.push("/(tabs)/home"),
+                },
+            ]);
+    
+            // const response = await client.graphql({
+            //   query: mutations.createCalendar,
+    
+            // })
+        } catch (error) {
+            console.error("Error creating expense group:", error);
+            Alert.alert("Error", "Failed to create expense group. Please try again.");
+        }
+        
     };
 
 

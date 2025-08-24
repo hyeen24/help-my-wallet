@@ -40,6 +40,8 @@ const AddNewIncome = () => {
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const client = generateClient();
   const { user } = useAuth();
+ 
+  
 
   useEffect(() => {
     setStartDate(new Date());
@@ -84,7 +86,7 @@ const AddNewIncome = () => {
   
   const createNewIncome = async () => {
     // Here you would typically send the data to your backend or state management
-    console.log(user.id, "User ID");
+    // console.log(user.userId, "User ID");
 
     if (!categoryName || !incomeAmount || !icon || !iconFamily) {
       Alert.alert("Error", "Please fill in all fields.");
@@ -101,8 +103,12 @@ const AddNewIncome = () => {
       recurrence: recurrence?.toUpperCase(),
       start_date: startDate ? startDate.toISOString().split('T')[0] : "",
       end_date: endDate ? endDate.toISOString().split('T')[0]  : null,
-      author_id: user?.id || "",
+      author_id: user.userId || "",
     }
+
+    // const calendarDetails = {
+    //   date
+    // }
 
     try {
       const response = await client.graphql({
@@ -115,6 +121,11 @@ const AddNewIncome = () => {
             onPress: () => router.push("/(tabs)/home"),
           },
         ]);
+
+      // const response = await client.graphql({
+      //   query: mutations.createCalendar,
+
+      // })
     } catch (error) {
       console.error("Error creating income:", error);
       Alert.alert("Error", "Failed to create income. Please try again.");
