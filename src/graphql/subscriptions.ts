@@ -248,7 +248,6 @@ export const onCreateTransactions = /* GraphQL */ `subscription OnCreateTransact
     transaction_date
     amount
     description
-    created_at
     author_id
     category_id
     transaction_type
@@ -271,7 +270,6 @@ export const onUpdateTransactions = /* GraphQL */ `subscription OnUpdateTransact
     transaction_date
     amount
     description
-    created_at
     author_id
     category_id
     transaction_type
@@ -294,7 +292,6 @@ export const onDeleteTransactions = /* GraphQL */ `subscription OnDeleteTransact
     transaction_date
     amount
     description
-    created_at
     author_id
     category_id
     transaction_type

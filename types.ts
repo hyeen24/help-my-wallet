@@ -18,10 +18,13 @@ export interface IncomeType {
 }
 
 export interface TransactionType {
-    ref_number : number;
+    id : string;
     description : string;
-    trans_date : string;
+    transaction_date: string;
     amount : string;
+    category_id : string;
+    merchantID : string;
+    post_date : Date;
 }
 
 export interface DropDownItem {

@@ -11,7 +11,7 @@ import IncomeBlock from '@/components/IncomeBlock';
 import TransactionBlock from '@/components/TransactionBlock';
 import { useTheme } from '@/contexts/ThemeContext';
 import { generateClient } from 'aws-amplify/api';
-import { listExpenseGroups, listExpenses, listIncomes } from '@/src/graphql/queries';
+import { listExpenseGroups, listExpenses, listIncomes, listTransactions } from '@/src/graphql/queries';
 import { list } from 'aws-amplify/storage';
 
 const home = () => {
@@ -20,6 +20,7 @@ const home = () => {
   const client = generateClient();
   const [ incomes, setIncomes ] = useState([]);
   const [ expenseList, setExpenseList ] = useState([]);
+  const [ transactionList, setTransactionList ] = useState([]);
   const [dataDate, setDataDate] = useState<Date>(new Date());
   const [dataMonth, setDataMonth] = useState<string>(
     String(new Date().getMonth() + 1)
@@ -38,19 +39,22 @@ const home = () => {
 
   const fetchData = async () => {
     try {
-        const [incomeResult, expenseResult] = await Promise.all([
+        const [incomeResult, expenseResult, transactionResult] = await Promise.all([
           client.graphql({ query: listIncomes }),
-          client.graphql({ query: listExpenseGroups })
+          client.graphql({ query: listExpenseGroups }),
+          client.graphql({ query: listTransactions })
         ]);
 
         const incomes = incomeResult.data?.listIncomes?.items ?? [];
         const expenses = expenseResult.data?.listExpenseGroups?.items ?? [];
+        const transactions = transactionResult.data?.listTransactions?.items ?? [];
 
         // console.log("Incomes fetched:", incomes);
-        console.log("Expenses fetched:", expenses);
+        // console.log("Expenses fetched:", expenses);
 
         setIncomes(incomes);
         setExpenseList(expenses);
+        setTransactionList(transactions);
         // console.log(expenses)
 
       } catch (err) {
@@ -224,9 +228,9 @@ const home = () => {
               </View>
             </View>
 
-            <ExpenseBlock expenseList={expenseList} />
+            <ExpenseBlock expenseList={expenseList} transactionList={transactionList}/>
             <IncomeBlock incomeList={incomes} onRefresh={fetchData} />
-            {/* <TransactionBlock transactionList={transactions} /> */}
+            <TransactionBlock transactionList={transactionList} />
           </ScrollView>
           <TouchableOpacity
             style={styles.floatingAddBtn}

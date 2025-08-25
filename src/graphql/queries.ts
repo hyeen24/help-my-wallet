@@ -117,13 +117,13 @@ export const listIncomes = /* GraphQL */ `query ListIncomes(
       amount
       name
       author_id
-      icon {
-        Icon_name
-        Icon_type
-        __typename
-      }
       recurrence
       start_date
+      icon {
+      Icon_name
+      Icon_type
+      __typename
+    }
       end_date
       createdAt
       updatedAt
@@ -190,7 +190,6 @@ export const getTransactions = /* GraphQL */ `query GetTransactions($id: ID!) {
     transaction_date
     amount
     description
-    created_at
     author_id
     category_id
     transaction_type
@@ -216,7 +215,6 @@ export const listTransactions = /* GraphQL */ `query ListTransactions(
       transaction_date
       amount
       description
-      created_at
       author_id
       category_id
       transaction_type
@@ -253,7 +251,6 @@ export const transactionsByMerchantID = /* GraphQL */ `query TransactionsByMerch
       transaction_date
       amount
       description
-      created_at
       author_id
       category_id
       transaction_type

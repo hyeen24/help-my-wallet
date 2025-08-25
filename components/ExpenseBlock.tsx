@@ -1,28 +1,41 @@
 import { FlatList, ListRenderItem, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React from 'react'
-import { ExpenseType } from '@/types';
+import { ExpenseType, TransactionType } from '@/types';
 import  Colors  from '@/constants/Colors';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import addCategory from '@/app/addCategory';
 import { darkTheme, lightTheme } from '@/constants/Theme';
+import { useTheme } from '@/contexts/ThemeContext';
 
-const ExpenseBlock = ({expenseList} : {expenseList: ExpenseType[]}) => {
+const ExpenseBlock = ({expenseList , transactionList} : {expenseList: ExpenseType[] , transactionList : TransactionType[]}) => {
     const router = useRouter();
     const appTheme = useColorScheme();
-    const Theme = appTheme === 'dark' ? darkTheme: lightTheme
+    const { theme } = useTheme();
     // console.log("Theme",appTheme)
     // console.log("Expenses", expenseList)
 
-    const totalAmount = expenseList.reduce((sum, expense) => {
+    const totalTransactionAmount = transactionList.reduce((sum, expense) => {
         return sum + parseFloat(expense.amount);
       }, 0);
 
+    //   console.log(transactionList)
+    //   console.log(expenseList)
+
     const renderItem: ListRenderItem<Partial<ExpenseType>> = ({item, index}) => {
 
-        let amountString = item.amount ?? "0.00";
-        let amount = amountString.split('.');
-        let percentage = Math.floor((parseFloat(amountString) / totalAmount) * 100);
+        let pk = item.id
+        let amount = transactionList.filter(trans => trans.category_id === pk)
+                                    .reduce((sum, trans) => sum + trans.amount, 0)
+        
+        let amountString = amount.toString() ?? "0.00";
+        let amountArray = amountString.split('.');
+        
+        if (amountArray.length === 1) {
+            amountArray.push("00")
+        }
+        // console.log(amountArray)
+        let percentage = Math.floor((parseFloat(amountString) / totalTransactionAmount) * 100);
 
         let BlockColor = item.color
         let TxtColor;
@@ -48,9 +61,9 @@ const ExpenseBlock = ({expenseList} : {expenseList: ExpenseType[]}) => {
                     backgroundColor: BlockColor
                 }
             ]}>
-                <Text style={[styles.expenseBlockTitle, { color : Theme.textColor}]}>{item.name}</Text>
-                <Text style={[styles.expenseAmountWholeNumber, { color : Theme.textColor}]}>${amount[0]}.
-                    <Text style={[styles.expenseAmountDecimalNumber, { color: Theme.textColor}]}>{amount[1]}</Text>
+                <Text style={[styles.expenseBlockTitle, { color : theme.textColor}]}>{item.name}</Text>
+                <Text style={[styles.expenseAmountWholeNumber, { color : theme.textColor}]}>${amountArray[0]}.
+                    <Text style={[styles.expenseAmountDecimalNumber, { color: theme.textColor}]}>{amountArray[1]}</Text>
                 </Text>
                 <View style={styles.expensePercentageView}>
                     <Text style={[styles.expenseBlockTitle, { color: TxtColor }]}>{percentage}%</Text>

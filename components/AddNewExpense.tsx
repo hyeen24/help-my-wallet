@@ -45,9 +45,7 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
         transaction_date: new Date().toISOString().split('T')[0],
         transaction_type: TransactionType.DEBIT,
     });
-
     
-
     const [newExpenseGroup, setNewExpenseGroup] = React.useState<CreateExpenseGroupInput>({
         name: "",
         author_id: user.userId || "",
@@ -207,7 +205,7 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
                 <Input
                     placeholder="Amount"
                     keyboardType='number-pad'
-                    style={{ flex :1, color: theme.textColor }}
+                    style={{ width: 70, color: theme.textColor }}
                     onChangeText={(value) => {
                         handleInputChange("amount", value);
                     }}

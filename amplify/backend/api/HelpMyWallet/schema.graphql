@@ -63,7 +63,6 @@ type Transactions @model @auth(rules: [{allow: public}]) {
   transaction_date: AWSDate!
   amount: Float!
   description: String!
-  created_at: AWSDateTime
   author_id: ID!
   category_id: ID
   transaction_type: TransactionType!

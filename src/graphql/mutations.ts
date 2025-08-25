@@ -279,7 +279,6 @@ export const createTransactions = /* GraphQL */ `mutation CreateTransactions(
     transaction_date
     amount
     description
-    created_at
     author_id
     category_id
     transaction_type
@@ -303,7 +302,6 @@ export const updateTransactions = /* GraphQL */ `mutation UpdateTransactions(
     transaction_date
     amount
     description
-    created_at
     author_id
     category_id
     transaction_type
@@ -327,7 +325,6 @@ export const deleteTransactions = /* GraphQL */ `mutation DeleteTransactions(
     transaction_date
     amount
     description
-    created_at
     author_id
     category_id
     transaction_type
