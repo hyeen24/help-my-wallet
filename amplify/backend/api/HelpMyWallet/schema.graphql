@@ -46,7 +46,7 @@ type Merchant @model @auth(rules: [{allow: public}]) {
   id: ID!
   merchant_name: String!
   author_id: ID!
-  image: AWSURL
+  image: String
   category_id: ID
   keywords: [String]
   Transactions: [Transactions] @hasMany(indexName: "byMerchant", fields: ["id"])

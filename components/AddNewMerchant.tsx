@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { useTheme } from '@/contexts/ThemeContext';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
@@ -8,11 +8,15 @@ import Colors from '@/constants/Colors';
 import Button from './Button';
 import { useAuth } from '@/contexts/AuthContext';
 import { generateClient } from 'aws-amplify/api';
-import { uploadData, list } from 'aws-amplify/storage';
+import { uploadData, getUrl } from 'aws-amplify/storage';
+import * as mutations from '../src/graphql/mutations';
+import { router } from 'expo-router';
+
 
 const AddNewMerchant = () => {
     const { theme } = useTheme();
     const [ categoryName, setCategoryName ] = React.useState("");
+    const [ contentType, setContentType ] = useState("");
     const [image, setImage] = useState<string | null>(null);
     const [ filename, setFilename ] = useState("");
     const { user } = useAuth();
@@ -34,34 +38,50 @@ const AddNewMerchant = () => {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
       setFilename(result.assets[0].fileName ?? "")
+      setContentType(result.assets[0].mimeType ?? "")
+      console.log(result.assets[0].mimeType)
     }
   };
 
   const addMerchant = async () => {
 
+    const response = await fetch(image);
+    const blob = await response.blob()
+    ;
     try {
-    const result = await uploadData({
+      const result = await uploadData({
         key: `photos/${filename}`,
         // path: `photos/${filename}`,
-        data: image || "",
+        data: blob,
         options: {
-            accessLevel: 'private'
+          accessLevel: 'private',
+          contentType: contentType
         }
-    }).result;
-    console.log('Succeeded: ', result);
-    } catch (error) {
-    console.log('Error : ', error);
-    }
+      }).result;
+      console.log('Succeeded: ', result);
 
-    // try {
-    //     const payload = {
-    //         merchant_name : categoryName,
-    //         author_id: user.userId || "",
-    //         image: `photos/${filename}`,
-    //         keywords: 
-    //     }
-    // }
+      const payload = {
+        merchant_name: categoryName,
+        author_id: user.userId || "",
+        image: `${result.key}`
+      };
       
+      const response = await client.graphql({
+              query: mutations.createMerchant,
+              variables: { input: payload }
+            });
+
+        Alert.alert("New Merchant Added", "Your merchant has been added successfully.", [
+        {
+            text: "OK",
+            onPress: () => router.push("/(tabs)/home"),
+        },
+        ]);
+
+      // You can now use payload here (e.g., send to backend)
+    } catch (error) {
+      console.log('Error : ', error);
+    }
 
   }
 

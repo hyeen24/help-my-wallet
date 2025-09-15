@@ -10,14 +10,14 @@ import { toTitleCase } from '@/utils/stringUtils'
 
 
 const transactionDetails = () => {
-  const { merchantIcon, merchantName,merchantId, itemAmount, itemDescription, transactionDate} = useLocalSearchParams();
+  const { merchantIcon, merchantName, merchantId, itemAmount, itemDescription, transactionDate} = useLocalSearchParams();
   console.log("Merchant Name",merchantName)
   console.log("Merchant Icon", merchantIcon)
 
   const moveToMerchant = (merchantId : string)=> {
     console.log("Merchant ID:", merchantId);
     if (merchantName === "Unknown") {
-      //  router.push('/addMerchant')
+       router.push('/addMerchant')
       
     } else {
       console.log("Merchant Name is known, redirecting to merchantDetails")
@@ -52,8 +52,7 @@ const transactionDetails = () => {
             style={styles.merchantImage}
           />
             ) 
-          }
-          
+          }  
                 <Text style={styles.amountTxt}>${itemAmount}</Text>
                 <Text style={styles.descTxt}>{itemDescription}</Text>
                 <Text style={styles.dateTxt}> {transactionDate} </Text>
