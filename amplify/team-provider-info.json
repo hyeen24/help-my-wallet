@@ -1,23 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-helpmywallet-dev-0b27b-authRole",
-      "UnauthRoleArn": "arn:aws:iam::461809726665:role/amplify-helpmywallet-dev-0b27b-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::461809726665:role/amplify-helpmywallet-dev-0b27b-authRole",
+      "AuthRoleName": "amplify-helpmywallet-dev-0ba15-authRole",
+      "UnauthRoleArn": "arn:aws:iam::461809726665:role/amplify-helpmywallet-dev-0ba15-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::461809726665:role/amplify-helpmywallet-dev-0ba15-authRole",
       "Region": "ap-southeast-1",
-      "DeploymentBucketName": "amplify-helpmywallet-dev-0b27b-deployment",
-      "UnauthRoleName": "amplify-helpmywallet-dev-0b27b-unauthRole",
-      "StackName": "amplify-helpmywallet-dev-0b27b",
-      "StackId": "arn:aws:cloudformation:ap-southeast-1:461809726665:stack/amplify-helpmywallet-dev-0b27b/9af21080-747b-11f0-9ea3-06da037dff87",
-      "AmplifyAppId": "d58fgakgfyy8x"
+      "DeploymentBucketName": "amplify-helpmywallet-dev-0ba15-deployment",
+      "UnauthRoleName": "amplify-helpmywallet-dev-0ba15-unauthRole",
+      "StackName": "amplify-helpmywallet-dev-0ba15",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:461809726665:stack/amplify-helpmywallet-dev-0ba15/8bd80550-9893-11f0-8208-0653486767ef",
+      "AmplifyAppId": "d7pz8fdv314c6"
     },
     "categories": {
       "auth": {
-        "helpmywalletb1518867": {},
         "HelpMyWallet": {}
-      },
-      "storage": {
-        "s3helpmywalletstorage9c586961": {}
       }
     }
   }

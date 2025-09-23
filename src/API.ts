@@ -2,28 +2,18 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateCalendarInput = {
+export type CreateMerchantInput = {
   id?: string | null,
-  date?: string | null,
-  type?: IncomeOrExpense | null,
-  author_id: string,
-  amount: number,
+  name: string,
+  image?: string | null,
 };
 
-export enum IncomeOrExpense {
-  INCOME = "INCOME",
-  EXPENSE = "EXPENSE",
-}
-
-
-export type ModelCalendarConditionInput = {
-  date?: ModelStringInput | null,
-  type?: ModelIncomeOrExpenseInput | null,
-  author_id?: ModelIDInput | null,
-  amount?: ModelFloatInput | null,
-  and?: Array< ModelCalendarConditionInput | null > | null,
-  or?: Array< ModelCalendarConditionInput | null > | null,
-  not?: ModelCalendarConditionInput | null,
+export type ModelMerchantConditionInput = {
+  name?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  and?: Array< ModelMerchantConditionInput | null > | null,
+  or?: Array< ModelMerchantConditionInput | null > | null,
+  not?: ModelMerchantConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
 };
@@ -68,9 +58,233 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelIncomeOrExpenseInput = {
-  eq?: IncomeOrExpense | null,
-  ne?: IncomeOrExpense | null,
+export type Merchant = {
+  __typename: "Merchant",
+  id: string,
+  name: string,
+  image?: string | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateMerchantInput = {
+  id: string,
+  name?: string | null,
+  image?: string | null,
+};
+
+export type DeleteMerchantInput = {
+  id: string,
+};
+
+export type CreateIncomeInput = {
+  id?: string | null,
+  name: string,
+  recurrence_id?: string | null,
+  start_date: string,
+  active?: boolean | null,
+  amount: number,
+  description?: string | null,
+};
+
+export type ModelIncomeConditionInput = {
+  name?: ModelStringInput | null,
+  recurrence_id?: ModelStringInput | null,
+  start_date?: ModelStringInput | null,
+  active?: ModelBooleanInput | null,
+  amount?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelIncomeConditionInput | null > | null,
+  or?: Array< ModelIncomeConditionInput | null > | null,
+  not?: ModelIncomeConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type Income = {
+  __typename: "Income",
+  id: string,
+  name: string,
+  recurrence_id?: string | null,
+  start_date: string,
+  active?: boolean | null,
+  amount: number,
+  description?: string | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateIncomeInput = {
+  id: string,
+  name?: string | null,
+  recurrence_id?: string | null,
+  start_date?: string | null,
+  active?: boolean | null,
+  amount?: number | null,
+  description?: string | null,
+};
+
+export type DeleteIncomeInput = {
+  id: string,
+};
+
+export type CreateExpenseInput = {
+  id?: string | null,
+  name: string,
+  color: string,
+  merchant_id?: string | null,
+  recurrence_id?: string | null,
+  amount: number,
+  description?: string | null,
+  start_date: string,
+  active?: boolean | null,
+};
+
+export type ModelExpenseConditionInput = {
+  name?: ModelStringInput | null,
+  color?: ModelStringInput | null,
+  merchant_id?: ModelStringInput | null,
+  recurrence_id?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
+  start_date?: ModelStringInput | null,
+  active?: ModelBooleanInput | null,
+  and?: Array< ModelExpenseConditionInput | null > | null,
+  or?: Array< ModelExpenseConditionInput | null > | null,
+  not?: ModelExpenseConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type Expense = {
+  __typename: "Expense",
+  id: string,
+  name: string,
+  color: string,
+  merchant_id?: string | null,
+  recurrence_id?: string | null,
+  amount: number,
+  description?: string | null,
+  start_date: string,
+  active?: boolean | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateExpenseInput = {
+  id: string,
+  name?: string | null,
+  color?: string | null,
+  merchant_id?: string | null,
+  recurrence_id?: string | null,
+  amount?: number | null,
+  description?: string | null,
+  start_date?: string | null,
+  active?: boolean | null,
+};
+
+export type DeleteExpenseInput = {
+  id: string,
+};
+
+export type CreateTransactionInput = {
+  id?: string | null,
+  reference_id?: string | null,
+  transaction_date: string,
+  post_date: string,
+  transaction_type: TransactionType,
+  amount: string,
+  category_id?: string | null,
+  description?: string | null,
+  title?: string | null,
+};
+
+export enum TransactionType {
+  DEBIT = "DEBIT",
+  CREDIT = "CREDIT",
+}
+
+
+export type ModelTransactionConditionInput = {
+  reference_id?: ModelStringInput | null,
+  transaction_date?: ModelStringInput | null,
+  post_date?: ModelStringInput | null,
+  transaction_type?: ModelTransactionTypeInput | null,
+  amount?: ModelStringInput | null,
+  category_id?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  title?: ModelStringInput | null,
+  and?: Array< ModelTransactionConditionInput | null > | null,
+  or?: Array< ModelTransactionConditionInput | null > | null,
+  not?: ModelTransactionConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type ModelTransactionTypeInput = {
+  eq?: TransactionType | null,
+  ne?: TransactionType | null,
+};
+
+export type Transaction = {
+  __typename: "Transaction",
+  id: string,
+  reference_id?: string | null,
+  transaction_date: string,
+  post_date: string,
+  transaction_type: TransactionType,
+  amount: string,
+  category_id?: string | null,
+  description?: string | null,
+  title?: string | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateTransactionInput = {
+  id: string,
+  reference_id?: string | null,
+  transaction_date?: string | null,
+  post_date?: string | null,
+  transaction_type?: TransactionType | null,
+  amount?: string | null,
+  category_id?: string | null,
+  description?: string | null,
+  title?: string | null,
+};
+
+export type DeleteTransactionInput = {
+  id: string,
+};
+
+export type ModelMerchantFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelMerchantFilterInput | null > | null,
+  or?: Array< ModelMerchantFilterInput | null > | null,
+  not?: ModelMerchantFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -89,328 +303,20 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type ModelFloatInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type Calendar = {
-  __typename: "Calendar",
-  id: string,
-  date?: string | null,
-  type?: IncomeOrExpense | null,
-  author_id: string,
-  amount: number,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateCalendarInput = {
-  id: string,
-  date?: string | null,
-  type?: IncomeOrExpense | null,
-  author_id?: string | null,
-  amount?: number | null,
-};
-
-export type DeleteCalendarInput = {
-  id: string,
-};
-
-export type CreateExpenseGroupInput = {
-  id?: string | null,
-  name: string,
-  author_id: string,
-  color?: string | null,
-};
-
-export type ModelExpenseGroupConditionInput = {
-  name?: ModelStringInput | null,
-  author_id?: ModelIDInput | null,
-  color?: ModelStringInput | null,
-  and?: Array< ModelExpenseGroupConditionInput | null > | null,
-  or?: Array< ModelExpenseGroupConditionInput | null > | null,
-  not?: ModelExpenseGroupConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type ExpenseGroup = {
-  __typename: "ExpenseGroup",
-  id: string,
-  name: string,
-  author_id: string,
-  color?: string | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateExpenseGroupInput = {
-  id: string,
-  name?: string | null,
-  author_id?: string | null,
-  color?: string | null,
-};
-
-export type DeleteExpenseGroupInput = {
-  id: string,
-};
-
-export type CreateIncomeInput = {
-  id?: string | null,
-  amount: number,
-  name: string,
-  author_id: string,
-  icon?: IconInput | null,
-  recurrence: IncomeRecurrence,
-  start_date: string,
-  end_date?: string | null,
-};
-
-export type IconInput = {
-  Icon_name?: string | null,
-  Icon_type?: string | null,
-};
-
-export enum IncomeRecurrence {
-  ONCE = "ONCE",
-  DAILY = "DAILY",
-  MONTHLY = "MONTHLY",
-  QUARTERLY = "QUARTERLY",
-  YEARLY = "YEARLY",
-}
-
-
-export type ModelIncomeConditionInput = {
-  amount?: ModelFloatInput | null,
-  name?: ModelStringInput | null,
-  author_id?: ModelIDInput | null,
-  recurrence?: ModelIncomeRecurrenceInput | null,
-  start_date?: ModelStringInput | null,
-  end_date?: ModelStringInput | null,
-  and?: Array< ModelIncomeConditionInput | null > | null,
-  or?: Array< ModelIncomeConditionInput | null > | null,
-  not?: ModelIncomeConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type ModelIncomeRecurrenceInput = {
-  eq?: IncomeRecurrence | null,
-  ne?: IncomeRecurrence | null,
-};
-
-export type Income = {
-  __typename: "Income",
-  id: string,
-  amount: number,
-  name: string,
-  author_id: string,
-  icon?: Icon | null,
-  recurrence: IncomeRecurrence,
-  start_date: string,
-  end_date?: string | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type Icon = {
-  __typename: "Icon",
-  Icon_name?: string | null,
-  Icon_type?: string | null,
-};
-
-export type UpdateIncomeInput = {
-  id: string,
-  amount?: number | null,
-  name?: string | null,
-  author_id?: string | null,
-  icon?: IconInput | null,
-  recurrence?: IncomeRecurrence | null,
-  start_date?: string | null,
-  end_date?: string | null,
-};
-
-export type DeleteIncomeInput = {
-  id: string,
-};
-
-export type CreateMerchantInput = {
-  id?: string | null,
-  merchant_name: string,
-  author_id: string,
-  image?: string | null,
-  category_id?: string | null,
-  keywords?: Array< string | null > | null,
-};
-
-export type ModelMerchantConditionInput = {
-  merchant_name?: ModelStringInput | null,
-  author_id?: ModelIDInput | null,
-  image?: ModelStringInput | null,
-  category_id?: ModelIDInput | null,
-  keywords?: ModelStringInput | null,
-  and?: Array< ModelMerchantConditionInput | null > | null,
-  or?: Array< ModelMerchantConditionInput | null > | null,
-  not?: ModelMerchantConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type Merchant = {
-  __typename: "Merchant",
-  id: string,
-  merchant_name: string,
-  author_id: string,
-  image?: string | null,
-  category_id?: string | null,
-  keywords?: Array< string | null > | null,
-  Transactions?: ModelTransactionsConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelTransactionsConnection = {
-  __typename: "ModelTransactionsConnection",
-  items:  Array<Transactions | null >,
-  nextToken?: string | null,
-};
-
-export type Transactions = {
-  __typename: "Transactions",
-  id: string,
-  post_date?: string | null,
-  transaction_date: string,
-  amount: number,
-  description: string,
-  author_id: string,
-  category_id?: string | null,
-  transaction_type: TransactionType,
-  merchantID?: string | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export enum TransactionType {
-  CREDIT = "CREDIT",
-  DEBIT = "DEBIT",
-}
-
-
-export type UpdateMerchantInput = {
-  id: string,
-  merchant_name?: string | null,
-  author_id?: string | null,
-  image?: string | null,
-  category_id?: string | null,
-  keywords?: Array< string | null > | null,
-};
-
-export type DeleteMerchantInput = {
-  id: string,
-};
-
-export type CreateTransactionsInput = {
-  id?: string | null,
-  post_date?: string | null,
-  transaction_date: string,
-  amount: number,
-  description: string,
-  author_id: string,
-  category_id?: string | null,
-  transaction_type: TransactionType,
-  merchantID?: string | null,
-};
-
-export type ModelTransactionsConditionInput = {
-  post_date?: ModelStringInput | null,
-  transaction_date?: ModelStringInput | null,
-  amount?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  author_id?: ModelIDInput | null,
-  category_id?: ModelIDInput | null,
-  transaction_type?: ModelTransactionTypeInput | null,
-  merchantID?: ModelIDInput | null,
-  and?: Array< ModelTransactionsConditionInput | null > | null,
-  or?: Array< ModelTransactionsConditionInput | null > | null,
-  not?: ModelTransactionsConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type ModelTransactionTypeInput = {
-  eq?: TransactionType | null,
-  ne?: TransactionType | null,
-};
-
-export type UpdateTransactionsInput = {
-  id: string,
-  post_date?: string | null,
-  transaction_date?: string | null,
-  amount?: number | null,
-  description?: string | null,
-  author_id?: string | null,
-  category_id?: string | null,
-  transaction_type?: TransactionType | null,
-  merchantID?: string | null,
-};
-
-export type DeleteTransactionsInput = {
-  id: string,
-};
-
-export type ModelCalendarFilterInput = {
-  id?: ModelIDInput | null,
-  date?: ModelStringInput | null,
-  type?: ModelIncomeOrExpenseInput | null,
-  author_id?: ModelIDInput | null,
-  amount?: ModelFloatInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelCalendarFilterInput | null > | null,
-  or?: Array< ModelCalendarFilterInput | null > | null,
-  not?: ModelCalendarFilterInput | null,
-};
-
-export type ModelCalendarConnection = {
-  __typename: "ModelCalendarConnection",
-  items:  Array<Calendar | null >,
-  nextToken?: string | null,
-};
-
-export type ModelExpenseGroupFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  author_id?: ModelIDInput | null,
-  color?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelExpenseGroupFilterInput | null > | null,
-  or?: Array< ModelExpenseGroupFilterInput | null > | null,
-  not?: ModelExpenseGroupFilterInput | null,
-};
-
-export type ModelExpenseGroupConnection = {
-  __typename: "ModelExpenseGroupConnection",
-  items:  Array<ExpenseGroup | null >,
+export type ModelMerchantConnection = {
+  __typename: "ModelMerchantConnection",
+  items:  Array<Merchant | null >,
   nextToken?: string | null,
 };
 
 export type ModelIncomeFilterInput = {
   id?: ModelIDInput | null,
-  amount?: ModelFloatInput | null,
   name?: ModelStringInput | null,
-  author_id?: ModelIDInput | null,
-  recurrence?: ModelIncomeRecurrenceInput | null,
+  recurrence_id?: ModelStringInput | null,
   start_date?: ModelStringInput | null,
-  end_date?: ModelStringInput | null,
+  active?: ModelBooleanInput | null,
+  amount?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelIncomeFilterInput | null > | null,
@@ -424,59 +330,60 @@ export type ModelIncomeConnection = {
   nextToken?: string | null,
 };
 
-export type ModelMerchantFilterInput = {
+export type ModelExpenseFilterInput = {
   id?: ModelIDInput | null,
-  merchant_name?: ModelStringInput | null,
-  author_id?: ModelIDInput | null,
-  image?: ModelStringInput | null,
-  category_id?: ModelIDInput | null,
-  keywords?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  color?: ModelStringInput | null,
+  merchant_id?: ModelStringInput | null,
+  recurrence_id?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
+  start_date?: ModelStringInput | null,
+  active?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelMerchantFilterInput | null > | null,
-  or?: Array< ModelMerchantFilterInput | null > | null,
-  not?: ModelMerchantFilterInput | null,
+  and?: Array< ModelExpenseFilterInput | null > | null,
+  or?: Array< ModelExpenseFilterInput | null > | null,
+  not?: ModelExpenseFilterInput | null,
 };
 
-export type ModelMerchantConnection = {
-  __typename: "ModelMerchantConnection",
-  items:  Array<Merchant | null >,
+export type ModelExpenseConnection = {
+  __typename: "ModelExpenseConnection",
+  items:  Array<Expense | null >,
   nextToken?: string | null,
 };
 
-export type ModelTransactionsFilterInput = {
+export type ModelTransactionFilterInput = {
   id?: ModelIDInput | null,
-  post_date?: ModelStringInput | null,
+  reference_id?: ModelStringInput | null,
   transaction_date?: ModelStringInput | null,
-  amount?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  author_id?: ModelIDInput | null,
-  category_id?: ModelIDInput | null,
+  post_date?: ModelStringInput | null,
   transaction_type?: ModelTransactionTypeInput | null,
-  merchantID?: ModelIDInput | null,
+  amount?: ModelStringInput | null,
+  category_id?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  title?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelTransactionsFilterInput | null > | null,
-  or?: Array< ModelTransactionsFilterInput | null > | null,
-  not?: ModelTransactionsFilterInput | null,
+  and?: Array< ModelTransactionFilterInput | null > | null,
+  or?: Array< ModelTransactionFilterInput | null > | null,
+  not?: ModelTransactionFilterInput | null,
 };
 
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
+export type ModelTransactionConnection = {
+  __typename: "ModelTransactionConnection",
+  items:  Array<Transaction | null >,
+  nextToken?: string | null,
+};
 
-
-export type ModelSubscriptionCalendarFilterInput = {
+export type ModelSubscriptionMerchantFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  date?: ModelSubscriptionStringInput | null,
-  type?: ModelSubscriptionStringInput | null,
-  author_id?: ModelSubscriptionIDInput | null,
-  amount?: ModelSubscriptionFloatInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  image?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCalendarFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCalendarFilterInput | null > | null,
+  and?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -509,6 +416,25 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionIncomeFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  recurrence_id?: ModelSubscriptionStringInput | null,
+  start_date?: ModelSubscriptionStringInput | null,
+  active?: ModelSubscriptionBooleanInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionIncomeFilterInput | null > | null,
+  or?: Array< ModelSubscriptionIncomeFilterInput | null > | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+};
+
 export type ModelSubscriptionFloatInput = {
   ne?: number | null,
   eq?: number | null,
@@ -521,238 +447,36 @@ export type ModelSubscriptionFloatInput = {
   notIn?: Array< number | null > | null,
 };
 
-export type ModelSubscriptionExpenseGroupFilterInput = {
+export type ModelSubscriptionExpenseFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
-  author_id?: ModelSubscriptionIDInput | null,
   color?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionExpenseGroupFilterInput | null > | null,
-  or?: Array< ModelSubscriptionExpenseGroupFilterInput | null > | null,
-};
-
-export type ModelSubscriptionIncomeFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  amount?: ModelSubscriptionFloatInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  author_id?: ModelSubscriptionIDInput | null,
-  recurrence?: ModelSubscriptionStringInput | null,
-  start_date?: ModelSubscriptionStringInput | null,
-  end_date?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionIncomeFilterInput | null > | null,
-  or?: Array< ModelSubscriptionIncomeFilterInput | null > | null,
-};
-
-export type ModelSubscriptionMerchantFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  merchant_name?: ModelSubscriptionStringInput | null,
-  author_id?: ModelSubscriptionIDInput | null,
-  image?: ModelSubscriptionStringInput | null,
-  category_id?: ModelSubscriptionIDInput | null,
-  keywords?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
-};
-
-export type ModelSubscriptionTransactionsFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  post_date?: ModelSubscriptionStringInput | null,
-  transaction_date?: ModelSubscriptionStringInput | null,
+  merchant_id?: ModelSubscriptionStringInput | null,
+  recurrence_id?: ModelSubscriptionStringInput | null,
   amount?: ModelSubscriptionFloatInput | null,
   description?: ModelSubscriptionStringInput | null,
-  author_id?: ModelSubscriptionIDInput | null,
-  category_id?: ModelSubscriptionIDInput | null,
-  transaction_type?: ModelSubscriptionStringInput | null,
-  merchantID?: ModelSubscriptionIDInput | null,
+  start_date?: ModelSubscriptionStringInput | null,
+  active?: ModelSubscriptionBooleanInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionTransactionsFilterInput | null > | null,
-  or?: Array< ModelSubscriptionTransactionsFilterInput | null > | null,
+  and?: Array< ModelSubscriptionExpenseFilterInput | null > | null,
+  or?: Array< ModelSubscriptionExpenseFilterInput | null > | null,
 };
 
-export type CreateCalendarMutationVariables = {
-  input: CreateCalendarInput,
-  condition?: ModelCalendarConditionInput | null,
-};
-
-export type CreateCalendarMutation = {
-  createCalendar?:  {
-    __typename: "Calendar",
-    id: string,
-    date?: string | null,
-    type?: IncomeOrExpense | null,
-    author_id: string,
-    amount: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateCalendarMutationVariables = {
-  input: UpdateCalendarInput,
-  condition?: ModelCalendarConditionInput | null,
-};
-
-export type UpdateCalendarMutation = {
-  updateCalendar?:  {
-    __typename: "Calendar",
-    id: string,
-    date?: string | null,
-    type?: IncomeOrExpense | null,
-    author_id: string,
-    amount: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteCalendarMutationVariables = {
-  input: DeleteCalendarInput,
-  condition?: ModelCalendarConditionInput | null,
-};
-
-export type DeleteCalendarMutation = {
-  deleteCalendar?:  {
-    __typename: "Calendar",
-    id: string,
-    date?: string | null,
-    type?: IncomeOrExpense | null,
-    author_id: string,
-    amount: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateExpenseGroupMutationVariables = {
-  input: CreateExpenseGroupInput,
-  condition?: ModelExpenseGroupConditionInput | null,
-};
-
-export type CreateExpenseGroupMutation = {
-  createExpenseGroup?:  {
-    __typename: "ExpenseGroup",
-    id: string,
-    name: string,
-    author_id: string,
-    color?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateExpenseGroupMutationVariables = {
-  input: UpdateExpenseGroupInput,
-  condition?: ModelExpenseGroupConditionInput | null,
-};
-
-export type UpdateExpenseGroupMutation = {
-  updateExpenseGroup?:  {
-    __typename: "ExpenseGroup",
-    id: string,
-    name: string,
-    author_id: string,
-    color?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteExpenseGroupMutationVariables = {
-  input: DeleteExpenseGroupInput,
-  condition?: ModelExpenseGroupConditionInput | null,
-};
-
-export type DeleteExpenseGroupMutation = {
-  deleteExpenseGroup?:  {
-    __typename: "ExpenseGroup",
-    id: string,
-    name: string,
-    author_id: string,
-    color?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateIncomeMutationVariables = {
-  input: CreateIncomeInput,
-  condition?: ModelIncomeConditionInput | null,
-};
-
-export type CreateIncomeMutation = {
-  createIncome?:  {
-    __typename: "Income",
-    id: string,
-    amount: number,
-    name: string,
-    author_id: string,
-    icon?:  {
-      __typename: "Icon",
-      Icon_name?: string | null,
-      Icon_type?: string | null,
-    } | null,
-    recurrence: IncomeRecurrence,
-    start_date: string,
-    end_date?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateIncomeMutationVariables = {
-  input: UpdateIncomeInput,
-  condition?: ModelIncomeConditionInput | null,
-};
-
-export type UpdateIncomeMutation = {
-  updateIncome?:  {
-    __typename: "Income",
-    id: string,
-    amount: number,
-    name: string,
-    author_id: string,
-    icon?:  {
-      __typename: "Icon",
-      Icon_name?: string | null,
-      Icon_type?: string | null,
-    } | null,
-    recurrence: IncomeRecurrence,
-    start_date: string,
-    end_date?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteIncomeMutationVariables = {
-  input: DeleteIncomeInput,
-  condition?: ModelIncomeConditionInput | null,
-};
-
-export type DeleteIncomeMutation = {
-  deleteIncome?:  {
-    __typename: "Income",
-    id: string,
-    amount: number,
-    name: string,
-    author_id: string,
-    icon?:  {
-      __typename: "Icon",
-      Icon_name?: string | null,
-      Icon_type?: string | null,
-    } | null,
-    recurrence: IncomeRecurrence,
-    start_date: string,
-    end_date?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
+export type ModelSubscriptionTransactionFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  reference_id?: ModelSubscriptionStringInput | null,
+  transaction_date?: ModelSubscriptionStringInput | null,
+  post_date?: ModelSubscriptionStringInput | null,
+  transaction_type?: ModelSubscriptionStringInput | null,
+  amount?: ModelSubscriptionStringInput | null,
+  category_id?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionTransactionFilterInput | null > | null,
+  or?: Array< ModelSubscriptionTransactionFilterInput | null > | null,
 };
 
 export type CreateMerchantMutationVariables = {
@@ -764,15 +488,8 @@ export type CreateMerchantMutation = {
   createMerchant?:  {
     __typename: "Merchant",
     id: string,
-    merchant_name: string,
-    author_id: string,
+    name: string,
     image?: string | null,
-    category_id?: string | null,
-    keywords?: Array< string | null > | null,
-    Transactions?:  {
-      __typename: "ModelTransactionsConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -787,15 +504,8 @@ export type UpdateMerchantMutation = {
   updateMerchant?:  {
     __typename: "Merchant",
     id: string,
-    merchant_name: string,
-    author_id: string,
+    name: string,
     image?: string | null,
-    category_id?: string | null,
-    keywords?: Array< string | null > | null,
-    Transactions?:  {
-      __typename: "ModelTransactionsConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -810,210 +520,202 @@ export type DeleteMerchantMutation = {
   deleteMerchant?:  {
     __typename: "Merchant",
     id: string,
-    merchant_name: string,
-    author_id: string,
-    image?: string | null,
-    category_id?: string | null,
-    keywords?: Array< string | null > | null,
-    Transactions?:  {
-      __typename: "ModelTransactionsConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateTransactionsMutationVariables = {
-  input: CreateTransactionsInput,
-  condition?: ModelTransactionsConditionInput | null,
-};
-
-export type CreateTransactionsMutation = {
-  createTransactions?:  {
-    __typename: "Transactions",
-    id: string,
-    post_date?: string | null,
-    transaction_date: string,
-    amount: number,
-    description: string,
-    author_id: string,
-    category_id?: string | null,
-    transaction_type: TransactionType,
-    merchantID?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateTransactionsMutationVariables = {
-  input: UpdateTransactionsInput,
-  condition?: ModelTransactionsConditionInput | null,
-};
-
-export type UpdateTransactionsMutation = {
-  updateTransactions?:  {
-    __typename: "Transactions",
-    id: string,
-    post_date?: string | null,
-    transaction_date: string,
-    amount: number,
-    description: string,
-    author_id: string,
-    category_id?: string | null,
-    transaction_type: TransactionType,
-    merchantID?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteTransactionsMutationVariables = {
-  input: DeleteTransactionsInput,
-  condition?: ModelTransactionsConditionInput | null,
-};
-
-export type DeleteTransactionsMutation = {
-  deleteTransactions?:  {
-    __typename: "Transactions",
-    id: string,
-    post_date?: string | null,
-    transaction_date: string,
-    amount: number,
-    description: string,
-    author_id: string,
-    category_id?: string | null,
-    transaction_type: TransactionType,
-    merchantID?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type GetCalendarQueryVariables = {
-  id: string,
-};
-
-export type GetCalendarQuery = {
-  getCalendar?:  {
-    __typename: "Calendar",
-    id: string,
-    date?: string | null,
-    type?: IncomeOrExpense | null,
-    author_id: string,
-    amount: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListCalendarsQueryVariables = {
-  filter?: ModelCalendarFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCalendarsQuery = {
-  listCalendars?:  {
-    __typename: "ModelCalendarConnection",
-    items:  Array< {
-      __typename: "Calendar",
-      id: string,
-      date?: string | null,
-      type?: IncomeOrExpense | null,
-      author_id: string,
-      amount: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetExpenseGroupQueryVariables = {
-  id: string,
-};
-
-export type GetExpenseGroupQuery = {
-  getExpenseGroup?:  {
-    __typename: "ExpenseGroup",
-    id: string,
     name: string,
-    author_id: string,
-    color?: string | null,
+    image?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListExpenseGroupsQueryVariables = {
-  filter?: ModelExpenseGroupFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
+export type CreateIncomeMutationVariables = {
+  input: CreateIncomeInput,
+  condition?: ModelIncomeConditionInput | null,
 };
 
-export type ListExpenseGroupsQuery = {
-  listExpenseGroups?:  {
-    __typename: "ModelExpenseGroupConnection",
-    items:  Array< {
-      __typename: "ExpenseGroup",
-      id: string,
-      name: string,
-      author_id: string,
-      color?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetIncomeQueryVariables = {
-  id: string,
-};
-
-export type GetIncomeQuery = {
-  getIncome?:  {
+export type CreateIncomeMutation = {
+  createIncome?:  {
     __typename: "Income",
     id: string,
-    amount: number,
     name: string,
-    author_id: string,
-    icon?:  {
-      __typename: "Icon",
-      Icon_name?: string | null,
-      Icon_type?: string | null,
-    } | null,
-    recurrence: IncomeRecurrence,
+    recurrence_id?: string | null,
     start_date: string,
-    end_date?: string | null,
+    active?: boolean | null,
+    amount: number,
+    description?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListIncomesQueryVariables = {
-  filter?: ModelIncomeFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
+export type UpdateIncomeMutationVariables = {
+  input: UpdateIncomeInput,
+  condition?: ModelIncomeConditionInput | null,
 };
 
-export type ListIncomesQuery = {
-  listIncomes?:  {
-    __typename: "ModelIncomeConnection",
-    items:  Array< {
-      __typename: "Income",
-      id: string,
-      amount: number,
-      name: string,
-      author_id: string,
-      recurrence: IncomeRecurrence,
-      start_date: string,
-      end_date?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
+export type UpdateIncomeMutation = {
+  updateIncome?:  {
+    __typename: "Income",
+    id: string,
+    name: string,
+    recurrence_id?: string | null,
+    start_date: string,
+    active?: boolean | null,
+    amount: number,
+    description?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteIncomeMutationVariables = {
+  input: DeleteIncomeInput,
+  condition?: ModelIncomeConditionInput | null,
+};
+
+export type DeleteIncomeMutation = {
+  deleteIncome?:  {
+    __typename: "Income",
+    id: string,
+    name: string,
+    recurrence_id?: string | null,
+    start_date: string,
+    active?: boolean | null,
+    amount: number,
+    description?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateExpenseMutationVariables = {
+  input: CreateExpenseInput,
+  condition?: ModelExpenseConditionInput | null,
+};
+
+export type CreateExpenseMutation = {
+  createExpense?:  {
+    __typename: "Expense",
+    id: string,
+    name: string,
+    color: string,
+    merchant_id?: string | null,
+    recurrence_id?: string | null,
+    amount: number,
+    description?: string | null,
+    start_date: string,
+    active?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateExpenseMutationVariables = {
+  input: UpdateExpenseInput,
+  condition?: ModelExpenseConditionInput | null,
+};
+
+export type UpdateExpenseMutation = {
+  updateExpense?:  {
+    __typename: "Expense",
+    id: string,
+    name: string,
+    color: string,
+    merchant_id?: string | null,
+    recurrence_id?: string | null,
+    amount: number,
+    description?: string | null,
+    start_date: string,
+    active?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteExpenseMutationVariables = {
+  input: DeleteExpenseInput,
+  condition?: ModelExpenseConditionInput | null,
+};
+
+export type DeleteExpenseMutation = {
+  deleteExpense?:  {
+    __typename: "Expense",
+    id: string,
+    name: string,
+    color: string,
+    merchant_id?: string | null,
+    recurrence_id?: string | null,
+    amount: number,
+    description?: string | null,
+    start_date: string,
+    active?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateTransactionMutationVariables = {
+  input: CreateTransactionInput,
+  condition?: ModelTransactionConditionInput | null,
+};
+
+export type CreateTransactionMutation = {
+  createTransaction?:  {
+    __typename: "Transaction",
+    id: string,
+    reference_id?: string | null,
+    transaction_date: string,
+    post_date: string,
+    transaction_type: TransactionType,
+    amount: string,
+    category_id?: string | null,
+    description?: string | null,
+    title?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateTransactionMutationVariables = {
+  input: UpdateTransactionInput,
+  condition?: ModelTransactionConditionInput | null,
+};
+
+export type UpdateTransactionMutation = {
+  updateTransaction?:  {
+    __typename: "Transaction",
+    id: string,
+    reference_id?: string | null,
+    transaction_date: string,
+    post_date: string,
+    transaction_type: TransactionType,
+    amount: string,
+    category_id?: string | null,
+    description?: string | null,
+    title?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteTransactionMutationVariables = {
+  input: DeleteTransactionInput,
+  condition?: ModelTransactionConditionInput | null,
+};
+
+export type DeleteTransactionMutation = {
+  deleteTransaction?:  {
+    __typename: "Transaction",
+    id: string,
+    reference_id?: string | null,
+    transaction_date: string,
+    post_date: string,
+    transaction_type: TransactionType,
+    amount: string,
+    category_id?: string | null,
+    description?: string | null,
+    title?: string | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -1025,15 +727,8 @@ export type GetMerchantQuery = {
   getMerchant?:  {
     __typename: "Merchant",
     id: string,
-    merchant_name: string,
-    author_id: string,
+    name: string,
     image?: string | null,
-    category_id?: string | null,
-    keywords?: Array< string | null > | null,
-    Transactions?:  {
-      __typename: "ModelTransactionsConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1051,11 +746,8 @@ export type ListMerchantsQuery = {
     items:  Array< {
       __typename: "Merchant",
       id: string,
-      merchant_name: string,
-      author_id: string,
+      name: string,
       image?: string | null,
-      category_id?: string | null,
-      keywords?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1063,251 +755,143 @@ export type ListMerchantsQuery = {
   } | null,
 };
 
-export type GetTransactionsQueryVariables = {
+export type GetIncomeQueryVariables = {
   id: string,
 };
 
-export type GetTransactionsQuery = {
-  getTransactions?:  {
-    __typename: "Transactions",
+export type GetIncomeQuery = {
+  getIncome?:  {
+    __typename: "Income",
     id: string,
-    post_date?: string | null,
-    transaction_date: string,
+    name: string,
+    recurrence_id?: string | null,
+    start_date: string,
+    active?: boolean | null,
     amount: number,
-    description: string,
-    author_id: string,
-    category_id?: string | null,
+    description?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListIncomesQueryVariables = {
+  filter?: ModelIncomeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListIncomesQuery = {
+  listIncomes?:  {
+    __typename: "ModelIncomeConnection",
+    items:  Array< {
+      __typename: "Income",
+      id: string,
+      name: string,
+      recurrence_id?: string | null,
+      start_date: string,
+      active?: boolean | null,
+      amount: number,
+      description?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetExpenseQueryVariables = {
+  id: string,
+};
+
+export type GetExpenseQuery = {
+  getExpense?:  {
+    __typename: "Expense",
+    id: string,
+    name: string,
+    color: string,
+    merchant_id?: string | null,
+    recurrence_id?: string | null,
+    amount: number,
+    description?: string | null,
+    start_date: string,
+    active?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListExpensesQueryVariables = {
+  filter?: ModelExpenseFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListExpensesQuery = {
+  listExpenses?:  {
+    __typename: "ModelExpenseConnection",
+    items:  Array< {
+      __typename: "Expense",
+      id: string,
+      name: string,
+      color: string,
+      merchant_id?: string | null,
+      recurrence_id?: string | null,
+      amount: number,
+      description?: string | null,
+      start_date: string,
+      active?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetTransactionQueryVariables = {
+  id: string,
+};
+
+export type GetTransactionQuery = {
+  getTransaction?:  {
+    __typename: "Transaction",
+    id: string,
+    reference_id?: string | null,
+    transaction_date: string,
+    post_date: string,
     transaction_type: TransactionType,
-    merchantID?: string | null,
+    amount: string,
+    category_id?: string | null,
+    description?: string | null,
+    title?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
 export type ListTransactionsQueryVariables = {
-  filter?: ModelTransactionsFilterInput | null,
+  filter?: ModelTransactionFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
 export type ListTransactionsQuery = {
   listTransactions?:  {
-    __typename: "ModelTransactionsConnection",
+    __typename: "ModelTransactionConnection",
     items:  Array< {
-      __typename: "Transactions",
+      __typename: "Transaction",
       id: string,
-      post_date?: string | null,
+      reference_id?: string | null,
       transaction_date: string,
-      amount: number,
-      description: string,
-      author_id: string,
-      category_id?: string | null,
+      post_date: string,
       transaction_type: TransactionType,
-      merchantID?: string | null,
+      amount: string,
+      category_id?: string | null,
+      description?: string | null,
+      title?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
-  } | null,
-};
-
-export type TransactionsByMerchantIDQueryVariables = {
-  merchantID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelTransactionsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type TransactionsByMerchantIDQuery = {
-  transactionsByMerchantID?:  {
-    __typename: "ModelTransactionsConnection",
-    items:  Array< {
-      __typename: "Transactions",
-      id: string,
-      post_date?: string | null,
-      transaction_date: string,
-      amount: number,
-      description: string,
-      author_id: string,
-      category_id?: string | null,
-      transaction_type: TransactionType,
-      merchantID?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type OnCreateCalendarSubscriptionVariables = {
-  filter?: ModelSubscriptionCalendarFilterInput | null,
-};
-
-export type OnCreateCalendarSubscription = {
-  onCreateCalendar?:  {
-    __typename: "Calendar",
-    id: string,
-    date?: string | null,
-    type?: IncomeOrExpense | null,
-    author_id: string,
-    amount: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateCalendarSubscriptionVariables = {
-  filter?: ModelSubscriptionCalendarFilterInput | null,
-};
-
-export type OnUpdateCalendarSubscription = {
-  onUpdateCalendar?:  {
-    __typename: "Calendar",
-    id: string,
-    date?: string | null,
-    type?: IncomeOrExpense | null,
-    author_id: string,
-    amount: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteCalendarSubscriptionVariables = {
-  filter?: ModelSubscriptionCalendarFilterInput | null,
-};
-
-export type OnDeleteCalendarSubscription = {
-  onDeleteCalendar?:  {
-    __typename: "Calendar",
-    id: string,
-    date?: string | null,
-    type?: IncomeOrExpense | null,
-    author_id: string,
-    amount: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateExpenseGroupSubscriptionVariables = {
-  filter?: ModelSubscriptionExpenseGroupFilterInput | null,
-};
-
-export type OnCreateExpenseGroupSubscription = {
-  onCreateExpenseGroup?:  {
-    __typename: "ExpenseGroup",
-    id: string,
-    name: string,
-    author_id: string,
-    color?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateExpenseGroupSubscriptionVariables = {
-  filter?: ModelSubscriptionExpenseGroupFilterInput | null,
-};
-
-export type OnUpdateExpenseGroupSubscription = {
-  onUpdateExpenseGroup?:  {
-    __typename: "ExpenseGroup",
-    id: string,
-    name: string,
-    author_id: string,
-    color?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteExpenseGroupSubscriptionVariables = {
-  filter?: ModelSubscriptionExpenseGroupFilterInput | null,
-};
-
-export type OnDeleteExpenseGroupSubscription = {
-  onDeleteExpenseGroup?:  {
-    __typename: "ExpenseGroup",
-    id: string,
-    name: string,
-    author_id: string,
-    color?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateIncomeSubscriptionVariables = {
-  filter?: ModelSubscriptionIncomeFilterInput | null,
-};
-
-export type OnCreateIncomeSubscription = {
-  onCreateIncome?:  {
-    __typename: "Income",
-    id: string,
-    amount: number,
-    name: string,
-    author_id: string,
-    icon?:  {
-      __typename: "Icon",
-      Icon_name?: string | null,
-      Icon_type?: string | null,
-    } | null,
-    recurrence: IncomeRecurrence,
-    start_date: string,
-    end_date?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateIncomeSubscriptionVariables = {
-  filter?: ModelSubscriptionIncomeFilterInput | null,
-};
-
-export type OnUpdateIncomeSubscription = {
-  onUpdateIncome?:  {
-    __typename: "Income",
-    id: string,
-    amount: number,
-    name: string,
-    author_id: string,
-    icon?:  {
-      __typename: "Icon",
-      Icon_name?: string | null,
-      Icon_type?: string | null,
-    } | null,
-    recurrence: IncomeRecurrence,
-    start_date: string,
-    end_date?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteIncomeSubscriptionVariables = {
-  filter?: ModelSubscriptionIncomeFilterInput | null,
-};
-
-export type OnDeleteIncomeSubscription = {
-  onDeleteIncome?:  {
-    __typename: "Income",
-    id: string,
-    amount: number,
-    name: string,
-    author_id: string,
-    icon?:  {
-      __typename: "Icon",
-      Icon_name?: string | null,
-      Icon_type?: string | null,
-    } | null,
-    recurrence: IncomeRecurrence,
-    start_date: string,
-    end_date?: string | null,
-    createdAt: string,
-    updatedAt: string,
   } | null,
 };
 
@@ -1319,15 +903,8 @@ export type OnCreateMerchantSubscription = {
   onCreateMerchant?:  {
     __typename: "Merchant",
     id: string,
-    merchant_name: string,
-    author_id: string,
+    name: string,
     image?: string | null,
-    category_id?: string | null,
-    keywords?: Array< string | null > | null,
-    Transactions?:  {
-      __typename: "ModelTransactionsConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1341,15 +918,8 @@ export type OnUpdateMerchantSubscription = {
   onUpdateMerchant?:  {
     __typename: "Merchant",
     id: string,
-    merchant_name: string,
-    author_id: string,
+    name: string,
     image?: string | null,
-    category_id?: string | null,
-    keywords?: Array< string | null > | null,
-    Transactions?:  {
-      __typename: "ModelTransactionsConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1363,78 +933,191 @@ export type OnDeleteMerchantSubscription = {
   onDeleteMerchant?:  {
     __typename: "Merchant",
     id: string,
-    merchant_name: string,
-    author_id: string,
+    name: string,
     image?: string | null,
-    category_id?: string | null,
-    keywords?: Array< string | null > | null,
-    Transactions?:  {
-      __typename: "ModelTransactionsConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnCreateTransactionsSubscriptionVariables = {
-  filter?: ModelSubscriptionTransactionsFilterInput | null,
+export type OnCreateIncomeSubscriptionVariables = {
+  filter?: ModelSubscriptionIncomeFilterInput | null,
 };
 
-export type OnCreateTransactionsSubscription = {
-  onCreateTransactions?:  {
-    __typename: "Transactions",
+export type OnCreateIncomeSubscription = {
+  onCreateIncome?:  {
+    __typename: "Income",
     id: string,
-    post_date?: string | null,
-    transaction_date: string,
+    name: string,
+    recurrence_id?: string | null,
+    start_date: string,
+    active?: boolean | null,
     amount: number,
-    description: string,
-    author_id: string,
-    category_id?: string | null,
-    transaction_type: TransactionType,
-    merchantID?: string | null,
+    description?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdateTransactionsSubscriptionVariables = {
-  filter?: ModelSubscriptionTransactionsFilterInput | null,
+export type OnUpdateIncomeSubscriptionVariables = {
+  filter?: ModelSubscriptionIncomeFilterInput | null,
 };
 
-export type OnUpdateTransactionsSubscription = {
-  onUpdateTransactions?:  {
-    __typename: "Transactions",
+export type OnUpdateIncomeSubscription = {
+  onUpdateIncome?:  {
+    __typename: "Income",
     id: string,
-    post_date?: string | null,
-    transaction_date: string,
+    name: string,
+    recurrence_id?: string | null,
+    start_date: string,
+    active?: boolean | null,
     amount: number,
-    description: string,
-    author_id: string,
-    category_id?: string | null,
-    transaction_type: TransactionType,
-    merchantID?: string | null,
+    description?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnDeleteTransactionsSubscriptionVariables = {
-  filter?: ModelSubscriptionTransactionsFilterInput | null,
+export type OnDeleteIncomeSubscriptionVariables = {
+  filter?: ModelSubscriptionIncomeFilterInput | null,
 };
 
-export type OnDeleteTransactionsSubscription = {
-  onDeleteTransactions?:  {
-    __typename: "Transactions",
+export type OnDeleteIncomeSubscription = {
+  onDeleteIncome?:  {
+    __typename: "Income",
     id: string,
-    post_date?: string | null,
-    transaction_date: string,
+    name: string,
+    recurrence_id?: string | null,
+    start_date: string,
+    active?: boolean | null,
     amount: number,
-    description: string,
-    author_id: string,
-    category_id?: string | null,
+    description?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateExpenseSubscriptionVariables = {
+  filter?: ModelSubscriptionExpenseFilterInput | null,
+};
+
+export type OnCreateExpenseSubscription = {
+  onCreateExpense?:  {
+    __typename: "Expense",
+    id: string,
+    name: string,
+    color: string,
+    merchant_id?: string | null,
+    recurrence_id?: string | null,
+    amount: number,
+    description?: string | null,
+    start_date: string,
+    active?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateExpenseSubscriptionVariables = {
+  filter?: ModelSubscriptionExpenseFilterInput | null,
+};
+
+export type OnUpdateExpenseSubscription = {
+  onUpdateExpense?:  {
+    __typename: "Expense",
+    id: string,
+    name: string,
+    color: string,
+    merchant_id?: string | null,
+    recurrence_id?: string | null,
+    amount: number,
+    description?: string | null,
+    start_date: string,
+    active?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteExpenseSubscriptionVariables = {
+  filter?: ModelSubscriptionExpenseFilterInput | null,
+};
+
+export type OnDeleteExpenseSubscription = {
+  onDeleteExpense?:  {
+    __typename: "Expense",
+    id: string,
+    name: string,
+    color: string,
+    merchant_id?: string | null,
+    recurrence_id?: string | null,
+    amount: number,
+    description?: string | null,
+    start_date: string,
+    active?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateTransactionSubscriptionVariables = {
+  filter?: ModelSubscriptionTransactionFilterInput | null,
+};
+
+export type OnCreateTransactionSubscription = {
+  onCreateTransaction?:  {
+    __typename: "Transaction",
+    id: string,
+    reference_id?: string | null,
+    transaction_date: string,
+    post_date: string,
     transaction_type: TransactionType,
-    merchantID?: string | null,
+    amount: string,
+    category_id?: string | null,
+    description?: string | null,
+    title?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateTransactionSubscriptionVariables = {
+  filter?: ModelSubscriptionTransactionFilterInput | null,
+};
+
+export type OnUpdateTransactionSubscription = {
+  onUpdateTransaction?:  {
+    __typename: "Transaction",
+    id: string,
+    reference_id?: string | null,
+    transaction_date: string,
+    post_date: string,
+    transaction_type: TransactionType,
+    amount: string,
+    category_id?: string | null,
+    description?: string | null,
+    title?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteTransactionSubscriptionVariables = {
+  filter?: ModelSubscriptionTransactionFilterInput | null,
+};
+
+export type OnDeleteTransactionSubscription = {
+  onDeleteTransaction?:  {
+    __typename: "Transaction",
+    id: string,
+    reference_id?: string | null,
+    transaction_date: string,
+    post_date: string,
+    transaction_type: TransactionType,
+    amount: string,
+    category_id?: string | null,
+    description?: string | null,
+    title?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,

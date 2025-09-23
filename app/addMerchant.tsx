@@ -141,7 +141,7 @@ const addMerchant = () => {
                                         source={{
                                             uri: merchant.url,
                                         }}
-                                        style={{ width: 100, height: 100, borderRadius: 25, marginBottom: 5 }}/>
+                                        style={{ width: 50, height: 50, borderRadius: 25, marginBottom: 5 }}/>
                                     
                                     <Text style={{ color: Colors.white, fontSize: 16 }}>{toTitleCase(merchant.merchant_name)}</Text>
                                 </TouchableOpacity>
@@ -175,7 +175,7 @@ const addMerchant = () => {
                         />
                     </View>
                     <View style={{ gap: 5 }}>
-                        <Text style={styles.groupHeaderTxt}>Tag Keyword</Text>
+                        {/* <Text style={styles.groupHeaderTxt}>Tag Keyword</Text>
                         <Input 
                             placeholder="Enter keywords (optional)" 
                             onChangeText={(value) => {setCurrentKeyWord(value)}}
@@ -212,7 +212,7 @@ const addMerchant = () => {
                         }
                         <Text style={styles.descriptionTxt}>
                             Keyword are use to auto attach transactions with this words or phrase to this merchant.
-                        </Text>
+                        </Text> */}
                     </View>
                     <View>
                         <Text style={styles.groupHeaderTxt}>Merchant Icon</Text>

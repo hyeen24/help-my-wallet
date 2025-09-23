@@ -8,186 +8,11 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateCalendar = /* GraphQL */ `subscription OnCreateCalendar($filter: ModelSubscriptionCalendarFilterInput) {
-  onCreateCalendar(filter: $filter) {
-    id
-    date
-    type
-    author_id
-    amount
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateCalendarSubscriptionVariables,
-  APITypes.OnCreateCalendarSubscription
->;
-export const onUpdateCalendar = /* GraphQL */ `subscription OnUpdateCalendar($filter: ModelSubscriptionCalendarFilterInput) {
-  onUpdateCalendar(filter: $filter) {
-    id
-    date
-    type
-    author_id
-    amount
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateCalendarSubscriptionVariables,
-  APITypes.OnUpdateCalendarSubscription
->;
-export const onDeleteCalendar = /* GraphQL */ `subscription OnDeleteCalendar($filter: ModelSubscriptionCalendarFilterInput) {
-  onDeleteCalendar(filter: $filter) {
-    id
-    date
-    type
-    author_id
-    amount
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteCalendarSubscriptionVariables,
-  APITypes.OnDeleteCalendarSubscription
->;
-export const onCreateExpenseGroup = /* GraphQL */ `subscription OnCreateExpenseGroup(
-  $filter: ModelSubscriptionExpenseGroupFilterInput
-) {
-  onCreateExpenseGroup(filter: $filter) {
-    id
-    name
-    author_id
-    color
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateExpenseGroupSubscriptionVariables,
-  APITypes.OnCreateExpenseGroupSubscription
->;
-export const onUpdateExpenseGroup = /* GraphQL */ `subscription OnUpdateExpenseGroup(
-  $filter: ModelSubscriptionExpenseGroupFilterInput
-) {
-  onUpdateExpenseGroup(filter: $filter) {
-    id
-    name
-    author_id
-    color
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateExpenseGroupSubscriptionVariables,
-  APITypes.OnUpdateExpenseGroupSubscription
->;
-export const onDeleteExpenseGroup = /* GraphQL */ `subscription OnDeleteExpenseGroup(
-  $filter: ModelSubscriptionExpenseGroupFilterInput
-) {
-  onDeleteExpenseGroup(filter: $filter) {
-    id
-    name
-    author_id
-    color
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteExpenseGroupSubscriptionVariables,
-  APITypes.OnDeleteExpenseGroupSubscription
->;
-export const onCreateIncome = /* GraphQL */ `subscription OnCreateIncome($filter: ModelSubscriptionIncomeFilterInput) {
-  onCreateIncome(filter: $filter) {
-    id
-    amount
-    name
-    author_id
-    icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
-    recurrence
-    start_date
-    end_date
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateIncomeSubscriptionVariables,
-  APITypes.OnCreateIncomeSubscription
->;
-export const onUpdateIncome = /* GraphQL */ `subscription OnUpdateIncome($filter: ModelSubscriptionIncomeFilterInput) {
-  onUpdateIncome(filter: $filter) {
-    id
-    amount
-    name
-    author_id
-    icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
-    recurrence
-    start_date
-    end_date
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateIncomeSubscriptionVariables,
-  APITypes.OnUpdateIncomeSubscription
->;
-export const onDeleteIncome = /* GraphQL */ `subscription OnDeleteIncome($filter: ModelSubscriptionIncomeFilterInput) {
-  onDeleteIncome(filter: $filter) {
-    id
-    amount
-    name
-    author_id
-    icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
-    recurrence
-    start_date
-    end_date
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteIncomeSubscriptionVariables,
-  APITypes.OnDeleteIncomeSubscription
->;
 export const onCreateMerchant = /* GraphQL */ `subscription OnCreateMerchant($filter: ModelSubscriptionMerchantFilterInput) {
   onCreateMerchant(filter: $filter) {
     id
-    merchant_name
-    author_id
+    name
     image
-    category_id
-    keywords
-    Transactions {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -200,15 +25,8 @@ export const onCreateMerchant = /* GraphQL */ `subscription OnCreateMerchant($fi
 export const onUpdateMerchant = /* GraphQL */ `subscription OnUpdateMerchant($filter: ModelSubscriptionMerchantFilterInput) {
   onUpdateMerchant(filter: $filter) {
     id
-    merchant_name
-    author_id
+    name
     image
-    category_id
-    keywords
-    Transactions {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -221,15 +39,8 @@ export const onUpdateMerchant = /* GraphQL */ `subscription OnUpdateMerchant($fi
 export const onDeleteMerchant = /* GraphQL */ `subscription OnDeleteMerchant($filter: ModelSubscriptionMerchantFilterInput) {
   onDeleteMerchant(filter: $filter) {
     id
-    merchant_name
-    author_id
+    name
     image
-    category_id
-    keywords
-    Transactions {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -239,69 +50,183 @@ export const onDeleteMerchant = /* GraphQL */ `subscription OnDeleteMerchant($fi
   APITypes.OnDeleteMerchantSubscriptionVariables,
   APITypes.OnDeleteMerchantSubscription
 >;
-export const onCreateTransactions = /* GraphQL */ `subscription OnCreateTransactions(
-  $filter: ModelSubscriptionTransactionsFilterInput
-) {
-  onCreateTransactions(filter: $filter) {
+export const onCreateIncome = /* GraphQL */ `subscription OnCreateIncome($filter: ModelSubscriptionIncomeFilterInput) {
+  onCreateIncome(filter: $filter) {
     id
-    post_date
-    transaction_date
+    name
+    recurrence_id
+    start_date
+    active
     amount
     description
-    author_id
-    category_id
-    transaction_type
-    merchantID
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateTransactionsSubscriptionVariables,
-  APITypes.OnCreateTransactionsSubscription
+  APITypes.OnCreateIncomeSubscriptionVariables,
+  APITypes.OnCreateIncomeSubscription
 >;
-export const onUpdateTransactions = /* GraphQL */ `subscription OnUpdateTransactions(
-  $filter: ModelSubscriptionTransactionsFilterInput
-) {
-  onUpdateTransactions(filter: $filter) {
+export const onUpdateIncome = /* GraphQL */ `subscription OnUpdateIncome($filter: ModelSubscriptionIncomeFilterInput) {
+  onUpdateIncome(filter: $filter) {
     id
-    post_date
-    transaction_date
+    name
+    recurrence_id
+    start_date
+    active
     amount
     description
-    author_id
-    category_id
-    transaction_type
-    merchantID
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateTransactionsSubscriptionVariables,
-  APITypes.OnUpdateTransactionsSubscription
+  APITypes.OnUpdateIncomeSubscriptionVariables,
+  APITypes.OnUpdateIncomeSubscription
 >;
-export const onDeleteTransactions = /* GraphQL */ `subscription OnDeleteTransactions(
-  $filter: ModelSubscriptionTransactionsFilterInput
-) {
-  onDeleteTransactions(filter: $filter) {
+export const onDeleteIncome = /* GraphQL */ `subscription OnDeleteIncome($filter: ModelSubscriptionIncomeFilterInput) {
+  onDeleteIncome(filter: $filter) {
     id
-    post_date
-    transaction_date
+    name
+    recurrence_id
+    start_date
+    active
     amount
     description
-    author_id
-    category_id
-    transaction_type
-    merchantID
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteTransactionsSubscriptionVariables,
-  APITypes.OnDeleteTransactionsSubscription
+  APITypes.OnDeleteIncomeSubscriptionVariables,
+  APITypes.OnDeleteIncomeSubscription
+>;
+export const onCreateExpense = /* GraphQL */ `subscription OnCreateExpense($filter: ModelSubscriptionExpenseFilterInput) {
+  onCreateExpense(filter: $filter) {
+    id
+    name
+    color
+    merchant_id
+    recurrence_id
+    amount
+    description
+    start_date
+    active
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateExpenseSubscriptionVariables,
+  APITypes.OnCreateExpenseSubscription
+>;
+export const onUpdateExpense = /* GraphQL */ `subscription OnUpdateExpense($filter: ModelSubscriptionExpenseFilterInput) {
+  onUpdateExpense(filter: $filter) {
+    id
+    name
+    color
+    merchant_id
+    recurrence_id
+    amount
+    description
+    start_date
+    active
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateExpenseSubscriptionVariables,
+  APITypes.OnUpdateExpenseSubscription
+>;
+export const onDeleteExpense = /* GraphQL */ `subscription OnDeleteExpense($filter: ModelSubscriptionExpenseFilterInput) {
+  onDeleteExpense(filter: $filter) {
+    id
+    name
+    color
+    merchant_id
+    recurrence_id
+    amount
+    description
+    start_date
+    active
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteExpenseSubscriptionVariables,
+  APITypes.OnDeleteExpenseSubscription
+>;
+export const onCreateTransaction = /* GraphQL */ `subscription OnCreateTransaction(
+  $filter: ModelSubscriptionTransactionFilterInput
+) {
+  onCreateTransaction(filter: $filter) {
+    id
+    reference_id
+    transaction_date
+    post_date
+    transaction_type
+    amount
+    category_id
+    description
+    title
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateTransactionSubscriptionVariables,
+  APITypes.OnCreateTransactionSubscription
+>;
+export const onUpdateTransaction = /* GraphQL */ `subscription OnUpdateTransaction(
+  $filter: ModelSubscriptionTransactionFilterInput
+) {
+  onUpdateTransaction(filter: $filter) {
+    id
+    reference_id
+    transaction_date
+    post_date
+    transaction_type
+    amount
+    category_id
+    description
+    title
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateTransactionSubscriptionVariables,
+  APITypes.OnUpdateTransactionSubscription
+>;
+export const onDeleteTransaction = /* GraphQL */ `subscription OnDeleteTransaction(
+  $filter: ModelSubscriptionTransactionFilterInput
+) {
+  onDeleteTransaction(filter: $filter) {
+    id
+    reference_id
+    transaction_date
+    post_date
+    transaction_type
+    amount
+    category_id
+    description
+    title
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteTransactionSubscriptionVariables,
+  APITypes.OnDeleteTransactionSubscription
 >;

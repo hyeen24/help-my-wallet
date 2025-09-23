@@ -1,71 +1,45 @@
-enum IncomeOrExpense {
-  INCOME
-  EXPENSE
-}
-
-type Calendar @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  date: AWSDate
-  type: IncomeOrExpense
-  author_id: ID!
-  amount: Float!
-}
-
-type ExpenseGroup @model @auth(rules: [{allow: public}]) {
+type Merchant @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
-  author_id: ID!
-  color: String
-}
-
-enum IncomeRecurrence {
-  ONCE
-  DAILY
-  MONTHLY
-  QUARTERLY
-  YEARLY
-}
-
-type Icon {
-  Icon_name: String
-  Icon_type: String
+  image: String
 }
 
 type Income @model @auth(rules: [{allow: public}]) {
   id: ID!
-  amount: Float!
   name: String!
-  author_id: ID!
-  icon: Icon
-  recurrence: IncomeRecurrence!
+  recurrence_id: String
   start_date: AWSDate!
-  end_date: AWSDate
+  active: Boolean
+  amount: Float!
+  description: String
 }
 
-type Merchant @model @auth(rules: [{allow: public}]) {
+type Expense @model @auth(rules: [{allow: public}]) {
   id: ID!
-  merchant_name: String!
-  author_id: ID!
-  image: String
-  category_id: ID
-  keywords: [String]
-  Transactions: [Transactions] @hasMany(indexName: "byMerchant", fields: ["id"])
+  name: String!
+  color: String!
+  merchant_id: String
+  recurrence_id: String
+  amount: Float!
+  description: String
+  start_date: AWSDate!
+  active: Boolean
 }
 
 enum TransactionType {
-  CREDIT
   DEBIT
+  CREDIT
 }
 
-type Transactions @model @auth(rules: [{allow: public}]) {
+type Transaction @model @auth(rules: [{allow: public}]) {
   id: ID!
-  post_date: AWSDate
+  reference_id: String
   transaction_date: AWSDate!
-  amount: Float!
-  description: String!
-  author_id: ID!
-  category_id: ID
+  post_date: AWSDate!
   transaction_type: TransactionType!
-  merchantID: ID @index(name: "byMerchant")
+  amount: String!
+  category_id: String
+  description: String
+  title: String
 }
  

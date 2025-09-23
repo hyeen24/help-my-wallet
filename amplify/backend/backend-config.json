@@ -41,7 +41,6 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL",
           "NAME"
         ],
         "socialProviders": [],
@@ -57,7 +56,7 @@
     }
   },
   "storage": {
-    "s3helpmywalletstorage9c586961": {
+    "s3helpmywalletstorage056a5708": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

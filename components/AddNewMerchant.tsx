@@ -88,76 +88,83 @@ const AddNewMerchant = () => {
 
   return (
     
-    <View style={{ gap: 20 }}>
-        <View>
-            <Text style={[styles.groupHeaderTxt, {color:theme.textColor}]}>Merchant Name</Text>
-            <Input
-                placeholder="Enter merchant name"
-                onChangeText={(value) => {
-                setCategoryName(value);
-                }}
-                iconLeft={
-                <MaterialIcons
-                    name="storefront"
-                    size={24}
-                    color={theme.textColor}
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+          <View>
+            <Text style={styles.pageTitleTxt}>Add a New Merchant</Text>
+            <Text style={[styles.pageTxt, {marginLeft: 20, color:theme.textColor}]}>Let's add a new merchant to your <Text style={{ fontWeight: 600 }}>account</Text>.</Text>
+          </View>
+          <View style={ {gap: 16}}>
+            <View>
+                <Text style={[styles.groupHeaderTxt, {color: theme.textColor}]}>Merchant Name</Text>
+                <Input 
+                    placeholder="Enter merchant name" 
+                    onChangeText={(value) => {setCategoryName(value)}}
+                    iconLeft={<MaterialIcons name='storefront' size={24} color={Colors.white}/>}
                 />
-                }
-            />
-        </View>
-        <View>
-            <Text style={[styles.groupHeaderTxt, {color:theme.textColor}]}>Linked Account</Text>
-            <Input
-                placeholder="Select linked account"
-                onChangeText={(value) => {}} // Handle linked account selection
-                iconLeft={
-                <MaterialCommunityIcons
-                    name="bank"
-                    size={22}
-                    color={theme.textColor}
-                />
-                }
-            />
-        </View>
-        <View>
-            <Text style={[styles.groupHeaderTxt, {color: theme.textColor}]}>Merchant Icon</Text>
-            <TouchableOpacity
-                onPress={() => {
-                pickImage();
-                }}
-                style={{
-                width: 100,
-                height: 120,
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 10,
-                borderWidth: 0.7,
-                borderColor: theme.textColor,
-                borderStyle: "dashed",
-                backgroundColor: '#ccc',
-                }}
-            >
-                {image ? (
-                <Image
-                    source={{ uri: image }}
-                    style={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: 10,
-                    }}
-                />
-                ) : (
-                <MaterialCommunityIcons
-                    name="file-image-plus"
-                    size={36}
-                    color={theme.textColor}
-                />
-                )}
-            </TouchableOpacity>
-        </View>
-        <Button onPress={addMerchant}>
-            <Text style={[styles.groupHeaderTxt, {color:Colors.white}]}>Add Merchant</Text>
-        </Button>
+            </View>
+              {/* <View style={{ gap: 5 }}>
+                  <Text style={styles.groupHeaderTxt}>Tag Keyword</Text>
+                  <Input 
+                      placeholder="Enter keywords (optional)" 
+                      onChangeText={(value) => {setCurrentKeyWord(value)}}
+                      iconLeft={<MaterialIcons name='abc' size={24} color={Colors.white}/>}
+                      iconRight={<AntDesign name='plus' size={22} color={Colors.white}/>}
+                      onPress = {addNewWord(currentKeyWord)}
+                  />
+                  {
+                      keywords.length > 0 ? (
+                          <FlatList 
+                              data={keywords} 
+                              renderItem={({ item }) => (
+                                  <TouchableOpacity style={{ 
+                                      backgroundColor: Colors.neutral700, 
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      padding: 10, 
+                                      borderRadius: 8, 
+                                      marginVertical: 5,
+                                      gap: 2
+                                  }} onPress={() => {
+                                      setKeywords(keywords.filter((word) => word !== item));
+                                  }}>
+                                      <Text style={{ color: Colors.white }}>{item}</Text>
+                                      <Entypo name="cross" size={16} color={Colors.white} />
+                                  </TouchableOpacity>
+                              )}
+                              keyExtractor={(item) => item}
+                              horizontal
+                              ItemSeparatorComponent={() => <View style={{ width: 5 }} />}
+                              showsHorizontalScrollIndicator={false}
+                          />
+                      ) : null
+                  }
+                  <Text style={styles.descriptionTxt}>
+                      Keyword are use to auto attach transactions with this words or phrase to this merchant.
+                  </Text> 
+              </View> */}
+            <View>
+              <Text style={[styles.groupHeaderTxt, {color: theme.textColor}]}>Merchant Icon</Text>
+              <TouchableOpacity onPress={()=>{pickImage()}} style={{ 
+                  width: 100,
+                  height: 100,
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
+                  borderRadius: 10, 
+                  borderWidth: 0.7,
+                  borderColor: Colors.white,
+                  borderStyle: 'dashed',
+                  backgroundColor: Colors.grey}}>  
+                  { image ? (
+                      <Image source={{ uri: image }} style={{ width: '100%', height: '100%', borderRadius: 10 }}/>
+                  ): 
+                      <MaterialCommunityIcons name='file-image-plus' size={36} color={Colors.white}/>
+                  }
+              </TouchableOpacity>                           
+            </View>
+                </View>
+                <Button onPress={addMerchant}> 
+                    <Text style={{color : Colors.white}}>Add Merchant</Text>
+                </Button>
     </View>
               
   )
@@ -166,9 +173,25 @@ const AddNewMerchant = () => {
 export default AddNewMerchant
 
 const styles = StyleSheet.create({
-    groupHeaderTxt: {
-        fontSize: 14,
-        paddingBottom: 8,
-        fontWeight: 600,
-      }
+  container: {
+        flex: 1,
+        gap: 16,
+      },
+  groupHeaderTxt: {
+      fontSize: 14,
+      paddingBottom: 8,
+      fontWeight: 600,
+    },
+  pageTitleTxt : {
+          fontSize: 24,
+          color: Colors.white,
+          fontWeight: 700
+      },
+  pageSubTitleTxt : {
+    fontSize: 18,
+    fontWeight: 700
+  },
+  pageTxt : {
+      fontSize: 12,
+  },
 })

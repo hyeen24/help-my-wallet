@@ -8,147 +8,11 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getCalendar = /* GraphQL */ `query GetCalendar($id: ID!) {
-  getCalendar(id: $id) {
-    id
-    date
-    type
-    author_id
-    amount
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetCalendarQueryVariables,
-  APITypes.GetCalendarQuery
->;
-export const listCalendars = /* GraphQL */ `query ListCalendars(
-  $filter: ModelCalendarFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listCalendars(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      date
-      type
-      author_id
-      amount
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListCalendarsQueryVariables,
-  APITypes.ListCalendarsQuery
->;
-export const getExpenseGroup = /* GraphQL */ `query GetExpenseGroup($id: ID!) {
-  getExpenseGroup(id: $id) {
-    id
-    name
-    author_id
-    color
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetExpenseGroupQueryVariables,
-  APITypes.GetExpenseGroupQuery
->;
-export const listExpenseGroups = /* GraphQL */ `query ListExpenseGroups(
-  $filter: ModelExpenseGroupFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listExpenseGroups(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      author_id
-      color
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListExpenseGroupsQueryVariables,
-  APITypes.ListExpenseGroupsQuery
->;
-export const getIncome = /* GraphQL */ `query GetIncome($id: ID!) {
-  getIncome(id: $id) {
-    id
-    amount
-    name
-    author_id
-    icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
-    recurrence
-    start_date
-    end_date
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.GetIncomeQueryVariables, APITypes.GetIncomeQuery>;
-export const listIncomes = /* GraphQL */ `query ListIncomes(
-  $filter: ModelIncomeFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listIncomes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      amount
-      name
-      author_id
-      recurrence
-      start_date
-      icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
-      end_date
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListIncomesQueryVariables,
-  APITypes.ListIncomesQuery
->;
 export const getMerchant = /* GraphQL */ `query GetMerchant($id: ID!) {
   getMerchant(id: $id) {
     id
-    merchant_name
-    author_id
+    name
     image
-    category_id
-    keywords
-    Transactions {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -166,11 +30,8 @@ export const listMerchants = /* GraphQL */ `query ListMerchants(
   listMerchants(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      merchant_name
-      author_id
+      name
       image
-      category_id
-      keywords
       createdAt
       updatedAt
       __typename
@@ -183,42 +44,131 @@ export const listMerchants = /* GraphQL */ `query ListMerchants(
   APITypes.ListMerchantsQueryVariables,
   APITypes.ListMerchantsQuery
 >;
-export const getTransactions = /* GraphQL */ `query GetTransactions($id: ID!) {
-  getTransactions(id: $id) {
+export const getIncome = /* GraphQL */ `query GetIncome($id: ID!) {
+  getIncome(id: $id) {
     id
-    post_date
-    transaction_date
+    name
+    recurrence_id
+    start_date
+    active
     amount
     description
-    author_id
-    category_id
-    transaction_type
-    merchantID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetIncomeQueryVariables, APITypes.GetIncomeQuery>;
+export const listIncomes = /* GraphQL */ `query ListIncomes(
+  $filter: ModelIncomeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listIncomes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      recurrence_id
+      start_date
+      active
+      amount
+      description
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListIncomesQueryVariables,
+  APITypes.ListIncomesQuery
+>;
+export const getExpense = /* GraphQL */ `query GetExpense($id: ID!) {
+  getExpense(id: $id) {
+    id
+    name
+    color
+    merchant_id
+    recurrence_id
+    amount
+    description
+    start_date
+    active
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetTransactionsQueryVariables,
-  APITypes.GetTransactionsQuery
+  APITypes.GetExpenseQueryVariables,
+  APITypes.GetExpenseQuery
+>;
+export const listExpenses = /* GraphQL */ `query ListExpenses(
+  $filter: ModelExpenseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listExpenses(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      color
+      merchant_id
+      recurrence_id
+      amount
+      description
+      start_date
+      active
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListExpensesQueryVariables,
+  APITypes.ListExpensesQuery
+>;
+export const getTransaction = /* GraphQL */ `query GetTransaction($id: ID!) {
+  getTransaction(id: $id) {
+    id
+    reference_id
+    transaction_date
+    post_date
+    transaction_type
+    amount
+    category_id
+    description
+    title
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetTransactionQueryVariables,
+  APITypes.GetTransactionQuery
 >;
 export const listTransactions = /* GraphQL */ `query ListTransactions(
-  $filter: ModelTransactionsFilterInput
+  $filter: ModelTransactionFilterInput
   $limit: Int
   $nextToken: String
 ) {
   listTransactions(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      post_date
+      reference_id
       transaction_date
-      amount
-      description
-      author_id
-      category_id
+      post_date
       transaction_type
-      merchantID
+      amount
+      category_id
+      description
+      title
       createdAt
       updatedAt
       __typename
@@ -230,40 +180,4 @@ export const listTransactions = /* GraphQL */ `query ListTransactions(
 ` as GeneratedQuery<
   APITypes.ListTransactionsQueryVariables,
   APITypes.ListTransactionsQuery
->;
-export const transactionsByMerchantID = /* GraphQL */ `query TransactionsByMerchantID(
-  $merchantID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelTransactionsFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  transactionsByMerchantID(
-    merchantID: $merchantID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      post_date
-      transaction_date
-      amount
-      description
-      author_id
-      category_id
-      transaction_type
-      merchantID
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.TransactionsByMerchantIDQueryVariables,
-  APITypes.TransactionsByMerchantIDQuery
 >;

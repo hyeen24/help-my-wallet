@@ -11,7 +11,7 @@ import IncomeBlock from '@/components/IncomeBlock';
 import TransactionBlock from '@/components/TransactionBlock';
 import { useTheme } from '@/contexts/ThemeContext';
 import { generateClient } from 'aws-amplify/api';
-import { listExpenseGroups, listExpenses, listIncomes, listTransactions } from '@/src/graphql/queries';
+import { listExpenses, listIncomes, listTransactions } from '@/src/graphql/queries';
 import { list } from 'aws-amplify/storage';
 
 const home = () => {
@@ -41,7 +41,7 @@ const home = () => {
     try {
         const [incomeResult, expenseResult, transactionResult] = await Promise.all([
           client.graphql({ query: listIncomes }),
-          client.graphql({ query: listExpenseGroups }),
+          client.graphql({ query: listExpenses }),
           client.graphql({ query: listTransactions })
         ]);
 

@@ -1,0 +1,11 @@
+{
+  "resourceName": "s3helpmywalletstorage056a5708",
+  "bucketName": "helpmywallet-storage-056a5708",
+  "policyUUID": "915c00c4",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ]
+}

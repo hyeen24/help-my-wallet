@@ -8,210 +8,14 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
-export const createCalendar = /* GraphQL */ `mutation CreateCalendar(
-  $input: CreateCalendarInput!
-  $condition: ModelCalendarConditionInput
-) {
-  createCalendar(input: $input, condition: $condition) {
-    id
-    date
-    type
-    author_id
-    amount
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateCalendarMutationVariables,
-  APITypes.CreateCalendarMutation
->;
-export const updateCalendar = /* GraphQL */ `mutation UpdateCalendar(
-  $input: UpdateCalendarInput!
-  $condition: ModelCalendarConditionInput
-) {
-  updateCalendar(input: $input, condition: $condition) {
-    id
-    date
-    type
-    author_id
-    amount
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateCalendarMutationVariables,
-  APITypes.UpdateCalendarMutation
->;
-export const deleteCalendar = /* GraphQL */ `mutation DeleteCalendar(
-  $input: DeleteCalendarInput!
-  $condition: ModelCalendarConditionInput
-) {
-  deleteCalendar(input: $input, condition: $condition) {
-    id
-    date
-    type
-    author_id
-    amount
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteCalendarMutationVariables,
-  APITypes.DeleteCalendarMutation
->;
-export const createExpenseGroup = /* GraphQL */ `mutation CreateExpenseGroup(
-  $input: CreateExpenseGroupInput!
-  $condition: ModelExpenseGroupConditionInput
-) {
-  createExpenseGroup(input: $input, condition: $condition) {
-    id
-    name
-    author_id
-    color
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateExpenseGroupMutationVariables,
-  APITypes.CreateExpenseGroupMutation
->;
-export const updateExpenseGroup = /* GraphQL */ `mutation UpdateExpenseGroup(
-  $input: UpdateExpenseGroupInput!
-  $condition: ModelExpenseGroupConditionInput
-) {
-  updateExpenseGroup(input: $input, condition: $condition) {
-    id
-    name
-    author_id
-    color
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateExpenseGroupMutationVariables,
-  APITypes.UpdateExpenseGroupMutation
->;
-export const deleteExpenseGroup = /* GraphQL */ `mutation DeleteExpenseGroup(
-  $input: DeleteExpenseGroupInput!
-  $condition: ModelExpenseGroupConditionInput
-) {
-  deleteExpenseGroup(input: $input, condition: $condition) {
-    id
-    name
-    author_id
-    color
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteExpenseGroupMutationVariables,
-  APITypes.DeleteExpenseGroupMutation
->;
-export const createIncome = /* GraphQL */ `mutation CreateIncome(
-  $input: CreateIncomeInput!
-  $condition: ModelIncomeConditionInput
-) {
-  createIncome(input: $input, condition: $condition) {
-    id
-    amount
-    name
-    author_id
-    icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
-    recurrence
-    start_date
-    end_date
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateIncomeMutationVariables,
-  APITypes.CreateIncomeMutation
->;
-export const updateIncome = /* GraphQL */ `mutation UpdateIncome(
-  $input: UpdateIncomeInput!
-  $condition: ModelIncomeConditionInput
-) {
-  updateIncome(input: $input, condition: $condition) {
-    id
-    amount
-    name
-    author_id
-    icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
-    recurrence
-    start_date
-    end_date
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateIncomeMutationVariables,
-  APITypes.UpdateIncomeMutation
->;
-export const deleteIncome = /* GraphQL */ `mutation DeleteIncome(
-  $input: DeleteIncomeInput!
-  $condition: ModelIncomeConditionInput
-) {
-  deleteIncome(input: $input, condition: $condition) {
-    id
-    amount
-    name
-    author_id
-    icon {
-      Icon_name
-      Icon_type
-      __typename
-    }
-    recurrence
-    start_date
-    end_date
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteIncomeMutationVariables,
-  APITypes.DeleteIncomeMutation
->;
 export const createMerchant = /* GraphQL */ `mutation CreateMerchant(
   $input: CreateMerchantInput!
   $condition: ModelMerchantConditionInput
 ) {
   createMerchant(input: $input, condition: $condition) {
     id
-    merchant_name
-    author_id
+    name
     image
-    category_id
-    keywords
-    Transactions {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -227,15 +31,8 @@ export const updateMerchant = /* GraphQL */ `mutation UpdateMerchant(
 ) {
   updateMerchant(input: $input, condition: $condition) {
     id
-    merchant_name
-    author_id
+    name
     image
-    category_id
-    keywords
-    Transactions {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -251,15 +48,8 @@ export const deleteMerchant = /* GraphQL */ `mutation DeleteMerchant(
 ) {
   deleteMerchant(input: $input, condition: $condition) {
     id
-    merchant_name
-    author_id
+    name
     image
-    category_id
-    keywords
-    Transactions {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -269,72 +59,204 @@ export const deleteMerchant = /* GraphQL */ `mutation DeleteMerchant(
   APITypes.DeleteMerchantMutationVariables,
   APITypes.DeleteMerchantMutation
 >;
-export const createTransactions = /* GraphQL */ `mutation CreateTransactions(
-  $input: CreateTransactionsInput!
-  $condition: ModelTransactionsConditionInput
+export const createIncome = /* GraphQL */ `mutation CreateIncome(
+  $input: CreateIncomeInput!
+  $condition: ModelIncomeConditionInput
 ) {
-  createTransactions(input: $input, condition: $condition) {
+  createIncome(input: $input, condition: $condition) {
     id
-    post_date
-    transaction_date
+    name
+    recurrence_id
+    start_date
+    active
     amount
     description
-    author_id
-    category_id
-    transaction_type
-    merchantID
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateTransactionsMutationVariables,
-  APITypes.CreateTransactionsMutation
+  APITypes.CreateIncomeMutationVariables,
+  APITypes.CreateIncomeMutation
 >;
-export const updateTransactions = /* GraphQL */ `mutation UpdateTransactions(
-  $input: UpdateTransactionsInput!
-  $condition: ModelTransactionsConditionInput
+export const updateIncome = /* GraphQL */ `mutation UpdateIncome(
+  $input: UpdateIncomeInput!
+  $condition: ModelIncomeConditionInput
 ) {
-  updateTransactions(input: $input, condition: $condition) {
+  updateIncome(input: $input, condition: $condition) {
     id
-    post_date
-    transaction_date
+    name
+    recurrence_id
+    start_date
+    active
     amount
     description
-    author_id
-    category_id
-    transaction_type
-    merchantID
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateTransactionsMutationVariables,
-  APITypes.UpdateTransactionsMutation
+  APITypes.UpdateIncomeMutationVariables,
+  APITypes.UpdateIncomeMutation
 >;
-export const deleteTransactions = /* GraphQL */ `mutation DeleteTransactions(
-  $input: DeleteTransactionsInput!
-  $condition: ModelTransactionsConditionInput
+export const deleteIncome = /* GraphQL */ `mutation DeleteIncome(
+  $input: DeleteIncomeInput!
+  $condition: ModelIncomeConditionInput
 ) {
-  deleteTransactions(input: $input, condition: $condition) {
+  deleteIncome(input: $input, condition: $condition) {
     id
-    post_date
-    transaction_date
+    name
+    recurrence_id
+    start_date
+    active
     amount
     description
-    author_id
-    category_id
-    transaction_type
-    merchantID
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteTransactionsMutationVariables,
-  APITypes.DeleteTransactionsMutation
+  APITypes.DeleteIncomeMutationVariables,
+  APITypes.DeleteIncomeMutation
+>;
+export const createExpense = /* GraphQL */ `mutation CreateExpense(
+  $input: CreateExpenseInput!
+  $condition: ModelExpenseConditionInput
+) {
+  createExpense(input: $input, condition: $condition) {
+    id
+    name
+    color
+    merchant_id
+    recurrence_id
+    amount
+    description
+    start_date
+    active
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateExpenseMutationVariables,
+  APITypes.CreateExpenseMutation
+>;
+export const updateExpense = /* GraphQL */ `mutation UpdateExpense(
+  $input: UpdateExpenseInput!
+  $condition: ModelExpenseConditionInput
+) {
+  updateExpense(input: $input, condition: $condition) {
+    id
+    name
+    color
+    merchant_id
+    recurrence_id
+    amount
+    description
+    start_date
+    active
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateExpenseMutationVariables,
+  APITypes.UpdateExpenseMutation
+>;
+export const deleteExpense = /* GraphQL */ `mutation DeleteExpense(
+  $input: DeleteExpenseInput!
+  $condition: ModelExpenseConditionInput
+) {
+  deleteExpense(input: $input, condition: $condition) {
+    id
+    name
+    color
+    merchant_id
+    recurrence_id
+    amount
+    description
+    start_date
+    active
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteExpenseMutationVariables,
+  APITypes.DeleteExpenseMutation
+>;
+export const createTransaction = /* GraphQL */ `mutation CreateTransaction(
+  $input: CreateTransactionInput!
+  $condition: ModelTransactionConditionInput
+) {
+  createTransaction(input: $input, condition: $condition) {
+    id
+    reference_id
+    transaction_date
+    post_date
+    transaction_type
+    amount
+    category_id
+    description
+    title
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateTransactionMutationVariables,
+  APITypes.CreateTransactionMutation
+>;
+export const updateTransaction = /* GraphQL */ `mutation UpdateTransaction(
+  $input: UpdateTransactionInput!
+  $condition: ModelTransactionConditionInput
+) {
+  updateTransaction(input: $input, condition: $condition) {
+    id
+    reference_id
+    transaction_date
+    post_date
+    transaction_type
+    amount
+    category_id
+    description
+    title
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateTransactionMutationVariables,
+  APITypes.UpdateTransactionMutation
+>;
+export const deleteTransaction = /* GraphQL */ `mutation DeleteTransaction(
+  $input: DeleteTransactionInput!
+  $condition: ModelTransactionConditionInput
+) {
+  deleteTransaction(input: $input, condition: $condition) {
+    id
+    reference_id
+    transaction_date
+    post_date
+    transaction_type
+    amount
+    category_id
+    description
+    title
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteTransactionMutationVariables,
+  APITypes.DeleteTransactionMutation
 >;
