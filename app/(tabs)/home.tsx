@@ -46,10 +46,10 @@ const home = () => {
         ]);
 
         const incomes = incomeResult.data?.listIncomes?.items ?? [];
-        const expenses = expenseResult.data?.listExpenseGroups?.items ?? [];
+        const expenses = expenseResult.data?.listExpenses?.items ?? [];
         const transactions = transactionResult.data?.listTransactions?.items ?? [];
 
-        // console.log("Incomes fetched:", incomes);
+        console.log("Incomes fetched:", incomes);
         // console.log("Expenses fetched:", expenses);
 
         setIncomes(incomes);
@@ -182,7 +182,7 @@ const home = () => {
               >
                 <Text
                   style={{
-                    fontSize: 24,
+                    fontSize: 14,
                     fontWeight: 700,
                     color: theme.altTextColor,
                   }}

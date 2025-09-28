@@ -2,20 +2,32 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateMerchantInput = {
+export type CreateReccurrenceInput = {
   id?: string | null,
-  name: string,
-  image?: string | null,
+  type?: UntitledEnum | null,
+  value?: string | null,
 };
 
-export type ModelMerchantConditionInput = {
-  name?: ModelStringInput | null,
-  image?: ModelStringInput | null,
-  and?: Array< ModelMerchantConditionInput | null > | null,
-  or?: Array< ModelMerchantConditionInput | null > | null,
-  not?: ModelMerchantConditionInput | null,
+export enum UntitledEnum {
+  DAY = "DAY",
+  MONTH = "MONTH",
+  YEAR = "YEAR",
+}
+
+
+export type ModelReccurrenceConditionInput = {
+  type?: ModelUntitledEnumInput | null,
+  value?: ModelStringInput | null,
+  and?: Array< ModelReccurrenceConditionInput | null > | null,
+  or?: Array< ModelReccurrenceConditionInput | null > | null,
+  not?: ModelReccurrenceConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+};
+
+export type ModelUntitledEnumInput = {
+  eq?: UntitledEnum | null,
+  ne?: UntitledEnum | null,
 };
 
 export type ModelStringInput = {
@@ -58,6 +70,41 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type Reccurrence = {
+  __typename: "Reccurrence",
+  id: string,
+  type?: UntitledEnum | null,
+  value?: string | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateReccurrenceInput = {
+  id: string,
+  type?: UntitledEnum | null,
+  value?: string | null,
+};
+
+export type DeleteReccurrenceInput = {
+  id: string,
+};
+
+export type CreateMerchantInput = {
+  id?: string | null,
+  name: string,
+  image?: string | null,
+};
+
+export type ModelMerchantConditionInput = {
+  name?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  and?: Array< ModelMerchantConditionInput | null > | null,
+  or?: Array< ModelMerchantConditionInput | null > | null,
+  not?: ModelMerchantConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
 export type Merchant = {
   __typename: "Merchant",
   id: string,
@@ -84,7 +131,13 @@ export type CreateIncomeInput = {
   start_date: string,
   active?: boolean | null,
   amount: number,
+  icon?: IconInput | null,
   description?: string | null,
+};
+
+export type IconInput = {
+  icon_name: string,
+  icon_type: string,
 };
 
 export type ModelIncomeConditionInput = {
@@ -128,9 +181,16 @@ export type Income = {
   start_date: string,
   active?: boolean | null,
   amount: number,
+  icon?: Icon | null,
   description?: string | null,
   createdAt: string,
   updatedAt: string,
+};
+
+export type Icon = {
+  __typename: "Icon",
+  icon_name: string,
+  icon_type: string,
 };
 
 export type UpdateIncomeInput = {
@@ -140,6 +200,7 @@ export type UpdateIncomeInput = {
   start_date?: string | null,
   active?: boolean | null,
   amount?: number | null,
+  icon?: IconInput | null,
   description?: string | null,
 };
 
@@ -276,15 +337,15 @@ export type DeleteTransactionInput = {
   id: string,
 };
 
-export type ModelMerchantFilterInput = {
+export type ModelReccurrenceFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  image?: ModelStringInput | null,
+  type?: ModelUntitledEnumInput | null,
+  value?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelMerchantFilterInput | null > | null,
-  or?: Array< ModelMerchantFilterInput | null > | null,
-  not?: ModelMerchantFilterInput | null,
+  and?: Array< ModelReccurrenceFilterInput | null > | null,
+  or?: Array< ModelReccurrenceFilterInput | null > | null,
+  not?: ModelReccurrenceFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -301,6 +362,23 @@ export type ModelIDInput = {
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
   size?: ModelSizeInput | null,
+};
+
+export type ModelReccurrenceConnection = {
+  __typename: "ModelReccurrenceConnection",
+  items:  Array<Reccurrence | null >,
+  nextToken?: string | null,
+};
+
+export type ModelMerchantFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelMerchantFilterInput | null > | null,
+  or?: Array< ModelMerchantFilterInput | null > | null,
+  not?: ModelMerchantFilterInput | null,
 };
 
 export type ModelMerchantConnection = {
@@ -376,14 +454,14 @@ export type ModelTransactionConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionMerchantFilterInput = {
+export type ModelSubscriptionReccurrenceFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  image?: ModelSubscriptionStringInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  value?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
+  and?: Array< ModelSubscriptionReccurrenceFilterInput | null > | null,
+  or?: Array< ModelSubscriptionReccurrenceFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -414,6 +492,16 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionMerchantFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  image?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIncomeFilterInput = {
@@ -479,6 +567,54 @@ export type ModelSubscriptionTransactionFilterInput = {
   or?: Array< ModelSubscriptionTransactionFilterInput | null > | null,
 };
 
+export type CreateReccurrenceMutationVariables = {
+  input: CreateReccurrenceInput,
+  condition?: ModelReccurrenceConditionInput | null,
+};
+
+export type CreateReccurrenceMutation = {
+  createReccurrence?:  {
+    __typename: "Reccurrence",
+    id: string,
+    type?: UntitledEnum | null,
+    value?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateReccurrenceMutationVariables = {
+  input: UpdateReccurrenceInput,
+  condition?: ModelReccurrenceConditionInput | null,
+};
+
+export type UpdateReccurrenceMutation = {
+  updateReccurrence?:  {
+    __typename: "Reccurrence",
+    id: string,
+    type?: UntitledEnum | null,
+    value?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteReccurrenceMutationVariables = {
+  input: DeleteReccurrenceInput,
+  condition?: ModelReccurrenceConditionInput | null,
+};
+
+export type DeleteReccurrenceMutation = {
+  deleteReccurrence?:  {
+    __typename: "Reccurrence",
+    id: string,
+    type?: UntitledEnum | null,
+    value?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type CreateMerchantMutationVariables = {
   input: CreateMerchantInput,
   condition?: ModelMerchantConditionInput | null,
@@ -541,6 +677,11 @@ export type CreateIncomeMutation = {
     start_date: string,
     active?: boolean | null,
     amount: number,
+    icon?:  {
+      __typename: "Icon",
+      icon_name: string,
+      icon_type: string,
+    } | null,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -561,6 +702,11 @@ export type UpdateIncomeMutation = {
     start_date: string,
     active?: boolean | null,
     amount: number,
+    icon?:  {
+      __typename: "Icon",
+      icon_name: string,
+      icon_type: string,
+    } | null,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -581,6 +727,11 @@ export type DeleteIncomeMutation = {
     start_date: string,
     active?: boolean | null,
     amount: number,
+    icon?:  {
+      __typename: "Icon",
+      icon_name: string,
+      icon_type: string,
+    } | null,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -719,6 +870,42 @@ export type DeleteTransactionMutation = {
   } | null,
 };
 
+export type GetReccurrenceQueryVariables = {
+  id: string,
+};
+
+export type GetReccurrenceQuery = {
+  getReccurrence?:  {
+    __typename: "Reccurrence",
+    id: string,
+    type?: UntitledEnum | null,
+    value?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListReccurrencesQueryVariables = {
+  filter?: ModelReccurrenceFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListReccurrencesQuery = {
+  listReccurrences?:  {
+    __typename: "ModelReccurrenceConnection",
+    items:  Array< {
+      __typename: "Reccurrence",
+      id: string,
+      type?: UntitledEnum | null,
+      value?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetMerchantQueryVariables = {
   id: string,
 };
@@ -768,6 +955,11 @@ export type GetIncomeQuery = {
     start_date: string,
     active?: boolean | null,
     amount: number,
+    icon?:  {
+      __typename: "Icon",
+      icon_name: string,
+      icon_type: string,
+    } | null,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -895,6 +1087,51 @@ export type ListTransactionsQuery = {
   } | null,
 };
 
+export type OnCreateReccurrenceSubscriptionVariables = {
+  filter?: ModelSubscriptionReccurrenceFilterInput | null,
+};
+
+export type OnCreateReccurrenceSubscription = {
+  onCreateReccurrence?:  {
+    __typename: "Reccurrence",
+    id: string,
+    type?: UntitledEnum | null,
+    value?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateReccurrenceSubscriptionVariables = {
+  filter?: ModelSubscriptionReccurrenceFilterInput | null,
+};
+
+export type OnUpdateReccurrenceSubscription = {
+  onUpdateReccurrence?:  {
+    __typename: "Reccurrence",
+    id: string,
+    type?: UntitledEnum | null,
+    value?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteReccurrenceSubscriptionVariables = {
+  filter?: ModelSubscriptionReccurrenceFilterInput | null,
+};
+
+export type OnDeleteReccurrenceSubscription = {
+  onDeleteReccurrence?:  {
+    __typename: "Reccurrence",
+    id: string,
+    type?: UntitledEnum | null,
+    value?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateMerchantSubscriptionVariables = {
   filter?: ModelSubscriptionMerchantFilterInput | null,
 };
@@ -953,6 +1190,11 @@ export type OnCreateIncomeSubscription = {
     start_date: string,
     active?: boolean | null,
     amount: number,
+    icon?:  {
+      __typename: "Icon",
+      icon_name: string,
+      icon_type: string,
+    } | null,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -972,6 +1214,11 @@ export type OnUpdateIncomeSubscription = {
     start_date: string,
     active?: boolean | null,
     amount: number,
+    icon?:  {
+      __typename: "Icon",
+      icon_name: string,
+      icon_type: string,
+    } | null,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -991,6 +1238,11 @@ export type OnDeleteIncomeSubscription = {
     start_date: string,
     active?: boolean | null,
     amount: number,
+    icon?:  {
+      __typename: "Icon",
+      icon_name: string,
+      icon_type: string,
+    } | null,
     description?: string | null,
     createdAt: string,
     updatedAt: string,

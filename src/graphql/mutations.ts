@@ -8,6 +8,57 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createReccurrence = /* GraphQL */ `mutation CreateReccurrence(
+  $input: CreateReccurrenceInput!
+  $condition: ModelReccurrenceConditionInput
+) {
+  createReccurrence(input: $input, condition: $condition) {
+    id
+    type
+    value
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateReccurrenceMutationVariables,
+  APITypes.CreateReccurrenceMutation
+>;
+export const updateReccurrence = /* GraphQL */ `mutation UpdateReccurrence(
+  $input: UpdateReccurrenceInput!
+  $condition: ModelReccurrenceConditionInput
+) {
+  updateReccurrence(input: $input, condition: $condition) {
+    id
+    type
+    value
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateReccurrenceMutationVariables,
+  APITypes.UpdateReccurrenceMutation
+>;
+export const deleteReccurrence = /* GraphQL */ `mutation DeleteReccurrence(
+  $input: DeleteReccurrenceInput!
+  $condition: ModelReccurrenceConditionInput
+) {
+  deleteReccurrence(input: $input, condition: $condition) {
+    id
+    type
+    value
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteReccurrenceMutationVariables,
+  APITypes.DeleteReccurrenceMutation
+>;
 export const createMerchant = /* GraphQL */ `mutation CreateMerchant(
   $input: CreateMerchantInput!
   $condition: ModelMerchantConditionInput
@@ -70,6 +121,11 @@ export const createIncome = /* GraphQL */ `mutation CreateIncome(
     start_date
     active
     amount
+    icon {
+      icon_name
+      icon_type
+      __typename
+    }
     description
     createdAt
     updatedAt
@@ -91,6 +147,11 @@ export const updateIncome = /* GraphQL */ `mutation UpdateIncome(
     start_date
     active
     amount
+    icon {
+      icon_name
+      icon_type
+      __typename
+    }
     description
     createdAt
     updatedAt
@@ -112,6 +173,11 @@ export const deleteIncome = /* GraphQL */ `mutation DeleteIncome(
     start_date
     active
     amount
+    icon {
+      icon_name
+      icon_type
+      __typename
+    }
     description
     createdAt
     updatedAt

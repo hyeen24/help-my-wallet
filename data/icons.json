@@ -7,9 +7,12 @@
     {"iconFamily" : "MaterialCommunityIcons", "iconName" : "shopping", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
     {"iconFamily" : "MaterialCommunityIcons", "iconName" : "cart", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
     {"iconFamily" : "FontAwesome6", "iconName" : "shopify", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
-    {"iconFamily" : "MaterialCommunityIcons", "iconName" : "spotify", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
-    {"iconFamily" : "MaterialCommunityIcons", "iconName" : "netflix", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
+    {"iconFamily" : "MaterialCommunityIcons", "iconName" : "spotify", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},   
     {"iconFamily" : "MaterialCommunityIcons", "iconName" : "car", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
     {"iconFamily" : "MaterialCommunityIcons", "iconName" : "google-play", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
     {"iconFamily" : "MaterialCommunityIcons", "iconName" : "piggy-bank", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
+    {"iconFamily" : "MaterialCommunityIcons", "iconName" : "briefcase-variant-outline", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
+    {"iconFamily" : "FontAwesome6", "iconName" : "money-bill-1", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
+    {"iconFamily" : "FontAwesome6", "iconName" : "money-check-dollar", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"},  
+    {"iconFamily" : "FontAwesome6", "iconName" : "money-bill-transfer", "iconType" : "solid", "iconSize" : 24, "iconColor" : "#000000"}  
 ]

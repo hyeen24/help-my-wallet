@@ -3,6 +3,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   useColorScheme,
   View,
@@ -25,27 +26,26 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { generateClient } from "aws-amplify/api";
 import { useAuth } from "@/contexts/AuthContext";
 import * as mutations from '../src/graphql/mutations';
+import { FlipInEasyX } from "react-native-reanimated";
+import { listReccurrences } from "@/src/graphql/queries";
+import { CognitoUserPoolsAuthorizer } from "aws-cdk-lib/aws-apigateway";
 
 const AddNewIncome = () => {
   const [categoryName, setCategoryName] = useState("");
-  const appTheme = useColorScheme();
   const [icon, setIcon] = useState("");
   const [iconFamily, setIconFamily] = useState("");
-  const [recurrence, setRecurrence] = useState<string | null>(null);
+  const [recurrence, setRecurrence] = useState<string | null>("once");
   const { theme } = useTheme();
   const [incomeAmount, setIncomeAmount] = useState<number | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
-  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  const [ interval, setInterval ] = useState<number | null>(null);
+  const [ description, setDescription ] = useState<string | null>("");
   const client = generateClient();
   const { user } = useAuth();
- 
-  
 
   useEffect(() => {
     setStartDate(new Date());
-    setEndDate(new Date());
   }, []);
 
   const selectRecurrence = (selected: string) => {
@@ -60,61 +60,77 @@ const AddNewIncome = () => {
     setShowStartDatePicker(true);
   };
 
-  const displayEndDatePicker = () => {
-    setShowEndDatePicker(true);
-  };
-
   const onChangeStartDate = (event: any, date?: Date) => {
     setShowStartDatePicker(false);
     if (date) {
       setStartDate(date);
-      setEndDate(date);
-    }
-  };
-
-  const onChangeEndDate = (event: any, date?: Date) => {
-    setShowEndDatePicker(false);
-    if (date) {
-      setEndDate(date);
-    }
-
-    if (date && startDate && date < startDate) {
-      Alert.alert("Error", "End date cannot be before start date.");
-      setEndDate(startDate); // Reset end date to start date
     }
   };
   
   const createNewIncome = async () => {
-    // Here you would typically send the data to your backend or state management
-    // console.log(user.userId, "User ID");
-
-    if (!categoryName || !incomeAmount || !icon || !iconFamily) {
-      Alert.alert("Error", "Please fill in all fields.");
-      return;
+    
+    if (!categoryName || !incomeAmount || !icon || !startDate) {
+      Alert.alert("Error", "Please filled up the required fields.")
+      return
     }
 
-    const incomeDetails = {
-      name: categoryName,
-      amount: incomeAmount,
-      icon : {
-      Icon_name: icon,
-      Icon_type: iconFamily,
-      },
-      recurrence: recurrence?.toUpperCase(),
-      start_date: startDate ? startDate.toISOString().split('T')[0] : "",
-      end_date: endDate ? endDate.toISOString().split('T')[0]  : null,
-      author_id: user.userId || "",
+    console.log(interval)
+    if (recurrence != "once" && interval < 1) {
+       Alert.alert("Error", "Recurrence value cannot be empty or 0.")
+       return
     }
 
-    // const calendarDetails = {
-    //   date
-    // }
+    if (recurrence === "Month" && interval > 11) {
+       Alert.alert("Error", "Number of months for recurrence cannot exceed 11.")
+       return
+    }
+
+    if (recurrence === "Day" && interval > 28) {
+       Alert.alert("Error", "Number of days for recurrence cannot exceed 28.")
+       return
+    }
 
     try {
-      const response = await client.graphql({
+      // Retrieve recurrence_id from backend
+      let recurrenceId: string | null = null;
+
+      if (recurrence != "once") {
+        const response = await client.graphql({
+          query: listReccurrences,
+          variables: { 
+            filter : {
+              type: { eq : recurrence?.toLocaleUpperCase()} ,
+              value : { eq : interval?.toString()} 
+            }
+           }
+        });
+  
+        recurrenceId = response.data.listReccurrences.items[0]?.id ?? null;
+        console.log(recurrenceId)
+      }
+
+      const incomeDetails = {
+          name: categoryName,
+          recurrence_id: recurrenceId,
+          start_date: startDate ? startDate.toISOString().split('T')[0] : "",
+          active: true,
+          amount: incomeAmount,
+          icon : {
+          icon_name: icon,
+          icon_type: iconFamily,
+          },
+        }
+
+      console.log(incomeDetails)
+
+      const res = await client.graphql({
         query: mutations.createIncome,
-        variables: { input: incomeDetails }
-      });
+        variables: {
+          input: incomeDetails
+        }
+      })
+
+      // console.log(res)
         Alert.alert("New Income Added", "Your income has been added successfully.", [
           {
             text: "OK",
@@ -122,10 +138,6 @@ const AddNewIncome = () => {
           },
         ]);
 
-      // const response = await client.graphql({
-      //   query: mutations.createCalendar,
-
-      // })
     } catch (error) {
       console.error("Error creating income:", error);
       Alert.alert("Error", "Failed to create income. Please try again.");
@@ -136,7 +148,7 @@ const AddNewIncome = () => {
     <ScrollView style={styles.container}>
       <View>
         <Text style={[styles.pageTitleTxt, {color: theme.textColor}]}>Add New Income</Text>
-                    <Text style={[styles.pageTxt,  {color: theme.textColor, marginBottom: 20 }]}>
+                    <Text style={[styles.pageTxt,  {color: theme.textColor, marginBottom: 8, marginLeft: 8 }]}>
                       Let's add a new income source for your{" "}
                       <Text style={{ fontWeight: 600 }}>account.</Text>
                     </Text>
@@ -144,16 +156,16 @@ const AddNewIncome = () => {
           Income Name
         </Text>
         <Input
-          placeholder="Enter category type"
+          placeholder="Enter name of the income"
           onChangeText={(value) => {
             setCategoryName(value);
           }}
           iconLeft={
-            <MaterialIcons name="category" size={24} color={theme.textColor} />
+            <MaterialIcons name="category" size={18} color={theme.textColor} />
           }
         />
       </View>
-      <View style={{ height: 500, marginTop: 20 }}>
+      <View style={{ height: 500, marginTop: 8 }}>
         <View>
           <Text style={[styles.groupHeaderTxt, { color: theme.textColor }]}>Amount</Text>
           <Input
@@ -163,7 +175,20 @@ const AddNewIncome = () => {
               setIncomeAmount(value === "" ? null : Number(value));
             }}
             iconLeft={
-              <FontAwesome name="dollar" size={22} color={theme.textColor} />
+              <FontAwesome name="dollar" size={18} color={theme.textColor} />
+            }
+          />
+        </View>
+
+        <View style={{ marginTop: 8}}>
+          <Text style={[styles.groupHeaderTxt, { color: theme.textColor }]}>Description</Text>
+          <Input
+            placeholder="Enter description"
+            onChangeText={(value) => {
+              setDescription(value);
+            }}
+            iconLeft={
+              <MaterialIcons name="description" size={18} color={theme.textColor} />
             }
           />
         </View>
@@ -197,7 +222,7 @@ const AddNewIncome = () => {
                     alignItems: "center",
                     height: 40,
                     width: 40,
-                    borderColor: isSelectedIcon ?  theme.textColor : "#666",
+                    borderColor: "#666",
                     borderWidth: 1,
                     borderRadius: 50,
                     backgroundColor: isSelectedIcon ? Colors.tintColor : "transparent", 
@@ -250,59 +275,64 @@ const AddNewIncome = () => {
                   styles.recurrenceSelectionContainer,
                   {
                     backgroundColor:
-                      recurrence === "daily" ? Colors.tintColor  : undefined,
+                      recurrence === "Day" ? Colors.tintColor  : undefined,
                     borderColor:
-                      recurrence === "daily" ? Colors.tintColor : "#666",
+                      recurrence === "Day" ? Colors.tintColor : "#666",
                   },
                 ]}
-                onPress={() => selectRecurrence("daily")}
+                onPress={() => selectRecurrence("Day")}
               >
-                <Text style={{ color: recurrence === "daily" ? Colors.white : theme.textColor  }}>Daily</Text>
+                <Text style={{ color: recurrence === "Day" ? Colors.white : theme.textColor  }}>By Day</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[
                   styles.recurrenceSelectionContainer,
                   {
                     backgroundColor:
-                      recurrence === "monthly" ? Colors.tintColor  : undefined,
+                      recurrence === "Month" ? Colors.tintColor  : undefined,
                     borderColor:
-                      recurrence === "monthly" ? Colors.tintColor : "#666",
+                      recurrence === "Month" ? Colors.tintColor : "#666",
                   },
                 ]}
-                onPress={() => selectRecurrence("monthly")}
+                onPress={() => selectRecurrence("Month")}
               >
-                <Text style={{ color: recurrence === "monthly" ? Colors.white : theme.textColor }}>Monthly</Text>
+                <Text style={{ color: recurrence === "Month" ? Colors.white : theme.textColor }}>By Month</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[
                   styles.recurrenceSelectionContainer,
                   {
                     backgroundColor:
-                      recurrence === "yearly" ? Colors.tintColor  : undefined,
+                      recurrence === "Year" ? Colors.tintColor  : undefined,
                     borderColor:
-                      recurrence === "yearly" ? Colors.tintColor : "#666",
+                      recurrence === "Year" ? Colors.tintColor : "#666",
                   },
                 ]}
-                onPress={() => selectRecurrence("yearly")}
+                onPress={() => selectRecurrence("Year")}
               >
-                <Text style={{ color: recurrence === "yearly" ? Colors.white : theme.textColor }}>Yearly</Text>
+                <Text style={{ color: recurrence === "Year" ? Colors.white : theme.textColor }}>By Year</Text>
               </TouchableOpacity>
             </View>
+            { recurrence != "once" && (
+              <View style={{ marginTop: 20 , flexDirection: "row",justifyContent:"flex-start", alignItems: "center", gap: 10 }}>
+              <Text style={[styles.groupHeaderTxt, { color: theme.textColor, flex: 2 }]}>Every:</Text>
+                <TextInput style={[styles.datePickerButton, {color: theme.textColor, flex:2, textAlign:"center"}]} 
+                placeholder="Number" placeholderTextColor="#666" keyboardType="number-pad" onChangeText={(value) => setInterval(value)}/>
+                <Text style={{ color: theme.textColor, flex: 4 }}>{recurrence}</Text>
+            </View> )}
             <View style={{ marginTop: 20, gap: 10 }}>
               <View
-                style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
+                style={{ flexDirection: "row", gap: 10, alignItems: "center"}}
               >
                 <Text
                   style={[
                     styles.groupHeaderTxt,
-                    {color:theme.textColor , paddingBottom: 0, width: 80 },
+                    {color:theme.textColor , paddingBottom: 0, width: 80, flex:1 },
                   ]}
-                >
-                  Start Date:{" "}
-                </Text>
+                >{ recurrence != "once" ? "Start Date:" : "Date:"}</Text>
                 <TouchableOpacity
                   onPress={displayStartDatePicker}
-                  style={styles.datePickerButton}
+                  style={[styles.datePickerButton, {flex: 3}]}
                 >
                   <Text style={{ color: theme.textColor, textAlign: "center" }}>
                     {startDate
@@ -324,49 +354,6 @@ const AddNewIncome = () => {
                   />
                 )}
               </View>
-              {recurrence !== "once" && recurrence && (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    gap: 10,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={[
-                      styles.groupHeaderTxt,
-                      {color:theme.textColor ,paddingBottom: 0, width: 80 },
-                    ]}
-                  >
-                    End Date:
-                  </Text>
-                  <TouchableOpacity
-                    onPress={displayEndDatePicker}
-                    style={styles.datePickerButton}
-                  >
-                    <Text
-                      style={{ color: theme.textColor, textAlign: "center" }}
-                    >
-                      {endDate
-                        ? endDate.toLocaleDateString("en-GB", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })
-                        : ""}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-              {showEndDatePicker && (
-                <DateTimePicker
-                  value={new Date()}
-                  mode="date"
-                  display="default"
-                  onChange={onChangeEndDate}
-                  style={{ width: "100%" }}
-                />
-              )}
             </View>
           </View>
           <View style={{ width: "100%", marginTop: 10 }}>
@@ -399,7 +386,6 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   datePickerButton: {
-    width: "70%",
     backgroundColor: "transparent",
     borderRadius: 10,
     borderColor: "#666",

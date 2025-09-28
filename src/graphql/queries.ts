@@ -8,6 +8,42 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getReccurrence = /* GraphQL */ `query GetReccurrence($id: ID!) {
+  getReccurrence(id: $id) {
+    id
+    type
+    value
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetReccurrenceQueryVariables,
+  APITypes.GetReccurrenceQuery
+>;
+export const listReccurrences = /* GraphQL */ `query ListReccurrences(
+  $filter: ModelReccurrenceFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listReccurrences(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      type
+      value
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListReccurrencesQueryVariables,
+  APITypes.ListReccurrencesQuery
+>;
 export const getMerchant = /* GraphQL */ `query GetMerchant($id: ID!) {
   getMerchant(id: $id) {
     id
@@ -52,6 +88,11 @@ export const getIncome = /* GraphQL */ `query GetIncome($id: ID!) {
     start_date
     active
     amount
+    icon {
+      icon_name
+      icon_type
+      __typename
+    }
     description
     createdAt
     updatedAt
@@ -71,6 +112,10 @@ export const listIncomes = /* GraphQL */ `query ListIncomes(
       recurrence_id
       start_date
       active
+      icon {
+        icon_name,
+        icon_type
+      }
       amount
       description
       createdAt

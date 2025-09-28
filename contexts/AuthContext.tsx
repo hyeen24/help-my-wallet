@@ -48,7 +48,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           fetchUser();
         return { success: { isSignedIn, nextStep }, message: 'User signed in successfully.' };
     } catch (error) {
-        return { error: { message: error.message || 'Failed to sign in user.' } };
+      setLoading(false);
+      return { error : { message : error.message}}
     }
     // if (isSignedIn) {
     //   const currentUser = await getCurrentUser();

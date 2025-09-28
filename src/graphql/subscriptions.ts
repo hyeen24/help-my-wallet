@@ -8,6 +8,54 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
+export const onCreateReccurrence = /* GraphQL */ `subscription OnCreateReccurrence(
+  $filter: ModelSubscriptionReccurrenceFilterInput
+) {
+  onCreateReccurrence(filter: $filter) {
+    id
+    type
+    value
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateReccurrenceSubscriptionVariables,
+  APITypes.OnCreateReccurrenceSubscription
+>;
+export const onUpdateReccurrence = /* GraphQL */ `subscription OnUpdateReccurrence(
+  $filter: ModelSubscriptionReccurrenceFilterInput
+) {
+  onUpdateReccurrence(filter: $filter) {
+    id
+    type
+    value
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateReccurrenceSubscriptionVariables,
+  APITypes.OnUpdateReccurrenceSubscription
+>;
+export const onDeleteReccurrence = /* GraphQL */ `subscription OnDeleteReccurrence(
+  $filter: ModelSubscriptionReccurrenceFilterInput
+) {
+  onDeleteReccurrence(filter: $filter) {
+    id
+    type
+    value
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteReccurrenceSubscriptionVariables,
+  APITypes.OnDeleteReccurrenceSubscription
+>;
 export const onCreateMerchant = /* GraphQL */ `subscription OnCreateMerchant($filter: ModelSubscriptionMerchantFilterInput) {
   onCreateMerchant(filter: $filter) {
     id
@@ -58,6 +106,11 @@ export const onCreateIncome = /* GraphQL */ `subscription OnCreateIncome($filter
     start_date
     active
     amount
+    icon {
+      icon_name
+      icon_type
+      __typename
+    }
     description
     createdAt
     updatedAt
@@ -76,6 +129,11 @@ export const onUpdateIncome = /* GraphQL */ `subscription OnUpdateIncome($filter
     start_date
     active
     amount
+    icon {
+      icon_name
+      icon_type
+      __typename
+    }
     description
     createdAt
     updatedAt
@@ -94,6 +152,11 @@ export const onDeleteIncome = /* GraphQL */ `subscription OnDeleteIncome($filter
     start_date
     active
     amount
+    icon {
+      icon_name
+      icon_type
+      __typename
+    }
     description
     createdAt
     updatedAt

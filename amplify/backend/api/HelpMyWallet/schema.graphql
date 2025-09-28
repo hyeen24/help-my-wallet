@@ -1,3 +1,20 @@
+type Icon {
+  icon_name: String!
+  icon_type: String!
+}
+
+enum UntitledEnum {
+  DAY
+  MONTH
+  YEAR
+}
+
+type Reccurrence @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  type: UntitledEnum
+  value: String
+}
+
 type Merchant @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
@@ -11,6 +28,7 @@ type Income @model @auth(rules: [{allow: public}]) {
   start_date: AWSDate!
   active: Boolean
   amount: Float!
+  icon: Icon
   description: String
 }
 

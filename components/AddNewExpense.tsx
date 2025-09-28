@@ -178,7 +178,7 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
     <ScrollView style={styles.container}>
         <View>
             <Text style={[styles.pageTitleTxt, {color: theme.textColor}]}>Add New Expense</Text>
-            <Text style={[styles.pageTxt,  {color: theme.textColor, marginBottom: 20 , marginLeft: 20}]}>
+            <Text style={[styles.pageTxt,  {color: theme.textColor, marginBottom: 20 , marginLeft: 8}]}>
                 Let's add a new expense item{" "}
                 <Text style={{ fontWeight: 600 }}>account.</Text>
             </Text>

@@ -14,7 +14,6 @@ const IncomeBlock = ({incomeList, onRefresh} : {incomeList: IncomeType[],  onRef
     const { theme, colorScheme } = useTheme();
     const client = generateClient();
 
-
     const toggleShowMore = (item: any) => {
         if (showMore != item.id){
             setShowMore(item.id)
@@ -56,8 +55,8 @@ const IncomeBlock = ({incomeList, onRefresh} : {incomeList: IncomeType[],  onRef
 
         // console.log(item)
 
-        let iconFamily = item.icon.Icon_type;
-        let iconName = item.icon.Icon_name;
+        let iconFamily = item.icon.icon_type;
+        let iconName = item.icon.icon_name;
 
         return (
             <View>
