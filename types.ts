@@ -167,3 +167,11 @@ export type CreateTransactionsInput = {
     category_id?: string | null | undefined;
     transaction_type: TransactionType;
 }
+
+export type IncomeTotals = {
+  [incomeId: string]: {
+    total: number;
+    icon_name: string;
+    icon_type: string;
+  };
+};

@@ -126,8 +126,9 @@ const AddNewIncome = () => {
       const res = await client.graphql({
         query: mutations.createIncome,
         variables: {
-          input: incomeDetails
-        }
+          input: incomeDetails,
+        },
+        authMode: 'userPool',
       })
 
       // console.log(res)
@@ -377,6 +378,7 @@ const styles = StyleSheet.create({
   groupHeaderTxt: {
     fontSize: 14,
     paddingBottom: 8,
+    marginLeft: 8,
     fontWeight: 600,
   },
   recurrenceSelectionContainer: {

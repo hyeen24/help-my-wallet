@@ -69,6 +69,7 @@ export const createMerchant = /* GraphQL */ `mutation CreateMerchant(
     image
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -86,6 +87,7 @@ export const updateMerchant = /* GraphQL */ `mutation UpdateMerchant(
     image
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -103,6 +105,7 @@ export const deleteMerchant = /* GraphQL */ `mutation DeleteMerchant(
     image
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -129,6 +132,7 @@ export const createIncome = /* GraphQL */ `mutation CreateIncome(
     description
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -155,6 +159,7 @@ export const updateIncome = /* GraphQL */ `mutation UpdateIncome(
     description
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -181,6 +186,7 @@ export const deleteIncome = /* GraphQL */ `mutation DeleteIncome(
     description
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -204,6 +210,7 @@ export const createExpense = /* GraphQL */ `mutation CreateExpense(
     active
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -227,6 +234,7 @@ export const updateExpense = /* GraphQL */ `mutation UpdateExpense(
     active
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -250,6 +258,7 @@ export const deleteExpense = /* GraphQL */ `mutation DeleteExpense(
     active
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -273,6 +282,7 @@ export const createTransaction = /* GraphQL */ `mutation CreateTransaction(
     title
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -296,6 +306,7 @@ export const updateTransaction = /* GraphQL */ `mutation UpdateTransaction(
     title
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -319,6 +330,7 @@ export const deleteTransaction = /* GraphQL */ `mutation DeleteTransaction(
     title
     createdAt
     updatedAt
+    owner
     __typename
   }
 }

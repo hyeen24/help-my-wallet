@@ -51,6 +51,7 @@ export const getMerchant = /* GraphQL */ `query GetMerchant($id: ID!) {
     image
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -70,6 +71,7 @@ export const listMerchants = /* GraphQL */ `query ListMerchants(
       image
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken
@@ -96,6 +98,7 @@ export const getIncome = /* GraphQL */ `query GetIncome($id: ID!) {
     description
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -120,6 +123,7 @@ export const listIncomes = /* GraphQL */ `query ListIncomes(
       description
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken
@@ -143,6 +147,7 @@ export const getExpense = /* GraphQL */ `query GetExpense($id: ID!) {
     active
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -168,6 +173,7 @@ export const listExpenses = /* GraphQL */ `query ListExpenses(
       active
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken
@@ -191,6 +197,7 @@ export const getTransaction = /* GraphQL */ `query GetTransaction($id: ID!) {
     title
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -216,6 +223,7 @@ export const listTransactions = /* GraphQL */ `query ListTransactions(
       title
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken

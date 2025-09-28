@@ -3,7 +3,7 @@ type Icon {
   icon_type: String!
 }
 
-enum UntitledEnum {
+enum RecurrenceType {
   DAY
   MONTH
   YEAR
@@ -11,17 +11,17 @@ enum UntitledEnum {
 
 type Reccurrence @model @auth(rules: [{allow: public}]) {
   id: ID!
-  type: UntitledEnum
+  type: RecurrenceType
   value: String
 }
 
-type Merchant @model @auth(rules: [{allow: public}]) {
+type Merchant @model @auth(rules: [{allow: public}, {allow: owner}]) {
   id: ID!
   name: String!
   image: String
 }
 
-type Income @model @auth(rules: [{allow: public}]) {
+type Income @model @auth(rules: [{allow: owner}]) {
   id: ID!
   name: String!
   recurrence_id: String
@@ -32,7 +32,7 @@ type Income @model @auth(rules: [{allow: public}]) {
   description: String
 }
 
-type Expense @model @auth(rules: [{allow: public}]) {
+type Expense @model @auth(rules: [{allow: owner}]) {
   id: ID!
   name: String!
   color: String!
@@ -49,13 +49,13 @@ enum TransactionType {
   CREDIT
 }
 
-type Transaction @model @auth(rules: [{allow: public}]) {
+type Transaction @model @auth(rules: [{allow: owner}]) {
   id: ID!
   reference_id: String
   transaction_date: AWSDate!
   post_date: AWSDate!
   transaction_type: TransactionType!
-  amount: String!
+  amount: Float!
   category_id: String
   description: String
   title: String

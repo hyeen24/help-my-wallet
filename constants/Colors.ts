@@ -21,5 +21,10 @@ export default {
   neutral600: "#525252",
   neutral700: "#404040",
   neutral800: "#262626",
-  cyan : "#54d2e3"
+  cyan : "#54d2e3",
+  lightGray: "#D9D9D9",
+  gray:"#AFAFAF",
+  red : "#FF3B30",
+  green:"#4CD964",
+  yellow:"#FFCC00",
 }

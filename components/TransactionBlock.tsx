@@ -1,20 +1,18 @@
 import { ListRenderItem, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React from 'react'
 import Colors from '@/constants/Colors'
-import { TransactionType } from '@/types'
+import { IncomeType, TransactionType } from '@/types'
 import { FontAwesome, FontAwesome5, Foundation } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import { darkTheme, lightTheme } from '@/constants/Theme'
 import { useTheme } from '@/contexts/ThemeContext'
 import { generateClient } from 'aws-amplify/api'
+import { Income } from '@/src/API'
 
-const TransactionBlock = ({transactionList}: {transactionList: TransactionType[]}) => {
+const TransactionBlock = ({transactionList, incomeList}: {transactionList: TransactionType[], incomeList: Income[]}) => {
     const appTheme = useColorScheme();
     const { theme } = useTheme();
     const router = useRouter();
     const client = generateClient();
-    
-    // console.log(transactionList)
    
   return (
     <View>
@@ -23,7 +21,7 @@ const TransactionBlock = ({transactionList}: {transactionList: TransactionType[]
                 <Text style={{ fontWeight: 700 , color: theme.altTextColor}}> Transactions
                 </Text>
             </Text>
-            {
+            {   
                 transactionList.length > 0 ?
                 (<TouchableOpacity onPress={() => {router.push('/transaction')}}>
                     <Text style={{ color: theme.textColor, fontSize: 14}}>See all</Text>
@@ -39,6 +37,8 @@ const TransactionBlock = ({transactionList}: {transactionList: TransactionType[]
                                             month: "short",
                                             year: "numeric",
                                             });
+
+                    const isIncome = incomeList.some((income) => income.id === item.category_id);
                     return (
                         <View key={item.id} style={{ flexDirection: 'row', marginVertical: 10, alignItems:'center'}}>
                             <View style={styles.iconContainer}>
@@ -46,10 +46,10 @@ const TransactionBlock = ({transactionList}: {transactionList: TransactionType[]
                             </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                                 <View style={{ gap: 5 }}>
-                                    <Text style={[styles.spendingTxt, { fontWeight: 700 }]}>{item.description}</Text>
-                                    <Text style={styles.spendingTxt}>{formattedDate}</Text>
+                                    <Text style={{color:theme.textColor, fontWeight: 700 }}>{item.title} - {item.description}</Text>
+                                    <Text style={{color:theme.textColor}}>{formattedDate}</Text>
                                 </View>
-                                <Text style={[styles.spendingTxt, { fontWeight: 700 }]}>${item.amount}</Text>
+                                <Text style={{ fontWeight: 700 , color: isIncome? Colors.green : theme.textColor}}>{isIncome? "+ " : "- "}${item.amount}</Text>
                             </View>      
                         </View>  
                     )
@@ -84,9 +84,6 @@ const styles = StyleSheet.create({
     },
     blockTitleTxt: {
             fontSize: 16,
-    },
-    spendingTxt : {
-        color: Colors.white
     },
     iconContainer : {
         backgroundColor: Colors.grey,

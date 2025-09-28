@@ -56,13 +56,17 @@ export const onDeleteReccurrence = /* GraphQL */ `subscription OnDeleteReccurren
   APITypes.OnDeleteReccurrenceSubscriptionVariables,
   APITypes.OnDeleteReccurrenceSubscription
 >;
-export const onCreateMerchant = /* GraphQL */ `subscription OnCreateMerchant($filter: ModelSubscriptionMerchantFilterInput) {
-  onCreateMerchant(filter: $filter) {
+export const onCreateMerchant = /* GraphQL */ `subscription OnCreateMerchant(
+  $filter: ModelSubscriptionMerchantFilterInput
+  $owner: String
+) {
+  onCreateMerchant(filter: $filter, owner: $owner) {
     id
     name
     image
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -70,13 +74,17 @@ export const onCreateMerchant = /* GraphQL */ `subscription OnCreateMerchant($fi
   APITypes.OnCreateMerchantSubscriptionVariables,
   APITypes.OnCreateMerchantSubscription
 >;
-export const onUpdateMerchant = /* GraphQL */ `subscription OnUpdateMerchant($filter: ModelSubscriptionMerchantFilterInput) {
-  onUpdateMerchant(filter: $filter) {
+export const onUpdateMerchant = /* GraphQL */ `subscription OnUpdateMerchant(
+  $filter: ModelSubscriptionMerchantFilterInput
+  $owner: String
+) {
+  onUpdateMerchant(filter: $filter, owner: $owner) {
     id
     name
     image
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -84,13 +92,17 @@ export const onUpdateMerchant = /* GraphQL */ `subscription OnUpdateMerchant($fi
   APITypes.OnUpdateMerchantSubscriptionVariables,
   APITypes.OnUpdateMerchantSubscription
 >;
-export const onDeleteMerchant = /* GraphQL */ `subscription OnDeleteMerchant($filter: ModelSubscriptionMerchantFilterInput) {
-  onDeleteMerchant(filter: $filter) {
+export const onDeleteMerchant = /* GraphQL */ `subscription OnDeleteMerchant(
+  $filter: ModelSubscriptionMerchantFilterInput
+  $owner: String
+) {
+  onDeleteMerchant(filter: $filter, owner: $owner) {
     id
     name
     image
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -98,8 +110,11 @@ export const onDeleteMerchant = /* GraphQL */ `subscription OnDeleteMerchant($fi
   APITypes.OnDeleteMerchantSubscriptionVariables,
   APITypes.OnDeleteMerchantSubscription
 >;
-export const onCreateIncome = /* GraphQL */ `subscription OnCreateIncome($filter: ModelSubscriptionIncomeFilterInput) {
-  onCreateIncome(filter: $filter) {
+export const onCreateIncome = /* GraphQL */ `subscription OnCreateIncome(
+  $filter: ModelSubscriptionIncomeFilterInput
+  $owner: String
+) {
+  onCreateIncome(filter: $filter, owner: $owner) {
     id
     name
     recurrence_id
@@ -114,6 +129,7 @@ export const onCreateIncome = /* GraphQL */ `subscription OnCreateIncome($filter
     description
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -121,8 +137,11 @@ export const onCreateIncome = /* GraphQL */ `subscription OnCreateIncome($filter
   APITypes.OnCreateIncomeSubscriptionVariables,
   APITypes.OnCreateIncomeSubscription
 >;
-export const onUpdateIncome = /* GraphQL */ `subscription OnUpdateIncome($filter: ModelSubscriptionIncomeFilterInput) {
-  onUpdateIncome(filter: $filter) {
+export const onUpdateIncome = /* GraphQL */ `subscription OnUpdateIncome(
+  $filter: ModelSubscriptionIncomeFilterInput
+  $owner: String
+) {
+  onUpdateIncome(filter: $filter, owner: $owner) {
     id
     name
     recurrence_id
@@ -137,6 +156,7 @@ export const onUpdateIncome = /* GraphQL */ `subscription OnUpdateIncome($filter
     description
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -144,8 +164,11 @@ export const onUpdateIncome = /* GraphQL */ `subscription OnUpdateIncome($filter
   APITypes.OnUpdateIncomeSubscriptionVariables,
   APITypes.OnUpdateIncomeSubscription
 >;
-export const onDeleteIncome = /* GraphQL */ `subscription OnDeleteIncome($filter: ModelSubscriptionIncomeFilterInput) {
-  onDeleteIncome(filter: $filter) {
+export const onDeleteIncome = /* GraphQL */ `subscription OnDeleteIncome(
+  $filter: ModelSubscriptionIncomeFilterInput
+  $owner: String
+) {
+  onDeleteIncome(filter: $filter, owner: $owner) {
     id
     name
     recurrence_id
@@ -160,6 +183,7 @@ export const onDeleteIncome = /* GraphQL */ `subscription OnDeleteIncome($filter
     description
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -167,8 +191,11 @@ export const onDeleteIncome = /* GraphQL */ `subscription OnDeleteIncome($filter
   APITypes.OnDeleteIncomeSubscriptionVariables,
   APITypes.OnDeleteIncomeSubscription
 >;
-export const onCreateExpense = /* GraphQL */ `subscription OnCreateExpense($filter: ModelSubscriptionExpenseFilterInput) {
-  onCreateExpense(filter: $filter) {
+export const onCreateExpense = /* GraphQL */ `subscription OnCreateExpense(
+  $filter: ModelSubscriptionExpenseFilterInput
+  $owner: String
+) {
+  onCreateExpense(filter: $filter, owner: $owner) {
     id
     name
     color
@@ -180,6 +207,7 @@ export const onCreateExpense = /* GraphQL */ `subscription OnCreateExpense($filt
     active
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -187,8 +215,11 @@ export const onCreateExpense = /* GraphQL */ `subscription OnCreateExpense($filt
   APITypes.OnCreateExpenseSubscriptionVariables,
   APITypes.OnCreateExpenseSubscription
 >;
-export const onUpdateExpense = /* GraphQL */ `subscription OnUpdateExpense($filter: ModelSubscriptionExpenseFilterInput) {
-  onUpdateExpense(filter: $filter) {
+export const onUpdateExpense = /* GraphQL */ `subscription OnUpdateExpense(
+  $filter: ModelSubscriptionExpenseFilterInput
+  $owner: String
+) {
+  onUpdateExpense(filter: $filter, owner: $owner) {
     id
     name
     color
@@ -200,6 +231,7 @@ export const onUpdateExpense = /* GraphQL */ `subscription OnUpdateExpense($filt
     active
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -207,8 +239,11 @@ export const onUpdateExpense = /* GraphQL */ `subscription OnUpdateExpense($filt
   APITypes.OnUpdateExpenseSubscriptionVariables,
   APITypes.OnUpdateExpenseSubscription
 >;
-export const onDeleteExpense = /* GraphQL */ `subscription OnDeleteExpense($filter: ModelSubscriptionExpenseFilterInput) {
-  onDeleteExpense(filter: $filter) {
+export const onDeleteExpense = /* GraphQL */ `subscription OnDeleteExpense(
+  $filter: ModelSubscriptionExpenseFilterInput
+  $owner: String
+) {
+  onDeleteExpense(filter: $filter, owner: $owner) {
     id
     name
     color
@@ -220,6 +255,7 @@ export const onDeleteExpense = /* GraphQL */ `subscription OnDeleteExpense($filt
     active
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -229,8 +265,9 @@ export const onDeleteExpense = /* GraphQL */ `subscription OnDeleteExpense($filt
 >;
 export const onCreateTransaction = /* GraphQL */ `subscription OnCreateTransaction(
   $filter: ModelSubscriptionTransactionFilterInput
+  $owner: String
 ) {
-  onCreateTransaction(filter: $filter) {
+  onCreateTransaction(filter: $filter, owner: $owner) {
     id
     reference_id
     transaction_date
@@ -242,6 +279,7 @@ export const onCreateTransaction = /* GraphQL */ `subscription OnCreateTransacti
     title
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -251,8 +289,9 @@ export const onCreateTransaction = /* GraphQL */ `subscription OnCreateTransacti
 >;
 export const onUpdateTransaction = /* GraphQL */ `subscription OnUpdateTransaction(
   $filter: ModelSubscriptionTransactionFilterInput
+  $owner: String
 ) {
-  onUpdateTransaction(filter: $filter) {
+  onUpdateTransaction(filter: $filter, owner: $owner) {
     id
     reference_id
     transaction_date
@@ -264,6 +303,7 @@ export const onUpdateTransaction = /* GraphQL */ `subscription OnUpdateTransacti
     title
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -273,8 +313,9 @@ export const onUpdateTransaction = /* GraphQL */ `subscription OnUpdateTransacti
 >;
 export const onDeleteTransaction = /* GraphQL */ `subscription OnDeleteTransaction(
   $filter: ModelSubscriptionTransactionFilterInput
+  $owner: String
 ) {
-  onDeleteTransaction(filter: $filter) {
+  onDeleteTransaction(filter: $filter, owner: $owner) {
     id
     reference_id
     transaction_date
@@ -286,6 +327,7 @@ export const onDeleteTransaction = /* GraphQL */ `subscription OnDeleteTransacti
     title
     createdAt
     updatedAt
+    owner
     __typename
   }
 }

@@ -4,11 +4,11 @@
 
 export type CreateReccurrenceInput = {
   id?: string | null,
-  type?: UntitledEnum | null,
+  type?: RecurrenceType | null,
   value?: string | null,
 };
 
-export enum UntitledEnum {
+export enum RecurrenceType {
   DAY = "DAY",
   MONTH = "MONTH",
   YEAR = "YEAR",
@@ -16,7 +16,7 @@ export enum UntitledEnum {
 
 
 export type ModelReccurrenceConditionInput = {
-  type?: ModelUntitledEnumInput | null,
+  type?: ModelRecurrenceTypeInput | null,
   value?: ModelStringInput | null,
   and?: Array< ModelReccurrenceConditionInput | null > | null,
   or?: Array< ModelReccurrenceConditionInput | null > | null,
@@ -25,9 +25,9 @@ export type ModelReccurrenceConditionInput = {
   updatedAt?: ModelStringInput | null,
 };
 
-export type ModelUntitledEnumInput = {
-  eq?: UntitledEnum | null,
-  ne?: UntitledEnum | null,
+export type ModelRecurrenceTypeInput = {
+  eq?: RecurrenceType | null,
+  ne?: RecurrenceType | null,
 };
 
 export type ModelStringInput = {
@@ -73,7 +73,7 @@ export type ModelSizeInput = {
 export type Reccurrence = {
   __typename: "Reccurrence",
   id: string,
-  type?: UntitledEnum | null,
+  type?: RecurrenceType | null,
   value?: string | null,
   createdAt: string,
   updatedAt: string,
@@ -81,7 +81,7 @@ export type Reccurrence = {
 
 export type UpdateReccurrenceInput = {
   id: string,
-  type?: UntitledEnum | null,
+  type?: RecurrenceType | null,
   value?: string | null,
 };
 
@@ -103,6 +103,7 @@ export type ModelMerchantConditionInput = {
   not?: ModelMerchantConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type Merchant = {
@@ -112,6 +113,7 @@ export type Merchant = {
   image?: string | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateMerchantInput = {
@@ -152,6 +154,7 @@ export type ModelIncomeConditionInput = {
   not?: ModelIncomeConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelBooleanInput = {
@@ -185,6 +188,7 @@ export type Income = {
   description?: string | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type Icon = {
@@ -234,6 +238,7 @@ export type ModelExpenseConditionInput = {
   not?: ModelExpenseConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type Expense = {
@@ -249,6 +254,7 @@ export type Expense = {
   active?: boolean | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateExpenseInput = {
@@ -273,7 +279,7 @@ export type CreateTransactionInput = {
   transaction_date: string,
   post_date: string,
   transaction_type: TransactionType,
-  amount: string,
+  amount: number,
   category_id?: string | null,
   description?: string | null,
   title?: string | null,
@@ -290,7 +296,7 @@ export type ModelTransactionConditionInput = {
   transaction_date?: ModelStringInput | null,
   post_date?: ModelStringInput | null,
   transaction_type?: ModelTransactionTypeInput | null,
-  amount?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
   category_id?: ModelStringInput | null,
   description?: ModelStringInput | null,
   title?: ModelStringInput | null,
@@ -299,6 +305,7 @@ export type ModelTransactionConditionInput = {
   not?: ModelTransactionConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelTransactionTypeInput = {
@@ -313,12 +320,13 @@ export type Transaction = {
   transaction_date: string,
   post_date: string,
   transaction_type: TransactionType,
-  amount: string,
+  amount: number,
   category_id?: string | null,
   description?: string | null,
   title?: string | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateTransactionInput = {
@@ -327,7 +335,7 @@ export type UpdateTransactionInput = {
   transaction_date?: string | null,
   post_date?: string | null,
   transaction_type?: TransactionType | null,
-  amount?: string | null,
+  amount?: number | null,
   category_id?: string | null,
   description?: string | null,
   title?: string | null,
@@ -339,7 +347,7 @@ export type DeleteTransactionInput = {
 
 export type ModelReccurrenceFilterInput = {
   id?: ModelIDInput | null,
-  type?: ModelUntitledEnumInput | null,
+  type?: ModelRecurrenceTypeInput | null,
   value?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
@@ -379,6 +387,7 @@ export type ModelMerchantFilterInput = {
   and?: Array< ModelMerchantFilterInput | null > | null,
   or?: Array< ModelMerchantFilterInput | null > | null,
   not?: ModelMerchantFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelMerchantConnection = {
@@ -400,6 +409,7 @@ export type ModelIncomeFilterInput = {
   and?: Array< ModelIncomeFilterInput | null > | null,
   or?: Array< ModelIncomeFilterInput | null > | null,
   not?: ModelIncomeFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelIncomeConnection = {
@@ -423,6 +433,7 @@ export type ModelExpenseFilterInput = {
   and?: Array< ModelExpenseFilterInput | null > | null,
   or?: Array< ModelExpenseFilterInput | null > | null,
   not?: ModelExpenseFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelExpenseConnection = {
@@ -437,7 +448,7 @@ export type ModelTransactionFilterInput = {
   transaction_date?: ModelStringInput | null,
   post_date?: ModelStringInput | null,
   transaction_type?: ModelTransactionTypeInput | null,
-  amount?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
   category_id?: ModelStringInput | null,
   description?: ModelStringInput | null,
   title?: ModelStringInput | null,
@@ -446,6 +457,7 @@ export type ModelTransactionFilterInput = {
   and?: Array< ModelTransactionFilterInput | null > | null,
   or?: Array< ModelTransactionFilterInput | null > | null,
   not?: ModelTransactionFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelTransactionConnection = {
@@ -502,6 +514,7 @@ export type ModelSubscriptionMerchantFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
   or?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionIncomeFilterInput = {
@@ -516,6 +529,7 @@ export type ModelSubscriptionIncomeFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionIncomeFilterInput | null > | null,
   or?: Array< ModelSubscriptionIncomeFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionBooleanInput = {
@@ -549,6 +563,7 @@ export type ModelSubscriptionExpenseFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionExpenseFilterInput | null > | null,
   or?: Array< ModelSubscriptionExpenseFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionTransactionFilterInput = {
@@ -557,7 +572,7 @@ export type ModelSubscriptionTransactionFilterInput = {
   transaction_date?: ModelSubscriptionStringInput | null,
   post_date?: ModelSubscriptionStringInput | null,
   transaction_type?: ModelSubscriptionStringInput | null,
-  amount?: ModelSubscriptionStringInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
   category_id?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
   title?: ModelSubscriptionStringInput | null,
@@ -565,6 +580,7 @@ export type ModelSubscriptionTransactionFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionTransactionFilterInput | null > | null,
   or?: Array< ModelSubscriptionTransactionFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type CreateReccurrenceMutationVariables = {
@@ -576,7 +592,7 @@ export type CreateReccurrenceMutation = {
   createReccurrence?:  {
     __typename: "Reccurrence",
     id: string,
-    type?: UntitledEnum | null,
+    type?: RecurrenceType | null,
     value?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -592,7 +608,7 @@ export type UpdateReccurrenceMutation = {
   updateReccurrence?:  {
     __typename: "Reccurrence",
     id: string,
-    type?: UntitledEnum | null,
+    type?: RecurrenceType | null,
     value?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -608,7 +624,7 @@ export type DeleteReccurrenceMutation = {
   deleteReccurrence?:  {
     __typename: "Reccurrence",
     id: string,
-    type?: UntitledEnum | null,
+    type?: RecurrenceType | null,
     value?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -628,6 +644,7 @@ export type CreateMerchantMutation = {
     image?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -644,6 +661,7 @@ export type UpdateMerchantMutation = {
     image?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -660,6 +678,7 @@ export type DeleteMerchantMutation = {
     image?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -685,6 +704,7 @@ export type CreateIncomeMutation = {
     description?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -710,6 +730,7 @@ export type UpdateIncomeMutation = {
     description?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -735,6 +756,7 @@ export type DeleteIncomeMutation = {
     description?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -757,6 +779,7 @@ export type CreateExpenseMutation = {
     active?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -779,6 +802,7 @@ export type UpdateExpenseMutation = {
     active?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -801,6 +825,7 @@ export type DeleteExpenseMutation = {
     active?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -817,12 +842,13 @@ export type CreateTransactionMutation = {
     transaction_date: string,
     post_date: string,
     transaction_type: TransactionType,
-    amount: string,
+    amount: number,
     category_id?: string | null,
     description?: string | null,
     title?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -839,12 +865,13 @@ export type UpdateTransactionMutation = {
     transaction_date: string,
     post_date: string,
     transaction_type: TransactionType,
-    amount: string,
+    amount: number,
     category_id?: string | null,
     description?: string | null,
     title?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -861,12 +888,13 @@ export type DeleteTransactionMutation = {
     transaction_date: string,
     post_date: string,
     transaction_type: TransactionType,
-    amount: string,
+    amount: number,
     category_id?: string | null,
     description?: string | null,
     title?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -878,7 +906,7 @@ export type GetReccurrenceQuery = {
   getReccurrence?:  {
     __typename: "Reccurrence",
     id: string,
-    type?: UntitledEnum | null,
+    type?: RecurrenceType | null,
     value?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -897,7 +925,7 @@ export type ListReccurrencesQuery = {
     items:  Array< {
       __typename: "Reccurrence",
       id: string,
-      type?: UntitledEnum | null,
+      type?: RecurrenceType | null,
       value?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -918,6 +946,7 @@ export type GetMerchantQuery = {
     image?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -937,6 +966,7 @@ export type ListMerchantsQuery = {
       image?: string | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -963,6 +993,7 @@ export type GetIncomeQuery = {
     description?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -986,6 +1017,7 @@ export type ListIncomesQuery = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1009,6 +1041,7 @@ export type GetExpenseQuery = {
     active?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -1034,6 +1067,7 @@ export type ListExpensesQuery = {
       active?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1051,12 +1085,13 @@ export type GetTransactionQuery = {
     transaction_date: string,
     post_date: string,
     transaction_type: TransactionType,
-    amount: string,
+    amount: number,
     category_id?: string | null,
     description?: string | null,
     title?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -1076,12 +1111,13 @@ export type ListTransactionsQuery = {
       transaction_date: string,
       post_date: string,
       transaction_type: TransactionType,
-      amount: string,
+      amount: number,
       category_id?: string | null,
       description?: string | null,
       title?: string | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1095,7 +1131,7 @@ export type OnCreateReccurrenceSubscription = {
   onCreateReccurrence?:  {
     __typename: "Reccurrence",
     id: string,
-    type?: UntitledEnum | null,
+    type?: RecurrenceType | null,
     value?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -1110,7 +1146,7 @@ export type OnUpdateReccurrenceSubscription = {
   onUpdateReccurrence?:  {
     __typename: "Reccurrence",
     id: string,
-    type?: UntitledEnum | null,
+    type?: RecurrenceType | null,
     value?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -1125,7 +1161,7 @@ export type OnDeleteReccurrenceSubscription = {
   onDeleteReccurrence?:  {
     __typename: "Reccurrence",
     id: string,
-    type?: UntitledEnum | null,
+    type?: RecurrenceType | null,
     value?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -1134,6 +1170,7 @@ export type OnDeleteReccurrenceSubscription = {
 
 export type OnCreateMerchantSubscriptionVariables = {
   filter?: ModelSubscriptionMerchantFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateMerchantSubscription = {
@@ -1144,11 +1181,13 @@ export type OnCreateMerchantSubscription = {
     image?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateMerchantSubscriptionVariables = {
   filter?: ModelSubscriptionMerchantFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateMerchantSubscription = {
@@ -1159,11 +1198,13 @@ export type OnUpdateMerchantSubscription = {
     image?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteMerchantSubscriptionVariables = {
   filter?: ModelSubscriptionMerchantFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteMerchantSubscription = {
@@ -1174,11 +1215,13 @@ export type OnDeleteMerchantSubscription = {
     image?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnCreateIncomeSubscriptionVariables = {
   filter?: ModelSubscriptionIncomeFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateIncomeSubscription = {
@@ -1198,11 +1241,13 @@ export type OnCreateIncomeSubscription = {
     description?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateIncomeSubscriptionVariables = {
   filter?: ModelSubscriptionIncomeFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateIncomeSubscription = {
@@ -1222,11 +1267,13 @@ export type OnUpdateIncomeSubscription = {
     description?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteIncomeSubscriptionVariables = {
   filter?: ModelSubscriptionIncomeFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteIncomeSubscription = {
@@ -1246,11 +1293,13 @@ export type OnDeleteIncomeSubscription = {
     description?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnCreateExpenseSubscriptionVariables = {
   filter?: ModelSubscriptionExpenseFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateExpenseSubscription = {
@@ -1267,11 +1316,13 @@ export type OnCreateExpenseSubscription = {
     active?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateExpenseSubscriptionVariables = {
   filter?: ModelSubscriptionExpenseFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateExpenseSubscription = {
@@ -1288,11 +1339,13 @@ export type OnUpdateExpenseSubscription = {
     active?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteExpenseSubscriptionVariables = {
   filter?: ModelSubscriptionExpenseFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteExpenseSubscription = {
@@ -1309,11 +1362,13 @@ export type OnDeleteExpenseSubscription = {
     active?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnCreateTransactionSubscriptionVariables = {
   filter?: ModelSubscriptionTransactionFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateTransactionSubscription = {
@@ -1324,17 +1379,19 @@ export type OnCreateTransactionSubscription = {
     transaction_date: string,
     post_date: string,
     transaction_type: TransactionType,
-    amount: string,
+    amount: number,
     category_id?: string | null,
     description?: string | null,
     title?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateTransactionSubscriptionVariables = {
   filter?: ModelSubscriptionTransactionFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateTransactionSubscription = {
@@ -1345,17 +1402,19 @@ export type OnUpdateTransactionSubscription = {
     transaction_date: string,
     post_date: string,
     transaction_type: TransactionType,
-    amount: string,
+    amount: number,
     category_id?: string | null,
     description?: string | null,
     title?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteTransactionSubscriptionVariables = {
   filter?: ModelSubscriptionTransactionFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteTransactionSubscription = {
@@ -1366,11 +1425,12 @@ export type OnDeleteTransactionSubscription = {
     transaction_date: string,
     post_date: string,
     transaction_type: TransactionType,
-    amount: string,
+    amount: number,
     category_id?: string | null,
     description?: string | null,
     title?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };

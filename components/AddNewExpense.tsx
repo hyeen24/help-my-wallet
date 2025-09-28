@@ -2,8 +2,7 @@ import { Alert, FlatList, ListRenderItem, ScrollView, StyleSheet, Text, Touchabl
 import React, { useEffect } from 'react'
 import Input from './Input';
 import { useTheme } from '@/contexts/ThemeContext';
-import { FontAwesome6, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
-import { CreateExpenseGroupInput, CreateExpenseInput, ExpenseGroup, TransactionType } from '@/src/API';
+import { FontAwesome6, MaterialCommunityIcons, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from './Button';
 import AddNewExpenseGroup from './AddNewExpenseGroup';
@@ -12,9 +11,9 @@ import { generateClient } from 'aws-amplify/api';
 import * as mutations from '../src/graphql/mutations';
 import { router } from 'expo-router';
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { CreateTransactionsInput } from '@/types';
+import { CreateExpenseInput, CreateTransactionInput, Expense, TransactionType } from '@/src/API';
 
-const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) => {
+const AddNewExpense = ({ expenseGroups }: { expenseGroups?: Expense[] }) => {
     const { theme } = useTheme();
     const { user } = useAuth();
     const [ addNewGroup, setAddNewGroup ] = React.useState<boolean>(false);
@@ -29,7 +28,6 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
         setShowDatePicker(true);
     };
 
-
     const expenseGroupsWithNone = [
         {
             name: "None",
@@ -37,22 +35,24 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
         }, ...(expenseGroups || [])
     ]
 
-    const [ expenseItem, setExpenseItem ] = React.useState<CreateTransactionsInput>({
+    const [ expenseItem, setExpenseItem ] = React.useState<CreateTransactionInput>({
         amount: 0.0,
         description: "",
-        author_id: user.userId || "",
+        title: "",
         category_id: "",
         transaction_date: new Date().toISOString().split('T')[0],
+        post_date: new Date().toISOString().split('T')[0],
         transaction_type: TransactionType.DEBIT,
     });
     
-    const [newExpenseGroup, setNewExpenseGroup] = React.useState<CreateExpenseGroupInput>({
+    const [newExpenseGroup, setNewExpenseGroup] = React.useState<CreateExpenseInput>({
         name: "",
-        author_id: user.userId || "",
-        color: ""
+        color: "",
+        amount: 0,
+        start_date: new Date().toISOString().split('T')[0]
     })
 
-    const handleInputChange = (key: keyof CreateTransactionsInput, value: any) => {
+    const handleInputChange = (key: keyof CreateTransactionInput, value: any) => {
         setExpenseItem((prev)=> ({
             ...prev,
             [key]: value
@@ -64,6 +64,7 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
         if (date) {
             setSelectedDate(date);
             handleInputChange("transaction_date", date.toISOString().split('T')[0]);
+            handleInputChange("post_date", date.toISOString().split('T')[0]);
         }
     }
 
@@ -74,7 +75,7 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
         }
     }
 
-    const handleSelectExistingGroup = ({ item }: { item: ExpenseGroup }) => {
+    const handleSelectExistingGroup = ({ item }: { item: Expense }) => {
         setExistingGroup(item.id)
     }
 
@@ -151,7 +152,7 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
 
             try {
                 const result = await client.graphql({
-                    query: mutations.createTransactions,
+                    query: mutations.createTransaction,
                     variables : {
                         input: expensePayload
                     }
@@ -221,6 +222,7 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
                         backgroundColor: theme.backgroundColor , 
                         borderWidth:1, 
                         flex: 1,
+                        height: 42,
                         borderColor: '#666', 
                         alignItems: 'flex-start',
                         }}
@@ -243,6 +245,23 @@ const AddNewExpense = ({ expenseGroups }: { expenseGroups?: ExpenseGroup[] }) =>
                             </View>
                     </Button>
             </View>
+        </View>
+        <View style={styles.sectionContainer}>
+            <Text style={[styles.groupHeaderTxt, {color: theme.textColor}]}>Title</Text>
+            <Input
+                placeholder="Enter Title"
+                style={{ flex:1, color: theme.textColor }}
+                onChangeText={(value) => {
+                    handleInputChange("title", value);
+                }}
+                iconLeft={
+                    <MaterialCommunityIcons
+                    name="subtitles-outline"
+                    size={18}
+                    color={theme.textColor}
+                    />
+                }/>
+
         </View>
         <View style={styles.sectionContainer}>
             <Text style={[styles.groupHeaderTxt, {color: theme.textColor}]}>Description</Text>
@@ -357,18 +376,26 @@ const styles = StyleSheet.create({
     groupHeaderTxt: {
         fontSize: 14,
         paddingBottom: 8,
+        marginLeft: 8,
         fontWeight: 600,
       },
     pageTitleTxt: {
       fontSize: 24,
       fontWeight: 700,
     },
+    datePickerButton: {
+    backgroundColor: "transparent",
+    borderRadius: 10,
+    borderColor: "#666",
+    borderWidth: 1,
+    padding: 5,
+  },
     pageTxt: {
       fontSize: 12,
       marginBottom: 10,
     },
     sectionContainer: {
-        marginTop: 20,
+        marginTop: 8,
         gap:5
     },
     expenseBlockTitle: {

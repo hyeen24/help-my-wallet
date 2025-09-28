@@ -1,6 +1,6 @@
 import { FlatList, ListRenderItem, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React from 'react'
-import { ExpenseType, TransactionType } from '@/types';
+import { ExpenseType, IncomeType, TransactionType } from '@/types';
 import  Colors  from '@/constants/Colors';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -8,7 +8,7 @@ import addCategory from '@/app/addCategory';
 import { darkTheme, lightTheme } from '@/constants/Theme';
 import { useTheme } from '@/contexts/ThemeContext';
 
-const ExpenseBlock = ({expenseList , transactionList} : {expenseList: ExpenseType[] , transactionList : TransactionType[]}) => {
+const ExpenseBlock = ({expenseList , transactionList, incomeList} : {expenseList: ExpenseType[] , transactionList : TransactionType[], incomeList : IncomeType[]}) => {
     const router = useRouter();
     const appTheme = useColorScheme();
     const { theme } = useTheme();
@@ -40,21 +40,6 @@ const ExpenseBlock = ({expenseList , transactionList} : {expenseList: ExpenseTyp
         let BlockColor = item.color
         let TxtColor;
 
-        // switch (item.name) {
-        //     case "Food" :
-        //         BlockColor = Colors.blue;
-        //         TxtColor = Colors.black;
-        //         break;
-        //     case "Entertainment" :
-        //         BlockColor = Colors.tintColor;
-        //         TxtColor = Colors.white;
-        //         break;
-        //     default:
-        //         BlockColor = Colors.white;
-        //         TxtColor = Colors.black;
-        //         break;
-        // }
-
         return(
             <View style={[styles.expenseBlock,
                 {
@@ -77,9 +62,8 @@ const ExpenseBlock = ({expenseList , transactionList} : {expenseList: ExpenseTyp
         {
             expenseList.length === 0 ? (
                 <View style={{flexDirection: 'row',justifyContent:'center', alignItems: 'center', marginBottom: 20}}>
-                    <View style={[styles.expenseBlockEmpty, {backgroundColor: appTheme == 'dark'? 
-        Colors.neutral700 : Colors.lightTintColor}]}>
-                        <Text style={[styles.expenseBlockTitle,{ color: Colors.white}]}>No Expense Category</Text>
+                    <View style={[styles.expenseBlockEmpty, {backgroundColor: theme.backgroundColor}]}>
+                        <Text style={[styles.expenseBlockTitle,{ color: theme.textColor}]}>No Expense Category</Text>
                     </View>
                 </View>
             ) : (
