@@ -1,4 +1,4 @@
-import { RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {Alert, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Stack, useRouter } from 'expo-router'
 import PageHeader from '@/components/PageHeader'

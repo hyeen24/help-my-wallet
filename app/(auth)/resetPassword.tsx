@@ -129,7 +129,7 @@ const resetPassword = () => {
           <Input
           placeholder="Enter your email address"
           onChangeText={(value) => {setEmail(value)}}
-          iconLeft={<Feather name='mail' size={26} color={theme.textColor} />}/>
+          iconLeft={<Feather name='mail' size={18} color={theme.textColor} />}/>
 
           <Button style={styles.resetButton} onPress={processResetPassword}>
               <Text style={{ fontWeight: 700, color: theme.textColor, fontSize: 21 }}>Reset Password</Text>
@@ -163,14 +163,14 @@ const resetPassword = () => {
           <Text style={{fontSize: 16, fontWeight: 400}}>New Password:</Text>
             <Input 
             placeholder="Enter your new password" 
-            iconLeft={<AntDesign name='lock' size={26} color={theme.textColor}/>}
+            iconLeft={<AntDesign name='lock' size={18} color={theme.textColor}/>}
             secureTextEntry
             onChangeText={(value) => {setNewPassword(value)}}/>
           <Text style={{fontSize: 16, fontWeight: 400}}>Confirm New Password:</Text>
           <Input 
             placeholder="Confirm your new password" 
             secureTextEntry
-            iconLeft={<AntDesign name='lock' size={26} color={theme.textColor}/>}
+            iconLeft={<AntDesign name='lock' size={18} color={theme.textColor}/>}
             onChangeText={(value) => {setConfirmPassword(value)}}/>
           <Button onPress={processNewPassword}>
             <Text style={{ fontWeight: 700, color: theme.textColor, fontSize: 21 }}>Reset Password</Text>

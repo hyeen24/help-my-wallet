@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { use, useEffect, useState } from 'react'
 import Colors from '@/constants/Colors'
 import { router, Stack } from 'expo-router';

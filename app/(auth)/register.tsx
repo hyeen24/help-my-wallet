@@ -92,20 +92,20 @@ const Register = () => {
           <Input 
           placeholder="Enter your name" 
           onChangeText={(value) => {setName(value)}}
-          iconLeft={<FontAwesome name='address-book' size={26}
+          iconLeft={<FontAwesome name='address-book' size={18}
           color={Colors.neutral300}/>}
           />
           <Input 
           placeholder="Enter your email" 
           onChangeText={(value) => {setEmail(value)}}
-          iconLeft={<Feather name='mail' size={26}
+          iconLeft={<Feather name='mail' size={18}
           color={Colors.neutral300}/>}
           />
           <Input 
           placeholder="Enter your password" 
           secureTextEntry
           onChangeText={(value) => {setPassword(value)}}
-          iconLeft={<AntDesign name='lock' size={26}
+          iconLeft={<AntDesign name='lock' size={18}
           color={Colors.neutral300}/>}
           />
           <View>

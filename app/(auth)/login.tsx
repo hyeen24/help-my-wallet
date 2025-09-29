@@ -64,14 +64,14 @@ const login = () => {
           <Input 
           placeholder="Enter your email" 
           onChangeText={(value) => {setEmail(value)}}
-          iconLeft={<Feather name='mail' size={26}
+          iconLeft={<Feather name='mail' size={18}
           color={theme.textColor}/>}
           />
           <Input 
           placeholder="Enter your password" 
           secureTextEntry
           onChangeText={(value) => {setPassword(value)}}
-          iconLeft={<AntDesign name='lock' size={26}
+          iconLeft={<AntDesign name='lock' size={18}
           color={theme.textColor}/>}
           />
           {password.length < 8 && (
