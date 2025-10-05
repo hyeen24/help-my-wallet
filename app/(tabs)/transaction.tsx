@@ -25,8 +25,8 @@ const transaction = () => {
 
   const fetchData = async () => {
             const [ merchantResult, transactionResult ] = await Promise.all([
-              client.graphql({ query : listMerchants }),
-              client.graphql({ query : listTransactions })
+              client.graphql({ query : listMerchants, authMode: 'userPool' }),
+              client.graphql({ query : listTransactions, authMode: 'userPool' })
             ])
             const transactions = transactionResult.data?.listTransactions?.items ?? [];
             const merchants = merchantResult.data?.listMerchants?.items ?? [];
@@ -117,7 +117,7 @@ const transaction = () => {
                     return(
                     <TouchableOpacity key={item.id} style={styles.itemContainer} onPress={() => selectTransaction(
                         merchant?.image ?? '',
-                        merchant?.merchant_name ?? 'Unknown',
+                        merchant?.name ?? 'Unknown',
                         merchant?.id ?? '',
                         item.amount,
                         item.description,
@@ -138,10 +138,12 @@ const transaction = () => {
                             </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                                 <View style={{ gap: 5 }}>
-                                    <Text style={[styles.spendingTxt, { fontWeight: 700 }]}>{item.description}</Text>
+                                    <Text style={[styles.spendingTxt, { fontWeight: 700 }]}>{ 
+                                    item.description? `${item.title} - ${item.description}` : item.title 
+                                    }</Text>
                                     <Text style={styles.spendingTxt}>{formattedDate}</Text>
                                 </View>
-                                <Text style={[styles.spendingTxt, { fontWeight: 700 }]}>${item.amount}</Text>
+                                <Text style={[styles.spendingTxt, { fontWeight: 700 }]}>${Number(item.amount).toFixed(2)}</Text>
                             </View>
                     </TouchableOpacity>  
                     );
