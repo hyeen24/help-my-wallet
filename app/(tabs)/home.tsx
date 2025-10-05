@@ -1,5 +1,5 @@
 import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Colors from '@/constants/Colors'
 import { router, Stack } from 'expo-router';
 import HomeHeader from '@/components/HomeHeader';
@@ -238,7 +238,7 @@ const renderExpenses = () => {
               {renderDot("#fff")}
               <Text style={{ color: "#fff" }}>Others</Text>
             </View>
-            <Text style={{ color: "#fff" }}>{othersTotal}</Text>
+            <Text style={{ color: "#fff" }}>{Number(othersTotal).toFixed(2)}</Text>
           </View>
         )}
       </>

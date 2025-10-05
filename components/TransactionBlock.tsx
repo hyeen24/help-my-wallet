@@ -49,7 +49,7 @@ const TransactionBlock = ({transactionList, incomeList}: {transactionList: Trans
                                     <Text style={{color:theme.textColor, fontWeight: 700 }}>{item.title} - {item.description}</Text>
                                     <Text style={{color:theme.textColor}}>{formattedDate}</Text>
                                 </View>
-                                <Text style={{ fontWeight: 700 , color: isIncome? Colors.green : theme.textColor}}>{isIncome? "+ " : "- "}${item.amount}</Text>
+                                <Text style={{ fontWeight: 700 , color: isIncome? Colors.green : theme.textColor}}>{isIncome? "+ " : "- "}${Number(item.amount).toFixed(2)}</Text>
                             </View>      
                         </View>  
                     )
