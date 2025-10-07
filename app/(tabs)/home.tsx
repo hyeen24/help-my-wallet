@@ -238,7 +238,7 @@ const renderExpenses = () => {
               {renderDot("#fff")}
               <Text style={{ color: "#fff" }}>Others</Text>
             </View>
-            <Text style={{ color: "#fff" }}>{Number(othersTotal).toFixed(2)}</Text>
+            <Text style={{ color: "#fff" }}>${Number(othersTotal).toFixed(2)}</Text>
           </View>
         )}
       </>

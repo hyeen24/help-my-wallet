@@ -10,6 +10,7 @@ import { useTheme } from '@/contexts/ThemeContext'
 import { useAuth } from '@/contexts/AuthContext'
 import { generateClient } from 'aws-amplify/api'
 import { listMerchants, listTransactions } from '@/src/graphql/queries'
+import Dropdown from '@/components/Dropdown'
 
 const transaction = () => {
   const [searchTxt, setSearchTxt]  = useState("");
@@ -94,10 +95,11 @@ const transaction = () => {
                 <View>
                     <Text style={{color: Colors.white}}>All</Text>
                 </View>
-                <View style={{ flexDirection: 'row', marginHorizontal: 5, gap:5, justifyContent:'center'}}>
-                    <FontAwesome name='calendar' size={20} color={Colors.white} />
-                    <Text style={{color: Colors.white}}>Sort By: Date</Text>
-                    <AntDesign name='down' size={20} color={Colors.white} />
+                <View style={{ flexDirection: 'row', marginHorizontal: 5, gap:5, justifyContent:'center', alignItems: 'center'}}>
+                    <Text style={{color: Colors.white}}>Sort By</Text>
+                    <Dropdown defaultValue='Date' displayText={''} options={[
+                  "Date" , "Amount"
+                ]}/>
                 </View>
             </View>
              <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
@@ -154,6 +156,7 @@ const transaction = () => {
                         </View>
                     </View>
                 )}
+                
             </ScrollView> 
 
         </View>
