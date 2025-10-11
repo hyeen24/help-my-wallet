@@ -43,6 +43,7 @@ const Dropdown = ({
                     {
                         top: position.y + position.height,
                         left: position.x,
+                        backgroundColor: theme.cardColors,
                     },
                     ]}
                 >
@@ -53,7 +54,7 @@ const Dropdown = ({
                             setSelected(item);
                             setExpanded(!expanded);
                         }}>
-                        <Text>{item}</Text>
+                        <Text style={{color: theme.textColor}}>{item}</Text>
                         </TouchableOpacity>
                     )}
                     ItemSeparatorComponent={() => <View style={styles.seperator} />}
@@ -86,7 +87,6 @@ const styles = StyleSheet.create({
     options: {
         position: "absolute",
         padding:10,
-        backgroundColor :'white',
         borderRadius: 6
     },
     text: {
