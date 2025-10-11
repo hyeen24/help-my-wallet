@@ -2,23 +2,18 @@ import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFe
 import React, { useCallback, useRef, useState } from 'react'
 import { useTheme } from '@/contexts/ThemeContext';
 import { AntDesign } from '@expo/vector-icons';
-
-type DropdownProps = {
-    defaultValue: string;
-    displayText: string;
-    options: string[];
-}
+import { DropdownProps } from '@/types';
 
 const Dropdown = ({
     defaultValue,
     displayText="",
-    options
+    options,
+    selected,
+    setSelected
 } : DropdownProps ) => {
     const { theme } = useTheme();
     const [ expanded, setExpanded ] = useState(false);
-
-    const [ selected, setSelected ] = useState<string | null>(defaultValue);
-    const [position, setPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
+    const [ position, setPosition ] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
     const toggleExpanded= useCallback(()=> {
         if (!expanded && buttonRef.current) {

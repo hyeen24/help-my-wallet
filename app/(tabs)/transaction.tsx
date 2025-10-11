@@ -19,6 +19,7 @@ const transaction = () => {
     const [uploading, setUploading] = useState(false);
     const [isloading, setIsLoading] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
+    const [sortBy, setSortBy] = useState('Date');
     const router = useRouter();
     const { theme } = useTheme();
     const { user } = useAuth();
@@ -33,15 +34,30 @@ const transaction = () => {
             const merchants = merchantResult.data?.listMerchants?.items ?? [];
 
             setMerchantData(merchants)
-            setTransactions(transactions)
+            handleTransactionSorting(transactions);
             console.log(merchants)
             console.log(transactions)
         };
 
   useEffect(() => {   
         fetchData();
-        // console.log("fileInfo:", fileInfo);
     }, []);
+  
+  const handleTransactionSorting = ( inputTransactions : any ) => {
+    if (sortBy === 'Date') {
+            const sortedTransactions = [... inputTransactions].sort((a, b) => new Date(b.transaction_date).getTime() - new Date(a.transaction_date).getTime());
+            setTransactions(sortedTransactions); 
+            console.log("Sorted by date");
+        } else if (sortBy === 'Amount') {
+            const sortedTransactions = [...inputTransactions].sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount));
+            setTransactions(sortedTransactions);
+            console.log("Sorted by amount");
+        }
+  }
+
+  useEffect(() => {
+        handleTransactionSorting(transactions);
+    }, [sortBy]);
 
   const onRefresh = React.useCallback(async () => {
         setRefreshing(true);
@@ -97,7 +113,7 @@ const transaction = () => {
                 </View>
                 <View style={{ flexDirection: 'row', marginHorizontal: 5, gap:5, justifyContent:'center', alignItems: 'center'}}>
                     <Text style={{color: Colors.white}}>Sort By</Text>
-                    <Dropdown defaultValue='Date' displayText={''} options={[
+                    <Dropdown  selected={sortBy} setSelected={setSortBy} defaultValue='Date' displayText={''} options={[
                   "Date" , "Amount"
                 ]}/>
                 </View>

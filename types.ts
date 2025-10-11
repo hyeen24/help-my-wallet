@@ -175,3 +175,11 @@ export type IncomeTotals = {
     icon_type: string;
   };
 };
+
+export type DropdownProps = {
+    defaultValue: string;
+    displayText: string;
+    options: string[];
+    selected: string | null;
+    setSelected: (value: string) => void;
+}

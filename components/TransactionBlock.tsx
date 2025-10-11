@@ -46,7 +46,7 @@ const TransactionBlock = ({transactionList, incomeList}: {transactionList: Trans
                             </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                                 <View style={{ gap: 5 }}>
-                                    <Text style={{color:theme.textColor, fontWeight: 700 }}>{item.title} - {item.description}</Text>
+                                    <Text style={{color:theme.textColor, fontWeight: 700 }}>{item.description? item.title+" - "+item.description : item.title }</Text>
                                     <Text style={{color:theme.textColor}}>{formattedDate}</Text>
                                 </View>
                                 <Text style={{ fontWeight: 700 , color: isIncome? Colors.green : theme.textColor}}>{isIncome? "+ " : "- "}${Number(item.amount).toFixed(2)}</Text>
