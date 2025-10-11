@@ -2,38 +2,44 @@ import {Alert, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, V
 import React, { useEffect, useState } from 'react'
 import { Stack, useRouter } from 'expo-router'
 import PageHeader from '@/components/PageHeader'
-import { AntDesign, Feather, FontAwesome, Foundation, MaterialCommunityIcons } from '@expo/vector-icons'
+import { AntDesign, Feather, FontAwesome, Foundation, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import Colors from '@/constants/Colors'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useAuth } from '@/contexts/AuthContext'
 import { generateClient } from 'aws-amplify/api'
-import { listMerchants, listTransactions } from '@/src/graphql/queries'
+import { listExpenses, listMerchants, listTransactions } from '@/src/graphql/queries'
 import Dropdown from '@/components/Dropdown'
 
 const transaction = () => {
-  const [searchTxt, setSearchTxt]  = useState("");
-    const [merchantData, setMerchantData] = useState<any[]>([]);
-    const [transactions, setTransactions] = useState<any[]>([]);
-    const [uploading, setUploading] = useState(false);
-    const [isloading, setIsLoading] = useState(false);
-    const [refreshing, setRefreshing] = useState(false);
-    const [sortBy, setSortBy] = useState('Date');
-    const router = useRouter();
-    const { theme } = useTheme();
-    const { user } = useAuth();
-    const client = generateClient();
+  const [merchantData, setMerchantData] = useState<any[]>([]);
+  const [transactions, setTransactions] = useState<any[]>([]);
+  const [expenses, setExpenses] = useState<any[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [sortBy, setSortBy] = useState('Date');
+  const [ displayTransactions, setDisplayTransactions] = useState<any[]>([]);
+
+  const router = useRouter();
+  const { theme } = useTheme();
+  const { user } = useAuth();
+  const client = generateClient();
 
   const fetchData = async () => {
             const [ merchantResult, transactionResult ] = await Promise.all([
               client.graphql({ query : listMerchants, authMode: 'userPool' }),
-              client.graphql({ query : listTransactions, authMode: 'userPool' })
+              client.graphql({ query : listTransactions, authMode: 'userPool' }),
+              client.graphql({ query : listExpenses, authMode: 'userPool' }),
             ])
             const transactions = transactionResult.data?.listTransactions?.items ?? [];
             const merchants = merchantResult.data?.listMerchants?.items ?? [];
+            const expenses = merchantResult.data?.listExpenses?.items ?? [];
 
+            setExpenses(expenses);
             setMerchantData(merchants)
+            setTransactions(transactions);
             handleTransactionSorting(transactions);
             console.log(merchants)
             console.log(transactions)
@@ -46,14 +52,26 @@ const transaction = () => {
   const handleTransactionSorting = ( inputTransactions : any ) => {
     if (sortBy === 'Date') {
             const sortedTransactions = [... inputTransactions].sort((a, b) => new Date(b.transaction_date).getTime() - new Date(a.transaction_date).getTime());
-            setTransactions(sortedTransactions); 
-            console.log("Sorted by date");
+            setDisplayTransactions(sortedTransactions); 
+            // console.log("Sorted by date");
         } else if (sortBy === 'Amount') {
             const sortedTransactions = [...inputTransactions].sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount));
-            setTransactions(sortedTransactions);
-            console.log("Sorted by amount");
+            setDisplayTransactions(sortedTransactions);
+            // console.log("Sorted by amount");
         }
   }
+
+  const handleSearch = (text: string) => {
+        if (text.trim() === "") {
+          setDisplayTransactions(transactions);
+        } else {
+            const filteredTransactions = transactions.filter((transaction) =>
+                transaction.title.toLowerCase().includes(text.toLowerCase()) ||
+                (transaction.description && transaction.description.toLowerCase().includes(text.toLowerCase()))
+            );
+            setDisplayTransactions(filteredTransactions);
+        }
+    }
 
   useEffect(() => {
         handleTransactionSorting(transactions);
@@ -65,7 +83,7 @@ const transaction = () => {
         setRefreshing(false);
     }, []);
 
-     const selectTransaction = (
+  const selectTransaction = (
         merchantIcon : string,
         merchantName: string,
         merchantId: string,
@@ -98,12 +116,13 @@ const transaction = () => {
         <View style={styles.container}>
             <Input 
                 placeholder="Search transactions" 
-                onChangeText={(value) => {}}
+                onChangeText={(value) => {handleSearch(value)}}
                 iconLeft={<Feather name='search' size={18}
                 color={Colors.white}/>}
             />
             <View>
-                <Button style = {{width: 100, height: 30, backgroundColor: 'transparent', borderColor: Colors.white, borderWidth: 1, borderRadius: 30}}>
+                <Button style = {{ flexDirection:'row' ,width: 100, height: 30, backgroundColor: 'transparent', borderColor: Colors.white, borderWidth: 1, borderRadius: 30}}>
+                    <Ionicons name="filter" size={16} color={Colors.white} style={{ marginRight: 5 }}/>
                     <Text style={styles.text}>Filter</Text>
                 </Button>
             </View>
@@ -120,8 +139,8 @@ const transaction = () => {
             </View>
              <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
                 {
-                    transactions&& transactions.length > 0 ? (
-                transactions.map((item) => {
+                    displayTransactions&& displayTransactions.length > 0 ? (
+                displayTransactions.map((item) => {
                     // console.log("merchantData:", merchantData);
                     // console.log("Matching Merchant:",matchedMerchant.icon);
                     const merchant = item.merchantID ? merchantData.find(m => m.id === item.merchantID) : null;
