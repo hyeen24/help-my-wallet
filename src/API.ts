@@ -2,32 +2,21 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateReccurrenceInput = {
+export type CreateMerchantTransactionInput = {
   id?: string | null,
-  type?: RecurrenceType | null,
-  value?: string | null,
+  merchant_id: string,
+  transaction_id: string,
 };
 
-export enum RecurrenceType {
-  DAY = "DAY",
-  MONTH = "MONTH",
-  YEAR = "YEAR",
-}
-
-
-export type ModelReccurrenceConditionInput = {
-  type?: ModelRecurrenceTypeInput | null,
-  value?: ModelStringInput | null,
-  and?: Array< ModelReccurrenceConditionInput | null > | null,
-  or?: Array< ModelReccurrenceConditionInput | null > | null,
-  not?: ModelReccurrenceConditionInput | null,
+export type ModelMerchantTransactionConditionInput = {
+  merchant_id?: ModelStringInput | null,
+  transaction_id?: ModelStringInput | null,
+  and?: Array< ModelMerchantTransactionConditionInput | null > | null,
+  or?: Array< ModelMerchantTransactionConditionInput | null > | null,
+  not?: ModelMerchantTransactionConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-};
-
-export type ModelRecurrenceTypeInput = {
-  eq?: RecurrenceType | null,
-  ne?: RecurrenceType | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -70,6 +59,54 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type MerchantTransaction = {
+  __typename: "MerchantTransaction",
+  id: string,
+  merchant_id: string,
+  transaction_id: string,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateMerchantTransactionInput = {
+  id: string,
+  merchant_id?: string | null,
+  transaction_id?: string | null,
+};
+
+export type DeleteMerchantTransactionInput = {
+  id: string,
+};
+
+export type CreateReccurrenceInput = {
+  id?: string | null,
+  type?: RecurrenceType | null,
+  value?: string | null,
+};
+
+export enum RecurrenceType {
+  DAY = "DAY",
+  MONTH = "MONTH",
+  YEAR = "YEAR",
+}
+
+
+export type ModelReccurrenceConditionInput = {
+  type?: ModelRecurrenceTypeInput | null,
+  value?: ModelStringInput | null,
+  and?: Array< ModelReccurrenceConditionInput | null > | null,
+  or?: Array< ModelReccurrenceConditionInput | null > | null,
+  not?: ModelReccurrenceConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type ModelRecurrenceTypeInput = {
+  eq?: RecurrenceType | null,
+  ne?: RecurrenceType | null,
+};
+
 export type Reccurrence = {
   __typename: "Reccurrence",
   id: string,
@@ -93,11 +130,13 @@ export type CreateMerchantInput = {
   id?: string | null,
   name: string,
   image?: string | null,
+  expense_id?: string | null,
 };
 
 export type ModelMerchantConditionInput = {
   name?: ModelStringInput | null,
   image?: ModelStringInput | null,
+  expense_id?: ModelStringInput | null,
   and?: Array< ModelMerchantConditionInput | null > | null,
   or?: Array< ModelMerchantConditionInput | null > | null,
   not?: ModelMerchantConditionInput | null,
@@ -111,6 +150,7 @@ export type Merchant = {
   id: string,
   name: string,
   image?: string | null,
+  expense_id?: string | null,
   createdAt: string,
   updatedAt: string,
   owner?: string | null,
@@ -120,6 +160,7 @@ export type UpdateMerchantInput = {
   id: string,
   name?: string | null,
   image?: string | null,
+  expense_id?: string | null,
 };
 
 export type DeleteMerchantInput = {
@@ -216,7 +257,6 @@ export type CreateExpenseInput = {
   id?: string | null,
   name: string,
   color: string,
-  merchant_id?: string | null,
   recurrence_id?: string | null,
   amount: number,
   description?: string | null,
@@ -227,7 +267,6 @@ export type CreateExpenseInput = {
 export type ModelExpenseConditionInput = {
   name?: ModelStringInput | null,
   color?: ModelStringInput | null,
-  merchant_id?: ModelStringInput | null,
   recurrence_id?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   description?: ModelStringInput | null,
@@ -246,7 +285,6 @@ export type Expense = {
   id: string,
   name: string,
   color: string,
-  merchant_id?: string | null,
   recurrence_id?: string | null,
   amount: number,
   description?: string | null,
@@ -261,7 +299,6 @@ export type UpdateExpenseInput = {
   id: string,
   name?: string | null,
   color?: string | null,
-  merchant_id?: string | null,
   recurrence_id?: string | null,
   amount?: number | null,
   description?: string | null,
@@ -345,15 +382,16 @@ export type DeleteTransactionInput = {
   id: string,
 };
 
-export type ModelReccurrenceFilterInput = {
+export type ModelMerchantTransactionFilterInput = {
   id?: ModelIDInput | null,
-  type?: ModelRecurrenceTypeInput | null,
-  value?: ModelStringInput | null,
+  merchant_id?: ModelStringInput | null,
+  transaction_id?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelReccurrenceFilterInput | null > | null,
-  or?: Array< ModelReccurrenceFilterInput | null > | null,
-  not?: ModelReccurrenceFilterInput | null,
+  and?: Array< ModelMerchantTransactionFilterInput | null > | null,
+  or?: Array< ModelMerchantTransactionFilterInput | null > | null,
+  not?: ModelMerchantTransactionFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelIDInput = {
@@ -372,6 +410,23 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type ModelMerchantTransactionConnection = {
+  __typename: "ModelMerchantTransactionConnection",
+  items:  Array<MerchantTransaction | null >,
+  nextToken?: string | null,
+};
+
+export type ModelReccurrenceFilterInput = {
+  id?: ModelIDInput | null,
+  type?: ModelRecurrenceTypeInput | null,
+  value?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelReccurrenceFilterInput | null > | null,
+  or?: Array< ModelReccurrenceFilterInput | null > | null,
+  not?: ModelReccurrenceFilterInput | null,
+};
+
 export type ModelReccurrenceConnection = {
   __typename: "ModelReccurrenceConnection",
   items:  Array<Reccurrence | null >,
@@ -382,6 +437,7 @@ export type ModelMerchantFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   image?: ModelStringInput | null,
+  expense_id?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelMerchantFilterInput | null > | null,
@@ -422,7 +478,6 @@ export type ModelExpenseFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   color?: ModelStringInput | null,
-  merchant_id?: ModelStringInput | null,
   recurrence_id?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   description?: ModelStringInput | null,
@@ -466,14 +521,15 @@ export type ModelTransactionConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionReccurrenceFilterInput = {
+export type ModelSubscriptionMerchantTransactionFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  type?: ModelSubscriptionStringInput | null,
-  value?: ModelSubscriptionStringInput | null,
+  merchant_id?: ModelSubscriptionStringInput | null,
+  transaction_id?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionReccurrenceFilterInput | null > | null,
-  or?: Array< ModelSubscriptionReccurrenceFilterInput | null > | null,
+  and?: Array< ModelSubscriptionMerchantTransactionFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMerchantTransactionFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -506,10 +562,21 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionReccurrenceFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  value?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionReccurrenceFilterInput | null > | null,
+  or?: Array< ModelSubscriptionReccurrenceFilterInput | null > | null,
+};
+
 export type ModelSubscriptionMerchantFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   image?: ModelSubscriptionStringInput | null,
+  expense_id?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMerchantFilterInput | null > | null,
@@ -553,7 +620,6 @@ export type ModelSubscriptionExpenseFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   color?: ModelSubscriptionStringInput | null,
-  merchant_id?: ModelSubscriptionStringInput | null,
   recurrence_id?: ModelSubscriptionStringInput | null,
   amount?: ModelSubscriptionFloatInput | null,
   description?: ModelSubscriptionStringInput | null,
@@ -581,6 +647,57 @@ export type ModelSubscriptionTransactionFilterInput = {
   and?: Array< ModelSubscriptionTransactionFilterInput | null > | null,
   or?: Array< ModelSubscriptionTransactionFilterInput | null > | null,
   owner?: ModelStringInput | null,
+};
+
+export type CreateMerchantTransactionMutationVariables = {
+  input: CreateMerchantTransactionInput,
+  condition?: ModelMerchantTransactionConditionInput | null,
+};
+
+export type CreateMerchantTransactionMutation = {
+  createMerchantTransaction?:  {
+    __typename: "MerchantTransaction",
+    id: string,
+    merchant_id: string,
+    transaction_id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateMerchantTransactionMutationVariables = {
+  input: UpdateMerchantTransactionInput,
+  condition?: ModelMerchantTransactionConditionInput | null,
+};
+
+export type UpdateMerchantTransactionMutation = {
+  updateMerchantTransaction?:  {
+    __typename: "MerchantTransaction",
+    id: string,
+    merchant_id: string,
+    transaction_id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteMerchantTransactionMutationVariables = {
+  input: DeleteMerchantTransactionInput,
+  condition?: ModelMerchantTransactionConditionInput | null,
+};
+
+export type DeleteMerchantTransactionMutation = {
+  deleteMerchantTransaction?:  {
+    __typename: "MerchantTransaction",
+    id: string,
+    merchant_id: string,
+    transaction_id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
 export type CreateReccurrenceMutationVariables = {
@@ -642,6 +759,7 @@ export type CreateMerchantMutation = {
     id: string,
     name: string,
     image?: string | null,
+    expense_id?: string | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -659,6 +777,7 @@ export type UpdateMerchantMutation = {
     id: string,
     name: string,
     image?: string | null,
+    expense_id?: string | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -676,6 +795,7 @@ export type DeleteMerchantMutation = {
     id: string,
     name: string,
     image?: string | null,
+    expense_id?: string | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -771,7 +891,6 @@ export type CreateExpenseMutation = {
     id: string,
     name: string,
     color: string,
-    merchant_id?: string | null,
     recurrence_id?: string | null,
     amount: number,
     description?: string | null,
@@ -794,7 +913,6 @@ export type UpdateExpenseMutation = {
     id: string,
     name: string,
     color: string,
-    merchant_id?: string | null,
     recurrence_id?: string | null,
     amount: number,
     description?: string | null,
@@ -817,7 +935,6 @@ export type DeleteExpenseMutation = {
     id: string,
     name: string,
     color: string,
-    merchant_id?: string | null,
     recurrence_id?: string | null,
     amount: number,
     description?: string | null,
@@ -898,6 +1015,44 @@ export type DeleteTransactionMutation = {
   } | null,
 };
 
+export type GetMerchantTransactionQueryVariables = {
+  id: string,
+};
+
+export type GetMerchantTransactionQuery = {
+  getMerchantTransaction?:  {
+    __typename: "MerchantTransaction",
+    id: string,
+    merchant_id: string,
+    transaction_id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListMerchantTransactionsQueryVariables = {
+  filter?: ModelMerchantTransactionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMerchantTransactionsQuery = {
+  listMerchantTransactions?:  {
+    __typename: "ModelMerchantTransactionConnection",
+    items:  Array< {
+      __typename: "MerchantTransaction",
+      id: string,
+      merchant_id: string,
+      transaction_id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetReccurrenceQueryVariables = {
   id: string,
 };
@@ -944,6 +1099,7 @@ export type GetMerchantQuery = {
     id: string,
     name: string,
     image?: string | null,
+    expense_id?: string | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -964,6 +1120,7 @@ export type ListMerchantsQuery = {
       id: string,
       name: string,
       image?: string | null,
+      expense_id?: string | null,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
@@ -1033,7 +1190,6 @@ export type GetExpenseQuery = {
     id: string,
     name: string,
     color: string,
-    merchant_id?: string | null,
     recurrence_id?: string | null,
     amount: number,
     description?: string | null,
@@ -1059,7 +1215,6 @@ export type ListExpensesQuery = {
       id: string,
       name: string,
       color: string,
-      merchant_id?: string | null,
       recurrence_id?: string | null,
       amount: number,
       description?: string | null,
@@ -1123,6 +1278,57 @@ export type ListTransactionsQuery = {
   } | null,
 };
 
+export type OnCreateMerchantTransactionSubscriptionVariables = {
+  filter?: ModelSubscriptionMerchantTransactionFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateMerchantTransactionSubscription = {
+  onCreateMerchantTransaction?:  {
+    __typename: "MerchantTransaction",
+    id: string,
+    merchant_id: string,
+    transaction_id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateMerchantTransactionSubscriptionVariables = {
+  filter?: ModelSubscriptionMerchantTransactionFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateMerchantTransactionSubscription = {
+  onUpdateMerchantTransaction?:  {
+    __typename: "MerchantTransaction",
+    id: string,
+    merchant_id: string,
+    transaction_id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteMerchantTransactionSubscriptionVariables = {
+  filter?: ModelSubscriptionMerchantTransactionFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteMerchantTransactionSubscription = {
+  onDeleteMerchantTransaction?:  {
+    __typename: "MerchantTransaction",
+    id: string,
+    merchant_id: string,
+    transaction_id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
 export type OnCreateReccurrenceSubscriptionVariables = {
   filter?: ModelSubscriptionReccurrenceFilterInput | null,
 };
@@ -1179,6 +1385,7 @@ export type OnCreateMerchantSubscription = {
     id: string,
     name: string,
     image?: string | null,
+    expense_id?: string | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1196,6 +1403,7 @@ export type OnUpdateMerchantSubscription = {
     id: string,
     name: string,
     image?: string | null,
+    expense_id?: string | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1213,6 +1421,7 @@ export type OnDeleteMerchantSubscription = {
     id: string,
     name: string,
     image?: string | null,
+    expense_id?: string | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1308,7 +1517,6 @@ export type OnCreateExpenseSubscription = {
     id: string,
     name: string,
     color: string,
-    merchant_id?: string | null,
     recurrence_id?: string | null,
     amount: number,
     description?: string | null,
@@ -1331,7 +1539,6 @@ export type OnUpdateExpenseSubscription = {
     id: string,
     name: string,
     color: string,
-    merchant_id?: string | null,
     recurrence_id?: string | null,
     amount: number,
     description?: string | null,
@@ -1354,7 +1561,6 @@ export type OnDeleteExpenseSubscription = {
     id: string,
     name: string,
     color: string,
-    merchant_id?: string | null,
     recurrence_id?: string | null,
     amount: number,
     description?: string | null,

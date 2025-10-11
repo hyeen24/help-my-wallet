@@ -8,6 +8,60 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createMerchantTransaction = /* GraphQL */ `mutation CreateMerchantTransaction(
+  $input: CreateMerchantTransactionInput!
+  $condition: ModelMerchantTransactionConditionInput
+) {
+  createMerchantTransaction(input: $input, condition: $condition) {
+    id
+    merchant_id
+    transaction_id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateMerchantTransactionMutationVariables,
+  APITypes.CreateMerchantTransactionMutation
+>;
+export const updateMerchantTransaction = /* GraphQL */ `mutation UpdateMerchantTransaction(
+  $input: UpdateMerchantTransactionInput!
+  $condition: ModelMerchantTransactionConditionInput
+) {
+  updateMerchantTransaction(input: $input, condition: $condition) {
+    id
+    merchant_id
+    transaction_id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMerchantTransactionMutationVariables,
+  APITypes.UpdateMerchantTransactionMutation
+>;
+export const deleteMerchantTransaction = /* GraphQL */ `mutation DeleteMerchantTransaction(
+  $input: DeleteMerchantTransactionInput!
+  $condition: ModelMerchantTransactionConditionInput
+) {
+  deleteMerchantTransaction(input: $input, condition: $condition) {
+    id
+    merchant_id
+    transaction_id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMerchantTransactionMutationVariables,
+  APITypes.DeleteMerchantTransactionMutation
+>;
 export const createReccurrence = /* GraphQL */ `mutation CreateReccurrence(
   $input: CreateReccurrenceInput!
   $condition: ModelReccurrenceConditionInput
@@ -67,6 +121,7 @@ export const createMerchant = /* GraphQL */ `mutation CreateMerchant(
     id
     name
     image
+    expense_id
     createdAt
     updatedAt
     owner
@@ -85,6 +140,7 @@ export const updateMerchant = /* GraphQL */ `mutation UpdateMerchant(
     id
     name
     image
+    expense_id
     createdAt
     updatedAt
     owner
@@ -103,6 +159,7 @@ export const deleteMerchant = /* GraphQL */ `mutation DeleteMerchant(
     id
     name
     image
+    expense_id
     createdAt
     updatedAt
     owner
@@ -202,7 +259,6 @@ export const createExpense = /* GraphQL */ `mutation CreateExpense(
     id
     name
     color
-    merchant_id
     recurrence_id
     amount
     description
@@ -226,7 +282,6 @@ export const updateExpense = /* GraphQL */ `mutation UpdateExpense(
     id
     name
     color
-    merchant_id
     recurrence_id
     amount
     description
@@ -250,7 +305,6 @@ export const deleteExpense = /* GraphQL */ `mutation DeleteExpense(
     id
     name
     color
-    merchant_id
     recurrence_id
     amount
     description

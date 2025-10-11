@@ -1,14 +1,13 @@
 import { ListRenderItem, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React from 'react'
 import Colors from '@/constants/Colors'
-import { IncomeType, TransactionType } from '@/types'
 import { FontAwesome, FontAwesome5, Foundation } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { useTheme } from '@/contexts/ThemeContext'
 import { generateClient } from 'aws-amplify/api'
-import { Income } from '@/src/API'
+import { Income, Transaction } from '@/src/API'
 
-const TransactionBlock = ({transactionList, incomeList}: {transactionList: TransactionType[], incomeList: Income[]}) => {
+const TransactionBlock = ({transactionList, incomeList}: {transactionList: Transaction[], incomeList: Income[]}) => {
     const appTheme = useColorScheme();
     const { theme } = useTheme();
     const router = useRouter();
@@ -63,8 +62,6 @@ const TransactionBlock = ({transactionList, incomeList}: {transactionList: Trans
             
         }
         <View style={{ height : 50, justifyContent:'center', alignItems:'center', marginBottom: 80}}></View>
-        
-
     </View>
   )
 }

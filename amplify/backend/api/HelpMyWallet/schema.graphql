@@ -1,3 +1,9 @@
+type MerchantTransaction @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  merchant_id: String!
+  transaction_id: String!
+}
+
 type Icon {
   icon_name: String!
   icon_type: String!
@@ -19,6 +25,7 @@ type Merchant @model @auth(rules: [{allow: public}, {allow: owner}]) {
   id: ID!
   name: String!
   image: String
+  expense_id: String
 }
 
 type Income @model @auth(rules: [{allow: owner}]) {
@@ -36,7 +43,6 @@ type Expense @model @auth(rules: [{allow: owner}]) {
   id: ID!
   name: String!
   color: String!
-  merchant_id: String
   recurrence_id: String
   amount: Float!
   description: String

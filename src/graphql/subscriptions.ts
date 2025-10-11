@@ -8,6 +8,60 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
+export const onCreateMerchantTransaction = /* GraphQL */ `subscription OnCreateMerchantTransaction(
+  $filter: ModelSubscriptionMerchantTransactionFilterInput
+  $owner: String
+) {
+  onCreateMerchantTransaction(filter: $filter, owner: $owner) {
+    id
+    merchant_id
+    transaction_id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMerchantTransactionSubscriptionVariables,
+  APITypes.OnCreateMerchantTransactionSubscription
+>;
+export const onUpdateMerchantTransaction = /* GraphQL */ `subscription OnUpdateMerchantTransaction(
+  $filter: ModelSubscriptionMerchantTransactionFilterInput
+  $owner: String
+) {
+  onUpdateMerchantTransaction(filter: $filter, owner: $owner) {
+    id
+    merchant_id
+    transaction_id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMerchantTransactionSubscriptionVariables,
+  APITypes.OnUpdateMerchantTransactionSubscription
+>;
+export const onDeleteMerchantTransaction = /* GraphQL */ `subscription OnDeleteMerchantTransaction(
+  $filter: ModelSubscriptionMerchantTransactionFilterInput
+  $owner: String
+) {
+  onDeleteMerchantTransaction(filter: $filter, owner: $owner) {
+    id
+    merchant_id
+    transaction_id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMerchantTransactionSubscriptionVariables,
+  APITypes.OnDeleteMerchantTransactionSubscription
+>;
 export const onCreateReccurrence = /* GraphQL */ `subscription OnCreateReccurrence(
   $filter: ModelSubscriptionReccurrenceFilterInput
 ) {
@@ -64,6 +118,7 @@ export const onCreateMerchant = /* GraphQL */ `subscription OnCreateMerchant(
     id
     name
     image
+    expense_id
     createdAt
     updatedAt
     owner
@@ -82,6 +137,7 @@ export const onUpdateMerchant = /* GraphQL */ `subscription OnUpdateMerchant(
     id
     name
     image
+    expense_id
     createdAt
     updatedAt
     owner
@@ -100,6 +156,7 @@ export const onDeleteMerchant = /* GraphQL */ `subscription OnDeleteMerchant(
     id
     name
     image
+    expense_id
     createdAt
     updatedAt
     owner
@@ -199,7 +256,6 @@ export const onCreateExpense = /* GraphQL */ `subscription OnCreateExpense(
     id
     name
     color
-    merchant_id
     recurrence_id
     amount
     description
@@ -223,7 +279,6 @@ export const onUpdateExpense = /* GraphQL */ `subscription OnUpdateExpense(
     id
     name
     color
-    merchant_id
     recurrence_id
     amount
     description
@@ -247,7 +302,6 @@ export const onDeleteExpense = /* GraphQL */ `subscription OnDeleteExpense(
     id
     name
     color
-    merchant_id
     recurrence_id
     amount
     description

@@ -2,31 +2,6 @@ import { ReactNode } from "react";
 import { TextInput, TextInputProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
 import { type ConfirmResetPasswordInput } from "aws-amplify/auth";
 
-
-export interface ExpenseType {
-    id: string;
-    name: string;
-    amount : string;
-}
-
-export interface IncomeType {
-    id: string;
-    name: string;
-    amount: string;
-    icon_type: string;
-    icon:string;
-}
-
-export interface TransactionType {
-    id : string;
-    description : string;
-    transaction_date: string;
-    amount : string;
-    category_id : string;
-    merchantID : string;
-    post_date : Date;
-}
-
 export interface DropDownItem {
   label: string;
   value: string | number;

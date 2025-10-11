@@ -1,13 +1,13 @@
 import { Alert, FlatList, ListRenderItem, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React, { useState } from 'react'
 import  Colors  from '@/constants/Colors'
-import { IncomeType } from '@/types'
 import { AntDesign, Feather, FontAwesome6, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { useTheme } from '@/contexts/ThemeContext'
 import { generateClient } from 'aws-amplify/api'
 import * as mutations from '../src/graphql/mutations';
+import { Income } from '@/src/API'
 
-const IncomeBlock = ({incomeList, onRefresh} : {incomeList: IncomeType[],  onRefresh: () => void }) => {
+const IncomeBlock = ({incomeList, onRefresh} : {incomeList: Income[],  onRefresh: () => void }) => {
     const [showMore, setShowMore] = useState("");
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);

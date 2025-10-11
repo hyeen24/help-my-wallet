@@ -8,6 +8,48 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getMerchantTransaction = /* GraphQL */ `query GetMerchantTransaction($id: ID!) {
+  getMerchantTransaction(id: $id) {
+    id
+    merchant_id
+    transaction_id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMerchantTransactionQueryVariables,
+  APITypes.GetMerchantTransactionQuery
+>;
+export const listMerchantTransactions = /* GraphQL */ `query ListMerchantTransactions(
+  $filter: ModelMerchantTransactionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMerchantTransactions(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      merchant_id
+      transaction_id
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMerchantTransactionsQueryVariables,
+  APITypes.ListMerchantTransactionsQuery
+>;
 export const getReccurrence = /* GraphQL */ `query GetReccurrence($id: ID!) {
   getReccurrence(id: $id) {
     id
@@ -49,6 +91,7 @@ export const getMerchant = /* GraphQL */ `query GetMerchant($id: ID!) {
     id
     name
     image
+    expense_id
     createdAt
     updatedAt
     owner
@@ -69,6 +112,7 @@ export const listMerchants = /* GraphQL */ `query ListMerchants(
       id
       name
       image
+      expense_id
       createdAt
       updatedAt
       owner
@@ -135,7 +179,6 @@ export const getExpense = /* GraphQL */ `query GetExpense($id: ID!) {
     id
     name
     color
-    merchant_id
     recurrence_id
     amount
     description
@@ -161,7 +204,6 @@ export const listExpenses = /* GraphQL */ `query ListExpenses(
       id
       name
       color
-      merchant_id
       recurrence_id
       amount
       description

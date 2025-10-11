@@ -20,7 +20,7 @@ const home = () => {
   const { theme, colorScheme } = useTheme();
   const isLoading = false; // Replace with actual loading state
   const client = generateClient();
-  const [ incomes, setIncomes ] = useState<Array<{ id: string; name: string; icon?: { icon_name?: string; icon_type?: string } }>>([]);
+  const [ incomes, setIncomes ] = useState([]);
   const [ expenseList, setExpenseList ] = useState([]);
   const [ transactionList, setTransactionList ] = useState([]);
   const [ currentMonthName, setCurrentMonthName ] = useState(new Date().toLocaleString("en-US", { month: "long" }))

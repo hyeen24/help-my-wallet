@@ -1,14 +1,11 @@
 import { FlatList, ListRenderItem, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React from 'react'
-import { ExpenseType, IncomeType, TransactionType } from '@/types';
-import  Colors  from '@/constants/Colors';
-import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import addCategory from '@/app/addCategory';
-import { darkTheme, lightTheme } from '@/constants/Theme';
 import { useTheme } from '@/contexts/ThemeContext';
+import { Expense, Income, Transaction } from '@/src/API';
 
-const ExpenseBlock = ({expenseList , transactionList, incomeList} : {expenseList: ExpenseType[] , transactionList : TransactionType[], incomeList : IncomeType[]}) => {
+const ExpenseBlock = ({expenseList , transactionList, incomeList} : {expenseList: Expense[], transactionList : Transaction[], incomeList : Income[]}) => {
     const router = useRouter();
     const appTheme = useColorScheme();
     const { theme } = useTheme();
@@ -22,7 +19,7 @@ const ExpenseBlock = ({expenseList , transactionList, incomeList} : {expenseList
     //   console.log(transactionList)
     //   console.log(expenseList)
 
-    const renderItem: ListRenderItem<Partial<ExpenseType>> = ({item, index}) => {
+    const renderItem: ListRenderItem<Partial<Expense>> = ({item, index}) => {
 
         let pk = item.id
         let amount = transactionList.filter(trans => trans.category_id === pk)
