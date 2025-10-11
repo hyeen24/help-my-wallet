@@ -5,8 +5,12 @@ import Colors from '@/constants/Colors'
 import { AntDesign, Feather, FontAwesome, SimpleLineIcons } from '@expo/vector-icons'
 import { StatusBar } from 'expo-status-bar'
 import ProtectedRoute from '@/components/ProtectedRoute'
+import { useTheme } from '@/contexts/ThemeContext'
+import { Color } from 'aws-cdk-lib/aws-cloudwatch'
 
 const Layout = () => {
+    const { theme } = useTheme();
+
   return (
     <>
     <ProtectedRoute>
@@ -14,7 +18,7 @@ const Layout = () => {
             tabBarStyle: {
                 justifyContent: 'center',
                 alignSelf: 'center',
-                backgroundColor: Colors.grey,
+                backgroundColor: theme.navigationBarBackground,
                 position: 'absolute',
                 bottom: 40,
                 height: 56,
@@ -24,14 +28,13 @@ const Layout = () => {
                 paddingTop: 8,
                 borderRadius: 40,
                 borderWidth: 1,
-                borderTopWidth:1,
-                borderColor: '#333',
-                borderTopColor: '#333',
+                borderColor : 'transparent',
             },
             tabBarShowLabel: false,
             tabBarInactiveTintColor: '#999',
             tabBarActiveTintColor: Colors.white
         }}>
+
         <Tabs.Screen name='home' options={{ 
             tabBarIcon: ({color, focused}) => (
                 <View style={{
@@ -40,7 +43,7 @@ const Layout = () => {
                     height: 36,
                     width: 36,
                     borderRadius: 30,
-                    backgroundColor: focused ? Colors.tintColor : Colors.grey
+                    backgroundColor: focused ? theme.activeCardColors : 'transparent'
                 }}>
                     <SimpleLineIcons name='pie-chart' size={18} color={color}/>
                 </View>
@@ -54,7 +57,9 @@ const Layout = () => {
                     height: 36,
                     width: 36,
                     borderRadius: 30,
-                    backgroundColor: focused ? Colors.tintColor : Colors.grey
+                    // borderColor: focused ? theme.cardBorderColor : Colors.grey,
+                    // borderWidth: 1,
+                    backgroundColor: focused ? theme.activeCardColors : 'transparent'
                 }}>
                     <AntDesign name="swap" size={18} color={color}/>
                 </View>
@@ -68,7 +73,9 @@ const Layout = () => {
                     height: 36,
                     width: 36,
                     borderRadius: 30,
-                    backgroundColor: focused ? Colors.tintColor : Colors.grey
+                    // borderColor: focused ? theme.cardBorderColor : theme.cardBorderColor,
+                    // borderWidth: 1,
+                    backgroundColor: focused ? theme.activeCardColors : 'transparent'
                 }}>
                     <FontAwesome name="user-o" size={18} color={color}/>
                 </View>

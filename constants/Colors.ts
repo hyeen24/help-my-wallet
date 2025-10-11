@@ -8,6 +8,7 @@ export default {
   grey: '#242424',
   white : '#FCFCFC',
   tintColor: '#723FEB',
+  tintColorOpacity : '#733feb38',
   lightTintColor : '#8d65eb',
   blue: '#97E0F7',
   neutral900: "#171717",
@@ -27,4 +28,5 @@ export default {
   red : "#FF3B30",
   green:"#4CD964",
   yellow:"#FFCC00",
+  lightRed: "#FF7C81",
 }

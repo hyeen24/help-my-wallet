@@ -80,8 +80,11 @@ export type ChildrenProps = {
 export type Theme = {
   backgroundColor: string;
   textColor: string;
-  cardColors: string;
+  activeCardColors: string;
+  inactiveCardColors: string;
   altTextColor: string;
+  navigationBarBackground: string;
+  cardBorderColor: string;
 };
 
 export type AuthContextType = {
@@ -157,4 +160,20 @@ export type DropdownProps = {
     options: string[];
     selected: string | null;
     setSelected: (value: string) => void;
+    style?: ViewStyle;
+}
+
+export type TransactionFilter = {
+    transactionCategory: string,
+    fromDate: Date | null,
+    toDate: Date | null,
+    amount: number | null,
+    merchant: string,
+}
+
+export type FilterProps = {
+    filter: (item: TransactionFilter) => void,
+    setFilter: (item: TransactionFilter) => void,
+    displayFilterModal: boolean,
+    setDisplayFilterModal: (value: boolean) => void,
 }

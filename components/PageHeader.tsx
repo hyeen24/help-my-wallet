@@ -18,7 +18,7 @@ const PageHeader = ({
     // console.log(Theme.cardColors)
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: Theme.cardColors }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: Theme.activeCardColors }]}>
         <View style={styles.leftContainer}>
             <BackButton/>
         </View>
@@ -46,7 +46,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingBottom: 10,
-        height: 90
+        height: 90,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
     },
     leftContainer : {
         height: 50,

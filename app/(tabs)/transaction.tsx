@@ -1,4 +1,4 @@
-import {Alert, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {Alert, Modal, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Stack, useRouter } from 'expo-router'
 import PageHeader from '@/components/PageHeader'
@@ -11,6 +11,12 @@ import { useAuth } from '@/contexts/AuthContext'
 import { generateClient } from 'aws-amplify/api'
 import { listExpenses, listMerchants, listTransactions } from '@/src/graphql/queries'
 import Dropdown from '@/components/Dropdown'
+import { Monitor } from 'aws-cdk-lib/aws-appconfig'
+import monthsData from '../../data/months.json';
+import CustomIconButton from '@/components/CustomIconButton'
+import ButtonSpaceBetweenTwoItem from '@/components/ButtonSpaceBetweenTwoItem'
+import { Color } from 'aws-cdk-lib/aws-cloudwatch'
+import FilterBox from '@/components/FilterBox'
 
 const transaction = () => {
   const [merchantData, setMerchantData] = useState<any[]>([]);
@@ -19,6 +25,18 @@ const transaction = () => {
   const [uploading, setUploading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [ displayFilterModal, setDisplayFilterModal] = useState(true);
+  const monthNumber = new Date().getMonth(); // 0–11
+  const monthName = new Date(0, monthNumber).toLocaleString('en-US', { month: 'long' });
+  const [ filter, setFilter] = useState({
+    transactionCategory: "",
+    fromDate : null,
+    toDate: null,
+    amount: {
+      value: null,
+    },
+  });
+
   const [sortBy, setSortBy] = useState('Date');
   const [ displayTransactions, setDisplayTransactions] = useState<any[]>([]);
 
@@ -26,6 +44,10 @@ const transaction = () => {
   const { theme } = useTheme();
   const { user } = useAuth();
   const client = generateClient();
+  const currentYear = new Date().getFullYear();
+
+  // Generate years dynamically (5 before & 5 after current year)
+  const yearOptions = Array.from({ length: 11 }, (_, i) => (currentYear - 5 + i).toString());
 
   const fetchData = async () => {
             const [ merchantResult, transactionResult ] = await Promise.all([
@@ -72,7 +94,7 @@ const transaction = () => {
             setDisplayTransactions(filteredTransactions);
         }
     }
-
+  
   useEffect(() => {
         handleTransactionSorting(transactions);
     }, [sortBy]);
@@ -106,7 +128,7 @@ const transaction = () => {
 
 
   return (
-    <View style={{flex: 1 , backgroundColor: Colors.black}}>    
+    <View style={{flex: 1 , backgroundColor: theme.backgroundColor}}>    
        <Stack.Screen
         options={{headerShown: true,
           header: () => (<PageHeader title="My Transactions"/>),
@@ -118,23 +140,35 @@ const transaction = () => {
                 placeholder="Search transactions" 
                 onChangeText={(value) => {handleSearch(value)}}
                 iconLeft={<Feather name='search' size={18}
-                color={Colors.white}/>}
+                color={theme.textColor}/>}
             />
             <View>
-                <Button style = {{ flexDirection:'row' ,width: 100, height: 30, backgroundColor: 'transparent', borderColor: Colors.white, borderWidth: 1, borderRadius: 30}}>
-                    <Ionicons name="filter" size={16} color={Colors.white} style={{ marginRight: 5 }}/>
-                    <Text style={styles.text}>Filter</Text>
-                </Button>
+                <FilterBox 
+                    filter={filter}
+                    setFilter={setFilter}
+                    displayFilterModal={displayFilterModal}
+                    setDisplayFilterModal={setDisplayFilterModal}
+                />
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}> 
-                <View>
-                    <Text style={{color: Colors.white}}>All</Text>
+                <View style={{ flex: 1}}>
+                    <Button style = {{ flexDirection:'row' ,width: 100, height: 30, backgroundColor: 'transparent', borderColor: "#ccc", borderWidth: 1, borderRadius: 30}}
+                      onPress={() => setDisplayFilterModal(true)}>
+                      <Ionicons name="filter" size={16} color={"#666"} style={{ marginRight: 5 }}/>
+                      <Text style={[styles.text, {color:"#666"}]}>Filter</Text>
+                  </Button>
                 </View>
-                <View style={{ flexDirection: 'row', marginHorizontal: 5, gap:5, justifyContent:'center', alignItems: 'center'}}>
-                    <Text style={{color: Colors.white}}>Sort By</Text>
-                    <Dropdown  selected={sortBy} setSelected={setSortBy} defaultValue='Date' displayText={''} options={[
-                  "Date" , "Amount"
-                ]}/>
+                <View style={{ flexDirection: 'row', marginHorizontal: 5, gap:5, justifyContent:'center', alignItems: 'center', flex: 1}}>
+                    <Text style={{color: theme.textColor , flex:1 }}>Sort By</Text>
+                    <View style={{flex:2}}>
+                      <Dropdown  
+                          selected={sortBy} 
+                          setSelected={setSortBy} 
+                          defaultValue="Date" 
+                          displayText=""
+                          options={["Date", "Amount"]}
+                        />
+                    </View>
                 </View>
             </View>
              <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
@@ -204,7 +238,6 @@ export default transaction
 
 const styles = StyleSheet.create({
   container: {
-           backgroundColor:Colors.black,
            gap: 16,
            paddingTop: 110,
            marginHorizontal:16,
@@ -278,5 +311,49 @@ const styles = StyleSheet.create({
     fontWeight : 400,
     marginBottom: 15,
     textAlign: 'center',
-  }
+  },
+  
+  
+  separator: {
+    height: 1,
+    backgroundColor: "#ccc", // light gray line
+    width: "100%",
+  },
+  closeButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  filterLabel: {
+    flex: 1,
+    alignSelf: 'center',
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  filterInputContainer : {
+    flexDirection: 'row', 
+    alignItems: 'center',
+  },
+  filterBoxTitle: {
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)", // semi-transparent background
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  filterBoxContainer: {
+    width: 300,
+    borderRadius: 16,
+    padding: 20,
+    gap: 8,
+    elevation: 1, // shadow on Android
+    shadowColor: "#000", // shadow on iOS
+    shadowOffset: { width: 0, height:1 },
+    shadowOpacity: 0.25,
+    shadowRadius:4 ,
+    backgroundColor: 'transparent'
+  },
 })

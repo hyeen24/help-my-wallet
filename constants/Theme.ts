@@ -4,13 +4,19 @@ import Colors from "./Colors";
 export const lightTheme: Theme = {
   backgroundColor: Colors.neutral100,
   textColor: Colors.black,
-  cardColors: Colors.tintColor,
-  altTextColor: Colors.tintColor
+  activeCardColors: Colors.tintColor,
+  inactiveCardColors: Colors.white,
+  altTextColor: Colors.tintColor,
+  cardBorderColor: Colors.tintColor,
+  navigationBarBackground: Colors.lightTintColor,
 };
 
 export const darkTheme: Theme = {
   backgroundColor: Colors.black,
   textColor: Colors.white,
-  cardColors: Colors.neutral700,
-  altTextColor: Colors.cyan
+  activeCardColors: Colors.tintColor,
+  inactiveCardColors: Colors.neutral700,
+  altTextColor: Colors.cyan,
+  cardBorderColor: '#333',
+  navigationBarBackground: Colors.grey,
 };

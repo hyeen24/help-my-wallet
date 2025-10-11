@@ -9,7 +9,8 @@ const Dropdown = ({
     displayText="",
     options,
     selected,
-    setSelected
+    setSelected,
+    style,
 } : DropdownProps ) => {
     const { theme } = useTheme();
     const [ expanded, setExpanded ] = useState(false);
@@ -24,8 +25,9 @@ const Dropdown = ({
         setExpanded(!expanded)
     },[expanded])
     const buttonRef = useRef<View>(null);
+
   return (
-    <View ref={buttonRef}>
+    <View ref={buttonRef} style={style}>
         <TouchableOpacity style={styles.button} onPress={toggleExpanded}>
             <Text style={[styles.text, { color: theme.textColor }]}>
             { displayText? displayText : selected}
@@ -43,7 +45,7 @@ const Dropdown = ({
                     {
                         top: position.y + position.height,
                         left: position.x,
-                        backgroundColor: theme.cardColors,
+                        backgroundColor: theme.inactiveCardColors,
                     },
                     ]}
                 >
