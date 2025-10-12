@@ -11,11 +11,6 @@ import { useAuth } from '@/contexts/AuthContext'
 import { generateClient } from 'aws-amplify/api'
 import { listExpenses, listMerchants, listTransactions } from '@/src/graphql/queries'
 import Dropdown from '@/components/Dropdown'
-import { Monitor } from 'aws-cdk-lib/aws-appconfig'
-import monthsData from '../../data/months.json';
-import CustomIconButton from '@/components/CustomIconButton'
-import ButtonSpaceBetweenTwoItem from '@/components/ButtonSpaceBetweenTwoItem'
-import { Color } from 'aws-cdk-lib/aws-cloudwatch'
 import FilterBox from '@/components/FilterBox'
 
 const transaction = () => {
@@ -25,17 +20,21 @@ const transaction = () => {
   const [uploading, setUploading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [ displayFilterModal, setDisplayFilterModal] = useState(true);
+  const [ displayFilterModal, setDisplayFilterModal] = useState(false);
   const monthNumber = new Date().getMonth(); // 0–11
   const monthName = new Date(0, monthNumber).toLocaleString('en-US', { month: 'long' });
   const [ filter, setFilter] = useState({
-    transactionCategory: "",
-    fromDate : null,
-    toDate: null,
-    amount: {
-      value: null,
-    },
-  });
+        transactionCategory: undefined,
+        date : {
+          from: null,
+          to: null
+        },
+        amount: {
+          min: null,
+          max: null
+        },
+        merchant: undefined
+      });
 
   const [sortBy, setSortBy] = useState('Date');
   const [ displayTransactions, setDisplayTransactions] = useState<any[]>([]);
@@ -70,7 +69,11 @@ const transaction = () => {
   useEffect(() => {   
         fetchData();
     }, []);
-  
+
+  useEffect(() => {   
+        console.log(filter);
+    }, [filter]);
+
   const handleTransactionSorting = ( inputTransactions : any ) => {
     if (sortBy === 'Date') {
             const sortedTransactions = [... inputTransactions].sort((a, b) => new Date(b.transaction_date).getTime() - new Date(a.transaction_date).getTime());
@@ -148,6 +151,7 @@ const transaction = () => {
                     setFilter={setFilter}
                     displayFilterModal={displayFilterModal}
                     setDisplayFilterModal={setDisplayFilterModal}
+                    merchantData={merchantData}
                 />
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}> 
@@ -155,7 +159,7 @@ const transaction = () => {
                     <Button style = {{ flexDirection:'row' ,width: 100, height: 30, backgroundColor: 'transparent', borderColor: "#ccc", borderWidth: 1, borderRadius: 30}}
                       onPress={() => setDisplayFilterModal(true)}>
                       <Ionicons name="filter" size={16} color={"#666"} style={{ marginRight: 5 }}/>
-                      <Text style={[styles.text, {color:"#666"}]}>Filter</Text>
+                      <Text style={{color:"#666"}}>Filter</Text>
                   </Button>
                 </View>
                 <View style={{ flexDirection: 'row', marginHorizontal: 5, gap:5, justifyContent:'center', alignItems: 'center', flex: 1}}>
@@ -186,7 +190,7 @@ const transaction = () => {
                                             });
 
                     return(
-                    <TouchableOpacity key={item.id} style={styles.itemContainer} onPress={() => selectTransaction(
+                    <TouchableOpacity key={item.id} style={[styles.itemContainer, {backgroundColor : theme.activeCardColors}]} onPress={() => selectTransaction(
                         merchant?.image ?? '',
                         merchant?.name ?? 'Unknown',
                         merchant?.id ?? '',
@@ -195,7 +199,7 @@ const transaction = () => {
                         formattedDate
                     )}>
                     
-                            <View style={styles.iconContainer}>
+                            <View style={[styles.iconContainer, { backgroundColor: "#eee"}]}>
                                 { merchant && merchant.icon ? (
                                     // <Image
                                     //     source={{ uri: merchant.icon.replace('/media','/api/media') }}
@@ -203,24 +207,24 @@ const transaction = () => {
                                     undefined
                                     
                                     ) : (
-                                        <Foundation name="dollar" size={22} color={Colors.white}/>
+                                        <Foundation name="dollar" size={22} color={ theme.textColor }/>
                                     )   
                                 }
                             </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                                 <View style={{ gap: 5 }}>
-                                    <Text style={[styles.spendingTxt, { fontWeight: 700 }]}>{ 
+                                    <Text style={{ color: theme.textColor, fontWeight: 700 }}>{ 
                                     item.description? `${item.title} - ${item.description}` : item.title 
                                     }</Text>
-                                    <Text style={styles.spendingTxt}>{formattedDate}</Text>
+                                    <Text style={{color: theme.textColor}}>{formattedDate}</Text>
                                 </View>
-                                <Text style={[styles.spendingTxt, { fontWeight: 700 }]}>${Number(item.amount).toFixed(2)}</Text>
+                                <Text style={{color: theme.textColor, fontWeight: 700 }}>${Number(item.amount).toFixed(2)}</Text>
                             </View>
                     </TouchableOpacity>  
                     );
                 })): (
                     <View style={{ gap : 20}}>
-                        <View style={{ marginTop: 20, alignItems : 'center', backgroundColor: Colors.grey, height: 50, justifyContent:'center', borderRadius:20}}>
+                        <View style={{ marginTop: 20, alignItems : 'center', backgroundColor: theme.activeCardColors, height: 50, justifyContent:'center', borderRadius:20}}>
                             <Text style={{ fontSize: 14, color: Colors.white}}>No transaction record.</Text>
                         </View>
                     </View>
@@ -242,13 +246,6 @@ const styles = StyleSheet.create({
            paddingTop: 110,
            marginHorizontal:16,
        },
-    text: {
-        color: Colors.white
-
-    },
-    spendingTxt : {
-        color: Colors.white
-    },
     iconContainer : {
         width:50, 
         height:50, 
@@ -263,10 +260,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row', 
         marginVertical: 3, 
         alignItems:'center', 
-        borderRadius: 15,
+        borderRadius: 16,
         backgroundColor: Colors.grey, 
         height: 70,
-        paddingHorizontal: 10,},
+        paddingHorizontal: 10,
+        // IOS shadow
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        // Anroid shadow
+        elevation: 0.5,
+      },
         centeredView: {
         flex: 1,
         justifyContent: 'center',

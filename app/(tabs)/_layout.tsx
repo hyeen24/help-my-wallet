@@ -18,7 +18,7 @@ const Layout = () => {
             tabBarStyle: {
                 justifyContent: 'center',
                 alignSelf: 'center',
-                backgroundColor: theme.navigationBarBackground,
+                backgroundColor: Colors.tintColor,
                 position: 'absolute',
                 bottom: 40,
                 height: 56,
@@ -43,7 +43,9 @@ const Layout = () => {
                     height: 36,
                     width: 36,
                     borderRadius: 30,
-                    backgroundColor: focused ? theme.activeCardColors : 'transparent'
+                    backgroundColor: focused ? theme.headerBackground : 'transparent',
+                    borderColor: focused ? Colors.white: 'transparent',
+                    borderWidth: 1,
                 }}>
                     <SimpleLineIcons name='pie-chart' size={18} color={color}/>
                 </View>
@@ -57,9 +59,9 @@ const Layout = () => {
                     height: 36,
                     width: 36,
                     borderRadius: 30,
-                    // borderColor: focused ? theme.cardBorderColor : Colors.grey,
-                    // borderWidth: 1,
-                    backgroundColor: focused ? theme.activeCardColors : 'transparent'
+                    borderWidth: 1,
+                    backgroundColor: focused ? theme.headerBackground : 'transparent',
+                    borderColor: focused ? Colors.white: 'transparent',
                 }}>
                     <AntDesign name="swap" size={18} color={color}/>
                 </View>
@@ -73,9 +75,9 @@ const Layout = () => {
                     height: 36,
                     width: 36,
                     borderRadius: 30,
-                    // borderColor: focused ? theme.cardBorderColor : theme.cardBorderColor,
-                    // borderWidth: 1,
-                    backgroundColor: focused ? theme.activeCardColors : 'transparent'
+                    borderColor: focused ? Colors.white: 'transparent',
+                    borderWidth: 1,
+                    backgroundColor: focused ? theme.headerBackground : 'transparent'
                 }}>
                     <FontAwesome name="user-o" size={18} color={color}/>
                 </View>

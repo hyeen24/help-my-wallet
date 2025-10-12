@@ -2,7 +2,7 @@ import { Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'reac
 import React, { useState } from 'react'
 import Dropdown from './Dropdown';
 import Button from './Button';
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome6, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
 import monthsData from '../data/months.json';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -15,19 +15,33 @@ const FilterBox = (
     {filter,
     setFilter,
     displayFilterModal,
-    setDisplayFilterModal} : FilterProps
+    setDisplayFilterModal,
+    merchantData} : FilterProps
 ) => {
-    const [ fromDate, setFromDate ] = useState(new Date());
-    const [ toDate, setToDate ] = useState(new Date());
+    const [ fromDate, setFromDate ] = useState<Date | null>(null);
+    const [ toDate, setToDate ] = useState<Date | null>(null);
     const [ minAmount, setMinAmount ] = useState("");
     const [ maxAmount, setMaxAmount ] = useState("");
     const [ showStartDatePicker, setShowStartDatePicker ] = useState(false);
     const [ showEndDatePicker, setShowEndDatePicker ] = useState(false);
     const [ selectedMerchant, setSelectedMerchant ] = useState("");
+    const [ transactionCategory, setTransactionCategory ] = useState("");
 
     const { theme } = useTheme();
 
     const handleResetFilter = () => {
+        setFilter({
+        transactionCategory: undefined,
+        date : {
+          from: null,
+          to: null
+        },
+        amount: {
+          min: null,
+          max: null
+        },
+        merchant: undefined
+      });
         setDisplayFilterModal(false);
     }
 
@@ -49,8 +63,25 @@ const FilterBox = (
         console.log("ToDate:", toDate);
         console.log("MinAmount:", minAmount);
         console.log("MaxAmount:", maxAmount);
-        setDisplayFilterModal(false);
-    }
+        setFilter({
+            ...filter,
+            date: {
+                from: fromDate ?? filter.date.from,
+                to: toDate ?? filter.date.to,
+            },
+            amount: {
+                min: minAmount ?? filter.amount.min,
+                max: maxAmount ?? filter.amount.max,
+            },
+            transactionCategory: transactionCategory ?? filter.transactionCategory,
+            merchant: selectedMerchant ?? filter.merchant,
+
+        });
+
+    setDisplayFilterModal(false);
+}
+
+
 
   return (
     <>
@@ -61,11 +92,11 @@ const FilterBox = (
             onRequestClose={() => setDisplayFilterModal(false)}
             >
             <View style={styles.overlay}>
-                <View style={[styles.filterBoxContainer, {backgroundColor : Colors.white}] }>
+                <View style={[styles.filterBoxContainer, {backgroundColor : theme.inactiveCardColors}] }>
                     <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                         <Text style={[styles.filterBoxTitle, {color: theme.textColor}]}>Filter</Text>
                         <TouchableOpacity onPress={() => handleResetFilter()}>
-                        <Text style={{color: theme.activeCardColors}}>Reset</Text>
+                        <Text style={{color: Colors.tintColor}}>Reset</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.separator} />
@@ -73,18 +104,37 @@ const FilterBox = (
                         <Text style={[styles.filterBoxTitle, {color : theme.textColor}]}>Transaction Category</Text>
                         <View style={{flexDirection: 'row', gap: 10}}>
                             <Button 
-                                style={{ 
-                                    flexDirection:"row",
-                                    gap:8, 
-                                    height : 30, 
-                                    paddingHorizontal: 10, 
-                                    backgroundColor: Colors.tintColorOpacity, 
-                                    borderRadius: 30, 
-                                    borderWidth: 1 , 
-                                    borderColor: filter.transactionCategory===""? Colors.tintColor: "#ccc"}}>
-                                <FontAwesome name="navicon" size={14} color={filter.transactionCategory ===""? Colors.tintColor : theme.textColor} />
-                                <Text style={{ color: filter.transactionCategory ===""? Colors.tintColor : theme.textColor}}>All</Text>
+                                style={{
+                                    ...styles.filterBoxCategoryContainer,
+                                    borderColor: transactionCategory? "#ccc" : Colors.tintColor,
+                                    backgroundColor: transactionCategory ? 'transparent' : Colors.tintColorOpacity
+                                }}
+                                onPress={() => setTransactionCategory("")}>
+                                <FontAwesome name="navicon" size={14} color={transactionCategory?  theme.textColor: Colors.tintColor } />
+                                <Text style={{ color: transactionCategory? theme.textColor :Colors.tintColor }}>All</Text>
                             </Button>
+                            <Button 
+                                style={{
+                                    ...styles.filterBoxCategoryContainer,
+                                    borderColor: transactionCategory === "expense" ? Colors.tintColor : "#ccc",
+                                    backgroundColor: transactionCategory === "expense" ? Colors.tintColorOpacity : 'transparent'
+                                }}
+                                onPress={() => setTransactionCategory("expense")}>
+                                <MaterialIcons name="payment" size={14} color={transactionCategory === "expense" ?  Colors.tintColor : theme.textColor } />
+                                <Text style={{ color: transactionCategory=== "expense" ? Colors.tintColor : theme.textColor}}>Expense</Text>
+                            </Button>
+                            <Button 
+                                style={{
+                                    ...styles.filterBoxCategoryContainer,
+                                    borderColor: transactionCategory === "income" ?  Colors.tintColor : "#ccc" ,
+                                    backgroundColor: transactionCategory === "income" ?  Colors.tintColorOpacity : 'transparent' 
+                                }}
+                                onPress={() => setTransactionCategory("income")}>
+                                <MaterialCommunityIcons name="piggy-bank-outline" size={14} color={transactionCategory === "income" ? Colors.tintColor : theme.textColor } />
+                                <Text style={{ color: transactionCategory === "income" ? Colors.tintColor : theme.textColor }}>Income</Text>
+                            </Button>
+                            
+                            
                         </View>
                     </View>
                     <View>
@@ -117,9 +167,9 @@ const FilterBox = (
                     <View>
                         <Text style={[styles.filterBoxTitle, {color : theme.textColor}]}>Merchant</Text>
                         <Dropdown
-                            options={["All", "Amazon", "Walmart", "Target", "Best Buy", "eBay", "Etsy", "Home Depot", "Costco", "Kroger"]}
+                            options={merchantData.map(merchant => merchant.name)}
                             selected={selectedMerchant}
-                            setSelected={setSelectedMerchant} defaultValue={''} displayText={''} 
+                            setSelected={setSelectedMerchant} defaultValue={'None'} displayText={'None'} 
                             style={{display:'flex', height: 40 , borderWidth: 1, borderColor: "#ccc", borderRadius: 30, paddingTop: 8}}
                             />
                         
@@ -193,6 +243,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     alignItems: 'center',
   },
+  filterBoxCategoryContainer: {
+    flexDirection:"row",
+    gap:8, 
+    height : 30, 
+    paddingHorizontal: 10, 
+    borderRadius: 30, 
+    borderWidth: 1 
+},
   filterBoxTitle: {
     fontSize: 14,
     fontWeight: "bold",

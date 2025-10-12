@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { TextInput, TextInputProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
 import { type ConfirmResetPasswordInput } from "aws-amplify/auth";
+import { Merchant } from "./src/API";
 
 export interface DropDownItem {
   label: string;
@@ -85,6 +86,7 @@ export type Theme = {
   altTextColor: string;
   navigationBarBackground: string;
   cardBorderColor: string;
+  headerBackground: string;
 };
 
 export type AuthContextType = {
@@ -164,11 +166,16 @@ export type DropdownProps = {
 }
 
 export type TransactionFilter = {
-    transactionCategory: string,
-    fromDate: Date | null,
-    toDate: Date | null,
-    amount: number | null,
-    merchant: string,
+    transactionCategory?: string,
+    date?: {
+        from?: Date | null;
+        to?: Date | null;
+    },
+    amount?: {
+        min?: number | null;
+        max?: number | null;
+    }
+    merchant?: string;
 }
 
 export type FilterProps = {
@@ -176,4 +183,5 @@ export type FilterProps = {
     setFilter: (item: TransactionFilter) => void,
     displayFilterModal: boolean,
     setDisplayFilterModal: (value: boolean) => void,
+    merchantData: Merchant[],
 }

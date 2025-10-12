@@ -45,6 +45,7 @@ const Dropdown = ({
                     {
                         top: position.y + position.height,
                         left: position.x,
+                        width: position.width,
                         backgroundColor: theme.inactiveCardColors,
                     },
                     ]}
@@ -60,6 +61,11 @@ const Dropdown = ({
                         </TouchableOpacity>
                     )}
                     ItemSeparatorComponent={() => <View style={styles.seperator} />}
+                    ListEmptyComponent={() => (
+                            <Text style={{ color: theme.textColor, textAlign: 'center', padding: 20 }}>
+                                No options available
+                            </Text>
+                        )}
                     />
                 </View>
                 </View>
@@ -76,7 +82,7 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1
+        flex: 1,
     }
     ,
     seperator: {

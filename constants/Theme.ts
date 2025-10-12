@@ -4,7 +4,8 @@ import Colors from "./Colors";
 export const lightTheme: Theme = {
   backgroundColor: Colors.neutral100,
   textColor: Colors.black,
-  activeCardColors: Colors.tintColor,
+  headerBackground: Colors.tintColor,
+  activeCardColors: Colors.white,
   inactiveCardColors: Colors.white,
   altTextColor: Colors.tintColor,
   cardBorderColor: Colors.tintColor,
@@ -14,6 +15,7 @@ export const lightTheme: Theme = {
 export const darkTheme: Theme = {
   backgroundColor: Colors.black,
   textColor: Colors.white,
+  headerBackground: Colors.grey,
   activeCardColors: Colors.tintColor,
   inactiveCardColors: Colors.neutral700,
   altTextColor: Colors.cyan,

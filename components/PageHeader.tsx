@@ -7,18 +7,18 @@ import { PageHeaderProps } from '@/types'
 import BackButton from './BackButton'
 import { AntDesign } from '@expo/vector-icons'
 import { lightTheme, darkTheme } from '@/constants/Theme'
+import { useTheme } from '@/contexts/ThemeContext'
 
 const PageHeader = ({
     title, 
     rightButton, 
     onPress}: PageHeaderProps) => {
 
-    const appTheme = useColorScheme();
-    const Theme = appTheme === 'dark' ? darkTheme : lightTheme;
+    const { theme } = useTheme();
     // console.log(Theme.cardColors)
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: Theme.activeCardColors }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.headerBackground }]}>
         <View style={styles.leftContainer}>
             <BackButton/>
         </View>
