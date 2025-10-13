@@ -39,9 +39,9 @@ const TransactionBlock = ({transactionList, incomeList}: {transactionList: Trans
 
                     const isIncome = incomeList.some((income) => income.id === item.category_id);
                     return (
-                        <View key={item.id} style={{ flexDirection: 'row', marginVertical: 10, alignItems:'center'}}>
+                        <View key={item.id} style={[styles.transactionContainer, {backgroundColor: theme.activeCardColors}]}>
                             <View style={styles.iconContainer}>
-                                <Foundation name="dollar" size={22} color={Colors.white}/>
+                                <Foundation name="dollar" size={22} color={theme.textColor}/>
                             </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                                 <View style={{ gap: 5 }}>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
             fontSize: 16,
     },
     iconContainer : {
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.neutral300,
         width:40, 
         height:40, 
         padding: 10 , 
@@ -92,6 +92,26 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems: 'center'
     
-    }
+    },
+    transactionContainer: { 
+        flexDirection: 'row', 
+        marginVertical: 3, 
+        alignItems:'center', 
+        borderRadius: 16,
+        height: 70,
+        paddingHorizontal: 10,
+        // IOS shadow
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        // Anroid shadow
+        elevation: 0.5,
+        },
+        centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 
 })
