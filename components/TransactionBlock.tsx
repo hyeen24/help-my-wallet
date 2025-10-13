@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     },
     transactionContainer: { 
         flexDirection: 'row', 
-        marginVertical: 3, 
+        margin: 3,
         alignItems:'center', 
         borderRadius: 16,
         height: 70,
@@ -106,12 +106,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         // Anroid shadow
-        elevation: 0.5,
+        elevation: 2,
         },
-        centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
 
 })
