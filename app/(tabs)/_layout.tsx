@@ -44,8 +44,8 @@ const Layout = () => {
                     width: 36,
                     borderRadius: 30,
                     backgroundColor: focused ? theme.headerBackground : 'transparent',
-                    borderColor: focused ? Colors.white: 'transparent',
-                    borderWidth: 1,
+                    // borderColor: focused ? Colors.white: 'transparent',
+                    // borderWidth: 1,
                 }}>
                     <SimpleLineIcons name='pie-chart' size={18} color={color}/>
                 </View>
@@ -59,9 +59,9 @@ const Layout = () => {
                     height: 36,
                     width: 36,
                     borderRadius: 30,
-                    borderWidth: 1,
+                    // borderWidth: 1,
                     backgroundColor: focused ? theme.headerBackground : 'transparent',
-                    borderColor: focused ? Colors.white: 'transparent',
+                    // borderColor: focused ? Colors.white: 'transparent',
                 }}>
                     <AntDesign name="swap" size={18} color={color}/>
                 </View>
@@ -75,8 +75,8 @@ const Layout = () => {
                     height: 36,
                     width: 36,
                     borderRadius: 30,
-                    borderColor: focused ? Colors.white: 'transparent',
-                    borderWidth: 1,
+                    // borderColor: focused ? Colors.white: 'transparent',
+                    // borderWidth: 1,
                     backgroundColor: focused ? theme.headerBackground : 'transparent'
                 }}>
                     <FontAwesome name="user-o" size={18} color={color}/>

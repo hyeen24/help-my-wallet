@@ -6,11 +6,13 @@ import { AntDesign, Entypo, FontAwesome, Fontisto, MaterialCommunityIcons, Mater
 import  Colors from '@/constants/Colors'
 import ButtonSpaceBetweenTwoItem from '@/components/ButtonSpaceBetweenTwoItem'
 import { toTitleCase } from '@/utils/stringUtils'
+import { useTheme } from '@/contexts/ThemeContext'
 
 
 
 const transactionDetails = () => {
-  const { merchantIcon, merchantName, merchantId, itemAmount, itemDescription, transactionDate} = useLocalSearchParams();
+  const { theme } = useTheme();
+  const { merchantIcon, merchantName, merchantId, itemAmount,itemTitle, itemDescription, transactionDate} = useLocalSearchParams();
   console.log("Merchant Name",merchantName)
   console.log("Merchant Icon", merchantIcon)
 
@@ -31,7 +33,7 @@ const transactionDetails = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.black}}>
+    <View style={{ flex: 1, backgroundColor: theme.backgroundColor}}>
         <PageHeader
             title="Transactions Details"
             rightButton={<MaterialIcons name="notifications" size={22} color={Colors.white}/>}
@@ -40,7 +42,7 @@ const transactionDetails = () => {
         <View style={styles.container}>
           {
             merchantIcon === '' ? (
-              <Fontisto name="shopping-store" size={50} color={Colors.white}/>
+              <Fontisto name="shopping-store" size={50} color={theme.textColor}/>
             ) : (
               <Image
             source={{
@@ -53,9 +55,12 @@ const transactionDetails = () => {
           />
             ) 
           }  
+          <View style={{alignItems: 'center', gap: 4}}>
                 <Text style={styles.amountTxt}>${itemAmount}</Text>
-                <Text style={styles.descTxt}>{itemDescription}</Text>
-                <Text style={styles.dateTxt}> {transactionDate} </Text>
+                <Text style={{ color: theme.textColor , fontWeight: 700 , fontSize: 16}}>{itemTitle}</Text>
+                <Text style={{ color: theme.textColor }}>{itemDescription}</Text>
+          </View>
+
           <ButtonSpaceBetweenTwoItem
             leftTxt='Merchant'
             rightTxt={toTitleCase(merchantName)}
@@ -80,7 +85,6 @@ export default transactionDetails
 const styles = StyleSheet.create({
  container: {
   flex: 1,
-  backgroundColor: Colors.black,
   paddingTop: 24,               // ✅ Add spacing manually
   paddingHorizontal: 16,
   alignItems: 'center',
@@ -94,15 +98,8 @@ const styles = StyleSheet.create({
   amountTxt : {
     fontSize: 36,
     fontWeight: 700,
-    color: Colors.white
   },
   fontTxt : {
     fontSize: 16
   },
-  descTxt: {
-    color: Colors.white
-  },
-  dateTxt : {
-    color: Colors.neutral400
-  }
 })

@@ -9,14 +9,16 @@ import Input from '@/components/Input'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useAuth } from '@/contexts/AuthContext'
 import { generateClient } from 'aws-amplify/api'
-import { listExpenses, listMerchants, listTransactions } from '@/src/graphql/queries'
+import { listExpenses, listMerchants, listMerchantTransactions, listTransactions } from '@/src/graphql/queries'
 import Dropdown from '@/components/Dropdown'
 import FilterBox from '@/components/FilterBox'
+import { toDDMMYYYY } from '@/utils/dateUtils'
 
 const transaction = () => {
   const [merchantData, setMerchantData] = useState<any[]>([]);
   const [transactions, setTransactions] = useState<any[]>([]);
   const [expenses, setExpenses] = useState<any[]>([]);
+  const [ merchantTransactions, setMerchantTransactions] = useState<any[]>([]);
   const [uploading, setUploading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -49,21 +51,25 @@ const transaction = () => {
   const yearOptions = Array.from({ length: 11 }, (_, i) => (currentYear - 5 + i).toString());
 
   const fetchData = async () => {
-            const [ merchantResult, transactionResult ] = await Promise.all([
+            const [ merchantResult, transactionResult, expenseResult, merchantTransactionResult ] = await Promise.all([
               client.graphql({ query : listMerchants, authMode: 'userPool' }),
               client.graphql({ query : listTransactions, authMode: 'userPool' }),
               client.graphql({ query : listExpenses, authMode: 'userPool' }),
+              client.graphql({ query : listMerchantTransactions, authMode: 'userPool' }),
             ])
             const transactions = transactionResult.data?.listTransactions?.items ?? [];
             const merchants = merchantResult.data?.listMerchants?.items ?? [];
-            const expenses = merchantResult.data?.listExpenses?.items ?? [];
+            const expenses = expenseResult.data?.listExpenses?.items ?? [];
+            const merchantTransactions = merchantTransactionResult.data?.listMerchantTransactions?.items ?? [];
 
             setExpenses(expenses);
             setMerchantData(merchants)
             setTransactions(transactions);
+            setMerchantTransactions(merchantTransactions);
             handleTransactionSorting(transactions);
-            console.log(merchants)
-            console.log(transactions)
+            // console.log(merchants)
+            console.log("This is my transactions",transactions)
+            console.log("This is my merchantTransactions",merchantTransactions)
         };
 
   useEffect(() => {   
@@ -72,6 +78,30 @@ const transaction = () => {
 
   useEffect(() => {   
         console.log(filter);
+        // console.log("All Transactions:", transactions);
+        let filteredTransactions = [...transactions];
+
+        if (filter.date.from) {
+          const fromDate = new Date(filter.date.from);
+          filteredTransactions = filteredTransactions.filter(t => new Date(t.transaction_date) >= fromDate);
+        }
+
+        if (filter.date.to) {
+          const toDate = new Date(filter.date.to);
+          filteredTransactions = filteredTransactions.filter(t => new Date(t.transaction_date) <= toDate);
+        }
+
+        if (filter.amount.min !== null) {
+          filteredTransactions = filteredTransactions.filter(t => parseFloat(t.amount) >= filter.amount.min);
+        }
+        if (filter.amount.max !== null) {
+          filteredTransactions = filteredTransactions.filter(t => parseFloat(t.amount) <= filter.amount.max);
+        }
+
+        if (filter.merchant) {
+        }
+        
+
     }, [filter]);
 
   const handleTransactionSorting = ( inputTransactions : any ) => {
@@ -113,8 +143,10 @@ const transaction = () => {
         merchantName: string,
         merchantId: string,
         itemAmount : string,
+        itemTitle: string,
         itemDescription: string,
         transactionDate: string,
+
     ) =>{
         router.push({
             pathname: '/transactionDetails',
@@ -122,6 +154,7 @@ const transaction = () => {
                 merchantIcon,
                 merchantName,
                 merchantId,
+                itemTitle,
                 itemAmount,
                 itemDescription,
                 transactionDate
@@ -183,11 +216,7 @@ const transaction = () => {
                     // console.log("Matching Merchant:",matchedMerchant.icon);
                     const merchant = item.merchantID ? merchantData.find(m => m.id === item.merchantID) : null;
                     // console.log(merchant)
-                    const formattedDate = new Date(item.transaction_date).toLocaleDateString("en-GB", {
-                                            day: "2-digit",
-                                            month: "short",
-                                            year: "numeric",
-                                            });
+                    let date = toDDMMYYYY(new Date(item.transaction_date));
 
                     return(
                     <TouchableOpacity key={item.id} style={[styles.itemContainer, {backgroundColor : theme.activeCardColors}]} onPress={() => selectTransaction(
@@ -195,8 +224,9 @@ const transaction = () => {
                         merchant?.name ?? 'Unknown',
                         merchant?.id ?? '',
                         item.amount,
+                        item.title,
                         item.description,
-                        formattedDate
+                        date
                     )}>
                     
                             <View style={[styles.iconContainer, { backgroundColor: "#eee"}]}>
@@ -216,7 +246,7 @@ const transaction = () => {
                                     <Text style={{ color: theme.textColor, fontWeight: 700 }}>{ 
                                     item.description? `${item.title} - ${item.description}` : item.title 
                                     }</Text>
-                                    <Text style={{color: theme.textColor}}>{formattedDate}</Text>
+                                    <Text style={{color: theme.textColor}}>{date}</Text>
                                 </View>
                                 <Text style={{color: theme.textColor, fontWeight: 700 }}>${Number(item.amount).toFixed(2)}</Text>
                             </View>

@@ -59,10 +59,6 @@ const FilterBox = (
     };
 
     const handleApplyFilter = () => {
-        console.log("FromDate:", fromDate);
-        console.log("ToDate:", toDate);
-        console.log("MinAmount:", minAmount);
-        console.log("MaxAmount:", maxAmount);
         setFilter({
             ...filter,
             date: {
@@ -75,7 +71,6 @@ const FilterBox = (
             },
             transactionCategory: transactionCategory ?? filter.transactionCategory,
             merchant: selectedMerchant ?? filter.merchant,
-
         });
 
     setDisplayFilterModal(false);

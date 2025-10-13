@@ -19,3 +19,14 @@ export const toDDMMMMYY = (date: Date) => {
     return formatted;
     } else return "No Date"
 }
+
+export const toDDMMYYYY = (date: Date) => {
+    if (date) {
+    const formatted = date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+        });
+    return formatted;
+    } else return "No Date"
+}
