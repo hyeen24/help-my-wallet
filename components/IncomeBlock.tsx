@@ -60,7 +60,7 @@ const IncomeBlock = ({incomeList, onRefresh} : {incomeList: Income[],  onRefresh
 
         return (
             <View>
-                <View style={[styles.incomeCategoryContainerTop, { backgroundColor: theme.cardColors }]}>
+                <View style={[styles.incomeCategoryContainerTop, { backgroundColor: theme.activeCardColors }]}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={styles.categoryIconContainer}>
                             {!iconName || !iconFamily ? (
@@ -82,14 +82,18 @@ const IncomeBlock = ({incomeList, onRefresh} : {incomeList: Income[],  onRefresh
                                 <View style={{
                                     position: 'absolute',
                                     zIndex: 999,
-                                    backgroundColor: '#666',
+                                    backgroundColor: Colors.white,
                                     gap: 8,
                                     borderRadius: 5,
                                     paddingHorizontal: 16,
                                     paddingVertical: 16,
                                     alignItems: 'center',
+                                    elevation:2,
                                     transform: [{
-                                        translateY: 40
+                                        translateY: 50,
+                                        
+                                    }, {
+                                        translateX: 50
                                     }]
                                 }}>
                                     <TouchableOpacity>
@@ -105,7 +109,7 @@ const IncomeBlock = ({incomeList, onRefresh} : {incomeList: Income[],  onRefresh
                         }
 
                     </View>
-                    <Text style={{ color: theme.textColor }}>{item.name}</Text>
+                    <Text style={{ color: theme.textColor, fontWeight: 500, fontSize: 16 }}>{item.name}</Text>
                     <Text style={[styles.incomeAmountWholeNumber, { color: theme.textColor }]}>${Number(incomeAmountWholeNumber).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}.
                         <Text style={[styles.incomeAmountDecimalNumber, { color: theme.textColor }]}>{amount[1]}</Text>
                     </Text>
@@ -145,7 +149,8 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     incomeCategoryContainerTop : {
-        
+        elevation:1,
+        margin:2,
         padding: 20, 
         borderRadius: 20, 
         marginRight: 15, 
@@ -153,7 +158,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     categoryIconContainer: {
-        borderColor: '#666', 
+        borderColor: '#ccc', 
         borderRadius: 50,
         padding: 10,
         borderWidth: 1,
