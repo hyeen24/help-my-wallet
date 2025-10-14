@@ -10,6 +10,7 @@ export const lightTheme: Theme = {
   altTextColor: Colors.tintColor,
   cardBorderColor: Colors.tintColor,
   navigationBarBackground: Colors.lightTintColor,
+  titleText: Colors.tintColor
 };
 
 export const darkTheme: Theme = {
@@ -21,4 +22,5 @@ export const darkTheme: Theme = {
   altTextColor: Colors.cyan,
   cardBorderColor: '#333',
   navigationBarBackground: Colors.grey,
+  titleText: Colors.white
 };
