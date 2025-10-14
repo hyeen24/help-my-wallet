@@ -87,6 +87,7 @@ export type Theme = {
   navigationBarBackground: string;
   cardBorderColor: string;
   headerBackground: string;
+  titleText: string;
 };
 
 export type AuthContextType = {
