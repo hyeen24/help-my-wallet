@@ -46,19 +46,19 @@ const login = () => {
 
   return (
     <ScreenWrapper>
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor : theme.backgroundColor}]}>
             <BackButton/>
             <View style={{gap:5, marginTop: 20}}>
-              <Text style={styles.loginTxt1}>
+              <Text style={[styles.loginTxt1, { color : theme.titleText }]}>
                 Hey,
               </Text>
-              <Text style={styles.loginTxt1}>
+              <Text style={[styles.loginTxt1, { color : theme.titleText }]}>
                 Welcome Back
               </Text>
             </View>
 
         <View style={styles.form}>
-          <Text style={{ fontSize: 16, color: Colors.white}}>
+          <Text style={{ fontSize: 16, color: theme.textColor}}>
             Login now to track all your expenses
           </Text>
           <Input 
@@ -85,13 +85,13 @@ const login = () => {
           <Loading/>
         ) : (
         <Button loading={loading} onPress={handleSignIn}>
-          <Text style={{ fontWeight: 700, color: theme.textColor, fontSize: 21 }}>Login</Text>
+          <Text style={{ fontWeight: 700, color: Colors.white, fontSize: 21 }}>Login</Text>
         </Button> ) }
 
         <View style={styles.footer}>
           <Text style={{color: theme.textColor, fontSize: 15 }}>Don't have an account?</Text>
           <Pressable onPress={()=> router.push('/(auth)/register')}>
-            <Text style={{ fontSize: 15, fontWeight: 700, color : theme.textColor
+            <Text style={{ fontSize: 15, fontWeight: 700, color : theme.titleText
             }}>Sign up</Text>
           </Pressable>
         </View>
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     welcomeText: {
       fontSize: 20,
       fontWeight: "bold",
-      color: Colors.white,
     },
     form: {
       gap: 20,
@@ -119,7 +118,6 @@ const styles = StyleSheet.create({
     forgotPassword: {
       textAlign: "right",
       fontWeight: "500",
-      color: Colors.white,
     },
     footer: {
       flexDirection: "row",
@@ -129,13 +127,11 @@ const styles = StyleSheet.create({
     },
     footerText : {
         textAlign: "center",
-        color: Colors.white,
         fontSize: 15
     },
     loginTxt1 : {
       fontSize: 30,
       fontWeight: 800,
-      color: Colors.white
     }
   });
   
