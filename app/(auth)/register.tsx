@@ -9,6 +9,7 @@ import Colors from '@/constants/Colors';
 import { AntDesign, Feather, FontAwesome } from '@expo/vector-icons';
 import { AuthContext, useAuth } from '@/contexts/AuthContext';
 import { toTitleCase } from '@/utils/stringUtils';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const Register = () => {
   
@@ -19,6 +20,7 @@ const Register = () => {
   const { user, registerUser, loading } = useAuth();
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { theme } = useTheme();
 
   // Handling Register, It first checks the field then It will call the handleSignUp from Context
   const handleRegister = async () => {
@@ -81,51 +83,51 @@ const Register = () => {
         <View style={styles.container}>
             <BackButton/>
             <View style={{gap:5, marginTop: 5}}>
-              <Text style={styles.registerTxt1}>Let's,</Text>
-              <Text style={styles.registerTxt1}>Get Started</Text>
+              <Text style={[styles.registerTxt1, { color: theme.titleText}]}>Let's,</Text>
+              <Text style={[styles.registerTxt1, { color: theme.titleText}]}>Get Started</Text>
             </View>
 
         <View style={styles.form}>
-          <Text style={{ fontSize: 16, color: Colors.white }}>
+          <Text style={{ fontSize: 16, color: theme.textColor }}>
             Create an account to track your expenses
           </Text>
           <Input 
           placeholder="Enter your name" 
           onChangeText={(value) => {setName(value)}}
           iconLeft={<FontAwesome name='address-book' size={18}
-          color={Colors.neutral300}/>}
+          color={Colors.neutral100}/>}
           />
           <Input 
           placeholder="Enter your email" 
           onChangeText={(value) => {setEmail(value)}}
           iconLeft={<Feather name='mail' size={18}
-          color={Colors.neutral300}/>}
+          color={Colors.neutral100}/>}
           />
           <Input 
           placeholder="Enter your password" 
           secureTextEntry
           onChangeText={(value) => {setPassword(value)}}
           iconLeft={<AntDesign name='lock' size={18}
-          color={Colors.neutral300}/>}
+          color={Colors.neutral100}/>}
           />
           <View>
-            <Text style={{ fontSize: 15, color: Colors.white }}>
+            <Text style={{ fontSize: 15, color: theme.textColor }}>
               {'\u2022'} Minimum 8 characters {password.length >= 8 ? '✅' : ''}
             </Text>
 
-            <Text style={{ fontSize: 15, color: Colors.white }}>
+            <Text style={{ fontSize: 15, color: theme.textColor }}>
               {'\u2022'} At least one lowercase character {/[a-z]/.test(password) ? '✅' : ''}
             </Text>
 
-            <Text style={{ fontSize: 15, color: Colors.white }}>
+            <Text style={{ fontSize: 15, color: theme.textColor }}>
               {'\u2022'} At least one uppercase character {/[A-Z]/.test(password) ? '✅' : ''}
             </Text>
 
-            <Text style={{ fontSize: 15, color: Colors.white }}>
+            <Text style={{ fontSize: 15, color: theme.textColor }}>
               {'\u2022'} At least one numeral (0-9) {/\d/.test(password) ? '✅' : ''}
             </Text>
 
-            <Text style={{ fontSize: 15, color: Colors.white }}>
+            <Text style={{ fontSize: 15, color: theme.textColor }}>
               {'\u2022'} At least one symbol character {/[!@#$%^&*(),.?":{}|<>]/.test(password) ? '✅' : ''}
             </Text>
           </View>
@@ -134,13 +136,13 @@ const Register = () => {
         </View>
 
         <Button loading={loading} onPress={handleRegister}>
-          <Text  style={{ fontWeight: 700, color: Colors.black, fontSize: 21}} >Sign Up</Text>
+          <Text  style={{ fontWeight: 700, color: Colors.white, fontSize: 21}} >Sign Up</Text>
         </Button>
 
         <View style={styles.footer}>
-          <Text style={{ fontSize: 15, color: Colors.white}}>Already have an account?</Text>
+          <Text style={{ fontSize: 15, color: theme.textColor}}>Already have an account?</Text>
           <Pressable onPress={()=> router.navigate("/(auth)/login")}>
-            <Text style={{ fontSize: 15, fontWeight: 700, color: Colors.white}} >Login</Text>
+            <Text style={{ fontSize: 15, fontWeight: 700, color: theme.titleText}} >Login</Text>
           </Pressable>
         </View>
 
@@ -160,7 +162,6 @@ const styles = StyleSheet.create({
     welcomeText: {
       fontSize: 20,
       fontWeight: "bold",
-      color: Colors.white,
     },
     form: {
       gap: 20,
@@ -168,7 +169,6 @@ const styles = StyleSheet.create({
     forgotPassword: {
       textAlign: "right",
       fontWeight: "500",
-      color: Colors.white,
     },
     footer: {
       flexDirection: "row",
@@ -178,13 +178,11 @@ const styles = StyleSheet.create({
     },
     footerText : {
         textAlign: "center",
-        color: Colors.white,
         fontSize: 15
     },
     registerTxt1 : {
       fontSize: 30,
       fontWeight: 800,
-      color: Colors.white
     }
   })
   

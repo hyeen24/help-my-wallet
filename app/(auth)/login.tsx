@@ -91,7 +91,7 @@ const login = () => {
         <View style={styles.footer}>
           <Text style={{color: theme.textColor, fontSize: 15 }}>Don't have an account?</Text>
           <Pressable onPress={()=> router.push('/(auth)/register')}>
-            <Text style={{ fontSize: 15, fontWeight: 700, color : theme.titleText
+            <Text style={{ fontSize: 15, fontWeight: 700, color : Colors.tintColor
             }}>Sign up</Text>
           </Pressable>
         </View>

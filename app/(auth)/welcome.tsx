@@ -41,7 +41,7 @@ const welcome = () => {
             <Animated.View 
             entering={FadeIn.duration(1000).delay(100).springify().damping(12)}
             style={{ gap:2}}>
-                <Text style={styles.footerTxt2}>
+                <Text style={[styles.footerTxt2, { color: theme.textColor }]}>
                     Before your finances controls you
                 </Text>
             </Animated.View>

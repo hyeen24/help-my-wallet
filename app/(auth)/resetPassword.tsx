@@ -123,7 +123,7 @@ const resetPassword = () => {
       {resetPasswordStage === 'retrieve' ? (
         <>
           <View style={{ gap : 5}}>
-          <Text style={{ fontSize: 30 , fontWeight: 800 , color: theme.textColor }}>Forget Your Password?</Text>
+          <Text style={{ fontSize: 30 , fontWeight: 800 , color: theme.titleText }}>Forget Your Password?</Text>
           <Text style={{ fontSize: 16, color: theme.textColor , textAlign:'center'}}>Please enter your email address.</Text>
           </View>
           <Input
@@ -132,7 +132,7 @@ const resetPassword = () => {
           iconLeft={<Feather name='mail' size={18} color={theme.textColor} />}/>
 
           <Button style={styles.resetButton} onPress={processResetPassword}>
-              <Text style={{ fontWeight: 700, color: theme.textColor, fontSize: 21 }}>Reset Password</Text>
+              <Text style={{ fontWeight: 700, color: Colors.white, fontSize: 21 }}>Reset Password</Text>
           </Button> 
         </>
         
@@ -141,7 +141,7 @@ const resetPassword = () => {
         <>
           <View style={{ gap : 5}}>
           <Text style={{ fontSize: 30 , fontWeight: 800 , color: theme.textColor }}>Forget Your Password?</Text>
-          <Text style={{ fontSize: 16, color: theme.textColor , textAlign:'center'}}>We had sent a code to
+          <Text style={{ fontSize: 16, color: theme.titleText , textAlign:'center'}}>We had sent a code to
             <Text style={{fontSize: 16, color:theme.textColor, fontWeight:400}}> {emailConfirm}</Text>.</Text>
           </View>
           <View style={styles.form}>
@@ -166,14 +166,14 @@ const resetPassword = () => {
             iconLeft={<AntDesign name='lock' size={18} color={theme.textColor}/>}
             secureTextEntry
             onChangeText={(value) => {setNewPassword(value)}}/>
-          <Text style={{fontSize: 16, fontWeight: 400}}>Confirm New Password:</Text>
+          <Text style={{fontSize: 16, fontWeight: 400, marginTop: 10}}>Confirm New Password:</Text>
           <Input 
             placeholder="Confirm your new password" 
             secureTextEntry
             iconLeft={<AntDesign name='lock' size={18} color={theme.textColor}/>}
             onChangeText={(value) => {setConfirmPassword(value)}}/>
           <Button onPress={processNewPassword}>
-            <Text style={{ fontWeight: 700, color: theme.textColor, fontSize: 21 }}>Reset Password</Text>
+            <Text style={{ fontWeight: 700, color: Colors.white, fontSize: 21 }}>Reset Password</Text>
           </Button>
         </View>
       
