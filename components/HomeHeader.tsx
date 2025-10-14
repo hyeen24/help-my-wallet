@@ -13,8 +13,8 @@ const HomeHeader = ({ budget }: { budget: number }) => {
     const { theme } = useTheme();   
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.cardColors}]}>
-        <View style={[styles.leftContainer, { backgroundColor: theme.cardColors}]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.headerBackground}]}>
+        <View style={[styles.leftContainer, { backgroundColor: theme.headerBackground}]}>
             <View style={{ flexDirection: 'row', alignItems: 'center'}}>     
                 <Image
                     source={require('../assets/images/react-logo.png')}

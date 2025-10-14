@@ -16,9 +16,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [ userAttributes, setUserAttributes ] = useState<Partial<Record<string, string>> | null>(null);
 
   // Check if user is already signed in
-  useEffect(() => {
-    fetchUser();
-  }, []);
+    useEffect(() => {
+        fetchUser();
+    }, []);
 
   const fetchUser = async () => {
       try {
@@ -27,8 +27,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(currentUser);
         setUserAttributes(userAttributes);
 
-      } catch {
-        setUser(null);
+      } catch (error:any ) {
+        console.log(error)
+        if (error.name === 'NoSignedInUser' || error.name === "NotAuthorizedException" || error.name === "UserUnAuthenticatedException") {
+          setUser(null);
+          setUserAttributes(null);
+        } else {
+          console.error("Unexpected error fetching user:",error)
+        }
+        return
       } finally {
         setLoading(false);
       }
@@ -139,6 +146,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 handleSignUpConfirmation,
                 handleResetPassword,
                 handleConfirmResetPassword,
+                fetchUser,
                 userAttributes }}>
       {children}
     </AuthContext.Provider>

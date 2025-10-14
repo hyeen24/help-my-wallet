@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { router } from 'expo-router';
+import Loading from './Loading';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -14,16 +15,18 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
+        <Loading/>
       </View>
     );
   }
 
-   useEffect(() => {
-    if (!loading && !user) {
-      router.replace('/welcome'); // safe navigation after render
-    }
-  }, [user, loading]);
+  if (!user && !loading) {
+    useEffect(() => {  
+       router.replace('/welcome'); // safe navigation after render
+   }, []);
+   return null;
+  }
+
 
   return <>{children}</>;
 }

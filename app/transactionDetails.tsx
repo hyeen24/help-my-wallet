@@ -12,14 +12,18 @@ import { useTheme } from '@/contexts/ThemeContext'
 
 const transactionDetails = () => {
   const { theme } = useTheme();
-  const { merchantIcon, merchantName, merchantId, itemAmount,itemTitle, itemDescription, transactionDate} = useLocalSearchParams();
+  const { merchantIcon, merchantName, merchantId, itemAmount,itemTitle, itemDescription, transactionId, transactionDate} = useLocalSearchParams();
   console.log("Merchant Name",merchantName)
   console.log("Merchant Icon", merchantIcon)
 
   const moveToMerchant = (merchantId : string)=> {
     console.log("Merchant ID:", merchantId);
     if (merchantName === "Unknown") {
-       router.push('/addMerchant')
+       router.push({
+        pathname: '/addMerchant',
+        params: {
+          transactionId
+        }})
       
     } else {
       console.log("Merchant Name is known, redirecting to merchantDetails")

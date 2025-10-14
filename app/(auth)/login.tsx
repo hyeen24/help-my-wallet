@@ -10,12 +10,15 @@ import Button from '@/components/Button'
 import { router } from 'expo-router'
 import { useTheme } from '@/contexts/ThemeContext'
 import Loading from '@/components/Loading'
+import { signOut } from 'aws-amplify/auth'
 
 const login = () => {
      const { user, signInUser, loading } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { theme} = useTheme();
+
+    
 
     const handleSignIn = async () => {
     if(!email || !password){
@@ -26,8 +29,8 @@ const login = () => {
           Alert.alert('Login','Please ensure password has the minimum length of 8 characters.')
           return;
         }
+    await signOut();
     
-
     const res = await signInUser(email.toLowerCase() , password);
     // console.log("Sign in response:", res);
     if (res.success) {
@@ -40,6 +43,7 @@ const login = () => {
           }
         ]);
       } else {
+        console.log(res)
         Alert.alert("Login Failed", res.error.message);
       }
     } 

@@ -13,6 +13,7 @@ import { listExpenses, listMerchants, listMerchantTransactions, listTransactions
 import Dropdown from '@/components/Dropdown'
 import FilterBox from '@/components/FilterBox'
 import { toDDMMYYYY } from '@/utils/dateUtils'
+import { getUrl } from 'aws-amplify/storage'
 
 const transaction = () => {
   const [merchantData, setMerchantData] = useState<any[]>([]);
@@ -52,15 +53,27 @@ const transaction = () => {
 
   const fetchData = async () => {
             const [ merchantResult, transactionResult, expenseResult, merchantTransactionResult ] = await Promise.all([
-              client.graphql({ query : listMerchants, authMode: 'userPool' }),
+              client.graphql({ query : listMerchants,  authMode: 'userPool'}),
               client.graphql({ query : listTransactions, authMode: 'userPool' }),
               client.graphql({ query : listExpenses, authMode: 'userPool' }),
               client.graphql({ query : listMerchantTransactions, authMode: 'userPool' }),
             ])
+
             const transactions = transactionResult.data?.listTransactions?.items ?? [];
             const merchants = merchantResult.data?.listMerchants?.items ?? [];
             const expenses = expenseResult.data?.listExpenses?.items ?? [];
             const merchantTransactions = merchantTransactionResult.data?.listMerchantTransactions?.items ?? [];
+
+            const updatedMerchants = await Promise.all(
+                merchants.map(async (merchant: any) => {
+                    const result = await getUrl({
+                        key: merchant.image, // your S3 key
+                        options: { accessLevel: "private" }, // or "public"
+                    });
+    
+                    // Return a new object with a `url` property
+                    return { ...merchant, url: result.url.toString() };
+                }))
 
             setExpenses(expenses);
             setMerchantData(merchants)
@@ -68,6 +81,8 @@ const transaction = () => {
             setMerchantTransactions(merchantTransactions);
             handleTransactionSorting(transactions);
             // console.log(merchants)
+            console.log("list merchants",merchants)
+            console.log("expenses",expenses)
             console.log("This is my transactions",transactions)
             console.log("This is my merchantTransactions",merchantTransactions)
         };
@@ -77,7 +92,7 @@ const transaction = () => {
     }, []);
 
   useEffect(() => {   
-        console.log(filter);
+        // console.log(filter);
         // console.log("All Transactions:", transactions);
         let filteredTransactions = [...transactions];
 
@@ -145,6 +160,7 @@ const transaction = () => {
         itemAmount : string,
         itemTitle: string,
         itemDescription: string,
+        transactionId: string,
         transactionDate: string,
 
     ) =>{
@@ -157,7 +173,8 @@ const transaction = () => {
                 itemTitle,
                 itemAmount,
                 itemDescription,
-                transactionDate
+                transactionId,
+                transactionDate,
             }
         }
       )};
@@ -191,8 +208,8 @@ const transaction = () => {
                 <View style={{ flex: 1}}>
                     <Button style = {{ flexDirection:'row' ,width: 100, height: 30, backgroundColor: 'transparent', borderColor: "#ccc", borderWidth: 1, borderRadius: 30}}
                       onPress={() => setDisplayFilterModal(true)}>
-                      <Ionicons name="filter" size={16} color={"#666"} style={{ marginRight: 5 }}/>
-                      <Text style={{color:"#666"}}>Filter</Text>
+                      <Ionicons name="filter" size={16} color={"#ccc"} style={{ marginRight: 5 }}/>
+                      <Text style={{color:"#ccc"}}>Filter</Text>
                   </Button>
                 </View>
                 <View style={{ flexDirection: 'row', marginHorizontal: 5, gap:5, justifyContent:'center', alignItems: 'center', flex: 1}}>
@@ -210,55 +227,67 @@ const transaction = () => {
             </View>
              <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
                 {
-                    displayTransactions&& displayTransactions.length > 0 ? (
-                displayTransactions.map((item) => {
-                    // console.log("merchantData:", merchantData);
-                    // console.log("Matching Merchant:",matchedMerchant.icon);
-                    const merchant = item.merchantID ? merchantData.find(m => m.id === item.merchantID) : null;
-                    // console.log(merchant)
-                    let date = toDDMMYYYY(new Date(item.transaction_date));
+                    displayTransactions && displayTransactions.length > 0 ? (
+                        displayTransactions.map((item) => {
+                            // console.log("merchantData:", merchantData);
+                            // console.log("Matching Merchant:",matchedMerchant.icon);
+                            // console.log(item)
+                            // console.log(merchantData)
+                            const inMerchantTransaction = merchantTransactions.find(mt => mt.transaction_id === item.id) || null;
+                            // console.log("found in merchantTransaction", inMerchantTransaction);
+                            let merchant = null;
+                            if (inMerchantTransaction && inMerchantTransaction.merchant_id) {
+                                merchant = merchantData.find(m => m.id === inMerchantTransaction.merchant_id) || null;
+                            }
+                            // console.log("Tag merchant", merchant);
+                            let date = toDDMMYYYY(new Date(item.transaction_date));
 
-                    return(
-                    <TouchableOpacity key={item.id} style={[styles.itemContainer, {backgroundColor : theme.activeCardColors}]} onPress={() => selectTransaction(
-                        merchant?.image ?? '',
-                        merchant?.name ?? 'Unknown',
-                        merchant?.id ?? '',
-                        item.amount,
-                        item.title,
-                        item.description,
-                        date
-                    )}>
-                    
-                            <View style={[styles.iconContainer, { backgroundColor: "#eee"}]}>
-                                { merchant && merchant.icon ? (
-                                    // <Image
-                                    //     source={{ uri: merchant.icon.replace('/media','/api/media') }}
-                                    //     style={{ width: 50, height: 50, borderRadius: 10 }}/>
-                                    undefined
-                                    
-                                    ) : (
-                                        <Foundation name="dollar" size={22} color={ theme.textColor }/>
-                                    )   
-                                }
+                            return (
+                                <TouchableOpacity key={item.id} style={[styles.itemContainer, { backgroundColor: "#333" }]} onPress={() => selectTransaction(
+                                    merchant?.image ?? '',
+                                    merchant?.name ?? 'Unknown',
+                                    merchant?.id ?? '',
+                                    item.amount,
+                                    item.title,
+                                    item.description,
+                                    item.id,
+                                    date
+                                )}>
+
+                                    <View style={[styles.iconContainer, { backgroundColor: "#333" }]}>
+                                        {merchant && merchant.url ? (
+                                            // <Image
+                                            //     source={{ uri: merchant.url }}
+                                            //     style={{ width: 50, height: 50, borderRadius: 10 }}/>
+                                            undefined
+
+                                        ) : (
+                                            <Foundation name="dollar" size={22} color={theme.textColor} />
+                                        )
+                                        }
+                                    </View>
+                                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <View style={{ gap: 5 }}>
+                                            <Text style={{ color: theme.textColor, fontWeight: 700 }}>
+                                                {
+                                                    item.description ? `${item.title} - ${item.description}` : item.title
+                                                }
+                                            </Text>
+                                            <Text style={{ color: theme.textColor }}>{date}</Text>
+                                        </View>
+                                        <Text style={{ color: theme.textColor, fontWeight: 700 }}>${Number(item.amount).toFixed(2)}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            );
+                        })
+                    ) : (
+                        <View style={{ gap: 20 }}>
+                            <View style={{ marginTop: 20, alignItems: 'center', backgroundColor: theme.activeCardColors, height: 50, justifyContent: 'center', borderRadius: 20 }}>
+                                <Text style={{ fontSize: 14, color: Colors.white }}>No transaction record.</Text>
                             </View>
-                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-                                <View style={{ gap: 5 }}>
-                                    <Text style={{ color: theme.textColor, fontWeight: 700 }}>{ 
-                                    item.description? `${item.title} - ${item.description}` : item.title 
-                                    }</Text>
-                                    <Text style={{color: theme.textColor}}>{date}</Text>
-                                </View>
-                                <Text style={{color: theme.textColor, fontWeight: 700 }}>${Number(item.amount).toFixed(2)}</Text>
-                            </View>
-                    </TouchableOpacity>  
-                    );
-                })): (
-                    <View style={{ gap : 20}}>
-                        <View style={{ marginTop: 20, alignItems : 'center', backgroundColor: theme.activeCardColors, height: 50, justifyContent:'center', borderRadius:20}}>
-                            <Text style={{ fontSize: 14, color: Colors.white}}>No transaction record.</Text>
                         </View>
-                    </View>
-                )}
+                    )
+                }
                 
             </ScrollView> 
 

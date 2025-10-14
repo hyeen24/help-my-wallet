@@ -39,11 +39,11 @@ const TransactionBlock = ({transactionList, incomeList}: {transactionList: Trans
 
                     const isIncome = incomeList.some((income) => income.id === item.category_id);
                     return (
-                        <View key={item.id} style={[styles.transactionContainer, {backgroundColor: theme.activeCardColors}]}>
+                        <View key={item.id} style={[styles.transactionContainer, {backgroundColor: theme.backgroundColor}]}>
                             <View style={styles.iconContainer}>
                                 <Foundation name="dollar" size={22} color={theme.textColor}/>
                             </View>
-                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' , backgroundColor: 'transparent'}}>
                                 <View style={{ gap: 5 }}>
                                     <Text style={{color:theme.textColor, fontWeight: 700 }}>{item.description? item.title+" - "+item.description : item.title }</Text>
                                     <Text style={{color:theme.textColor}}>{formattedDate}</Text>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
             fontSize: 16,
     },
     iconContainer : {
-        backgroundColor: Colors.neutral300,
+        backgroundColor: Colors.neutral800,
         width:40, 
         height:40, 
         padding: 10 , 
@@ -95,18 +95,11 @@ const styles = StyleSheet.create({
     },
     transactionContainer: { 
         flexDirection: 'row', 
-        margin: 3,
+        margin: 2,
         alignItems:'center', 
         borderRadius: 16,
         height: 70,
-        paddingHorizontal: 10,
-        // IOS shadow
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        // Anroid shadow
-        elevation: 2,
+        paddingHorizontal: 10
         },
 
 })

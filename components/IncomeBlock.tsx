@@ -60,7 +60,7 @@ const IncomeBlock = ({incomeList, onRefresh} : {incomeList: Income[],  onRefresh
 
         return (
             <View>
-                <View style={[styles.incomeCategoryContainerTop, { backgroundColor: theme.activeCardColors }]}>
+                <View style={[styles.incomeCategoryContainerTop, { backgroundColor: "#333" }]}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={styles.categoryIconContainer}>
                             {!iconName || !iconFamily ? (

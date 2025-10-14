@@ -43,7 +43,7 @@ const Layout = () => {
                     height: 36,
                     width: 36,
                     borderRadius: 30,
-                    backgroundColor: focused ? theme.headerBackground : 'transparent',
+                    backgroundColor: 'transparent',
                     // borderColor: focused ? Colors.white: 'transparent',
                     // borderWidth: 1,
                 }}>
@@ -60,7 +60,7 @@ const Layout = () => {
                     width: 36,
                     borderRadius: 30,
                     // borderWidth: 1,
-                    backgroundColor: focused ? theme.headerBackground : 'transparent',
+                    backgroundColor: 'transparent',
                     // borderColor: focused ? Colors.white: 'transparent',
                 }}>
                     <AntDesign name="swap" size={18} color={color}/>
@@ -77,7 +77,7 @@ const Layout = () => {
                     borderRadius: 30,
                     // borderColor: focused ? Colors.white: 'transparent',
                     // borderWidth: 1,
-                    backgroundColor: focused ? theme.headerBackground : 'transparent'
+                    backgroundColor:  'transparent'
                 }}>
                     <FontAwesome name="user-o" size={18} color={color}/>
                 </View>

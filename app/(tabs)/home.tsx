@@ -156,7 +156,7 @@ const home = () => {
         .filter((tx) => tx.category_id === income.id)
         .reduce((sum, tx) => sum + Number(tx.amount), 0);
 
-        console.log(income)
+        // console.log(income)
 
       incomeTotals[income.name] = {
         total,
@@ -412,7 +412,7 @@ const renderExpenses = () => {
             <Feather
               name="plus"
               size={22}
-              color={colorScheme === "dark" ? "#ccc" : Colors.lightTintColor}
+              color={Colors.white}
             />
           </TouchableOpacity>
         </View>
