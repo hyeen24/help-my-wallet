@@ -6,15 +6,17 @@ import Colors from '@/constants/Colors';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import Button from '@/components/Button';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const welcome = () => {
     const router = useRouter();
+    const { theme } = useTheme();
   return (
     <ScreenWrapper>
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor : theme.backgroundColor }]}>
         <View>
             <TouchableOpacity onPress={() => router.push('/(auth)/login')} style={styles.loginButton}>
-                <Text style={{ color: Colors.white, fontWeight: 500 }}>Sign In</Text>
+                <Text style={{ color: theme.titleText, fontWeight: 500 }}>Sign In</Text>
             </TouchableOpacity>
 
             <Animated.Image
@@ -28,10 +30,10 @@ const welcome = () => {
         <View style={styles.footer}>
             <Animated.View 
             entering={FadeIn.duration(1000).springify().damping(12)}>
-                <Text style={styles.footerTxt1}>
+                <Text style={[styles.footerTxt1, {color: theme.titleText}]}>
                     Always take control
                 </Text>
-                <Text style={styles.footerTxt1}>
+                <Text style={[styles.footerTxt1, {color: theme.titleText}]}>
                     of your finances
                 </Text>
             </Animated.View>
@@ -74,9 +76,12 @@ const styles = StyleSheet.create({
     loginButton: {
       alignSelf: "flex-end",
       marginRight: 20,
+      borderWidth: 1,
+      borderColor: "#ccc",
+      padding: 10,
+      borderRadius: 15
     },
     footer: {
-        backgroundColor: Colors.black,
         paddingTop: 30,
         paddingBottom: 45,
         gap: 20,
@@ -94,13 +99,11 @@ const styles = StyleSheet.create({
     footerTxt1 : {
         fontWeight: 800,
         fontSize: 30,
-        color: Colors.white,
         textAlign: 'center'
     },
     footerTxt2: {
         fontWeight: 400,
         fontSize: 17,
-        color: Colors.white,
         textAlign: 'center'
     }
     
