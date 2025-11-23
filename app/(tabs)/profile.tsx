@@ -1,57 +1,85 @@
-import { StyleSheet, Text, TouchableOpacity, useColorScheme, View , Switch} from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, useColorScheme, View , Switch, Image} from 'react-native'
 import React, { useState } from 'react'
 import Colors from '@/constants/Colors'
 import { Stack } from 'expo-router'
 import PageHeader from '@/components/PageHeader';
 import { darkTheme, lightTheme } from '@/constants/Theme';
-import { AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { useAuth } from '@/contexts/AuthContext';
+import { toTitleCase } from '@/utils/stringUtils';
+import { profileOptionsType } from '@/types';
 
 const profile = () => {
   const appTheme = useColorScheme();
   const Theme = appTheme === 'dark' ? darkTheme : lightTheme;
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const { user, signOutUser, userAttributes } = useAuth();
+  const name = userAttributes?.name || user?.name || "User";
+  const email = userAttributes?.email || user?.email || "No Email";
+  const userImage = userAttributes?.picture || user?.picture || "Default";
+
+  const profileOptions: profileOptionsType[] = [
+    {
+      title: 'Edit Profile',
+      icon: <Ionicons name="person-circle-sharp" size={26} color={Colors.white} />,
+      bgColor: '#6366f1'
+    },
+    {
+      title: 'Settings',
+      icon: <MaterialIcons name="settings" size={26} color={Colors.white} />,
+      bgColor: '#059669'
+    },
+    {
+      title: 'Privacy Policy',
+      icon: <MaterialIcons name="policy" size={26} color={Colors.white} />,
+      bgColor: Colors.neutral600
+    },
+    {
+      title: 'Logout',
+      icon: <MaterialIcons name="logout" size={26} color={Colors.white} />,
+      bgColor: '#e11d48'
+    }
+  ]
+
+  const handleOptionsPress = ( item: profileOptionsType) => {
+    if (item.title === "Logout") {
+      signOutUser()
+    }
+  }
 
   return (
     <>
         <Stack.Screen options={{headerShown: true,
-          header: () => (<PageHeader title="Settings"/>),
+          header: () => (<PageHeader title="Profile"/>),
             headerTransparent: true    
         }}/>
           <View style={[styles.container, { backgroundColor: Theme.backgroundColor }]}>
-            {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-              <TouchableOpacity style={{ flex:1, height: 50, justifyContent: 'space-between', flexDirection:'row', alignItems:'center'}}>
-                <View style={{flexDirection:'row', gap: 10, alignItems:'center'}}>
-                <MaterialIcons name="dark-mode" size={24} color={Theme.textColor} />
-                <Text style={{color: Theme.textColor}}>Dark Mode</Text>
-                </View>
-                <Switch
-                    trackColor={{false: '#767577', true: '#81b0ff'}}
-                    thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                    onValueChange={toggleSwitch}
-                    value={isEnabled}
-                  />
-                
-              </TouchableOpacity>
-            </View> */}
-            <TouchableOpacity style={styles.lineItemContainer}>
-              <View style={{flexDirection:'row', gap: 10, alignItems:'center'}}>
-              <AntDesign name="user" size={18} color={Theme.textColor} />
-              <Text style={[styles.lineItemTxt, {color: Theme.textColor}]}>Change Avatar</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.lineItemContainer}>
-              <View style={{flexDirection:'row', gap: 10, alignItems:'center'}}>
-              <AntDesign name="key" size={18} color={Theme.textColor} />
-              <Text style={[styles.lineItemTxt, {color: Theme.textColor}]}>Change Password</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.lineItemContainer}>
-              <View style={{flexDirection:'row', gap: 10, alignItems:'center'}}>
-              <AntDesign name="delete" size={18} color={Theme.textColor} />
-              <Text style={[styles.lineItemTxt, {color: Theme.textColor}]}>Delete Account</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={{ marginTop : 20, justifyContent:'center', alignItems:'center'}}>
+              <Image source={userImage === "Default"  ? require('../../assets/images/profile-circle-svgrepo-com.png') : { uri: userImage }} 
+              style={{ alignSelf : 'center', height: 150, width: 150, borderRadius: 30}}/>
+              <Text style={{fontWeight : 500, fontSize: 24}}>{toTitleCase(name)}</Text>
+              <Text style={{fontSize: 14, color: '#777'}}>{email}</Text>
+
+            </View>
+
+            {/* Profile Options List */}
+            <View style={{gap: 8}}>
+              {
+                profileOptions.map((item, index) => {
+                  return (
+                    <View key={index}>
+                      <TouchableOpacity style={{flexDirection: 'row', alignItems:'center', gap: 12 }} onPress={()=>handleOptionsPress(item)}>
+                        <View style={[styles.listIcon, {backgroundColor: item.bgColor}]}>
+                          {item.icon}
+                        </View>
+                        <Text style={{fontSize: 16}}>{item.title}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )
+                })
+              }
+            </View>
               
             
             </View>
@@ -76,5 +104,14 @@ const styles = StyleSheet.create({
     },
     lineItemTxt : {
       fontSize : 18
+    },
+    listIcon: {
+      height: 44,
+      width: 44,
+      backgroundColor: Colors.neutral500,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 16,
+      borderCurve: "continuous",
     }
 })

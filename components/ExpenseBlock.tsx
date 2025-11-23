@@ -1,5 +1,7 @@
 import { FlatList, ListRenderItem, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React from 'react'
+import  Colors  from '@/constants/Colors';
+import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import addCategory from '@/app/addCategory';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -128,6 +130,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
 
-    }
+    },
+    
 
 })

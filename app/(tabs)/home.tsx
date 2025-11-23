@@ -323,7 +323,7 @@ const renderExpenses = () => {
                   marginLeft: 8,
                   padding: 16,
                   borderRadius: 20,
-                  backgroundColor: "#232B5D",
+                  backgroundColor: "white",
                 }}
               >
                 <Text
@@ -333,10 +333,10 @@ const renderExpenses = () => {
                     color: theme.altTextColor,
                   }}
                 >
-                  {currentMonthName} Overview
+                  {currentMonthName} Summary
                 </Text>
                 <View style={{ alignItems: "center" , marginTop:8}}>
-                  <PieChart
+                  {/* <PieChart
                     data={pieData}
                     donut
                     showGradient
@@ -368,7 +368,7 @@ const renderExpenses = () => {
                         </View>
                       );
                     }}
-                  />
+                  /> */}
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 16}}>
                   <View style={[styles.line, {backgroundColor : theme.altTextColor}]}/>

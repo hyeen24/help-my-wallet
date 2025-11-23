@@ -64,7 +64,7 @@ const addMerchant = () => {
                 return { ...merchant, url: result.url.toString() };
             })
            );
-           console.log("Merchants fetched:", updatedMerchants);
+        //    console.log("Merchants fetched:", updatedMerchants);
            setMerchantData(updatedMerchants);
         } catch (err) {
             console.error("API fetch error:", err);
@@ -84,7 +84,7 @@ const addMerchant = () => {
         }else {
             setSelectMerchant(merchantId);
         }
-        console.log("Selected Merchant ID:", merchantId);
+        console.log("addMerchant.tsx - Selected Merchant ID:", merchantId);
     }
 
     const toggleMerchantNewExisting = () => {
@@ -92,8 +92,8 @@ const addMerchant = () => {
     }
 
     const attachMerchant = async () => {
-        console.log("transactionId",transactionId)
-        console.log("Merchant selected",selectedMerchant)
+        console.log("addMerchant.tsx - transactionId",transactionId)
+        console.log("addMerchant.tsx - Merchant selected",selectedMerchant)
 
         if (selectedMerchant && transactionId) {
             await client.graphql({
@@ -257,31 +257,17 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderRadius: 10,
         padding: 10,
-        backgroundColor: Colors.white,
-        // IOS shadow
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        // Anroid shadow
-        elevation: 1,
+        backgroundColor: "#333"
     },
     containerExistingMerchantItem2: {
         justifyContent:'center',
         alignItems:'center', 
         marginBottom: 10,
         borderRadius: 10,
-        backgroundColor: Colors.white,
+        backgroundColor: "#333",
         borderWidth: 1,
         borderColor: Colors.tintColor,
-        padding: 10,
-        // IOS shadow
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        // Anroid shadow
-        elevation: 1,
+        padding: 10
         
     },
     groupHeaderTxt: {

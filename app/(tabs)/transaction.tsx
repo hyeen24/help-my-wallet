@@ -1,4 +1,4 @@
-import {Alert, Modal, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {Alert, Image, Modal, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Stack, useRouter } from 'expo-router'
 import PageHeader from '@/components/PageHeader'
@@ -76,15 +76,15 @@ const transaction = () => {
                 }))
 
             setExpenses(expenses);
-            setMerchantData(merchants)
+            setMerchantData(updatedMerchants)
             setTransactions(transactions);
             setMerchantTransactions(merchantTransactions);
             handleTransactionSorting(transactions);
             // console.log(merchants)
-            console.log("list merchants",merchants)
-            console.log("expenses",expenses)
-            console.log("This is my transactions",transactions)
-            console.log("This is my merchantTransactions",merchantTransactions)
+            // console.log("list merchants",merchants)
+            // console.log("expenses",expenses)
+            // console.log("This is my transactions",transactions)
+            // console.log("This is my merchantTransactions",merchantTransactions)
         };
 
   useEffect(() => {   
@@ -229,10 +229,6 @@ const transaction = () => {
                 {
                     displayTransactions && displayTransactions.length > 0 ? (
                         displayTransactions.map((item) => {
-                            // console.log("merchantData:", merchantData);
-                            // console.log("Matching Merchant:",matchedMerchant.icon);
-                            // console.log(item)
-                            // console.log(merchantData)
                             const inMerchantTransaction = merchantTransactions.find(mt => mt.transaction_id === item.id) || null;
                             // console.log("found in merchantTransaction", inMerchantTransaction);
                             let merchant = null;
@@ -243,7 +239,7 @@ const transaction = () => {
                             let date = toDDMMYYYY(new Date(item.transaction_date));
 
                             return (
-                                <TouchableOpacity key={item.id} style={[styles.itemContainer, { backgroundColor: "#333" }]} onPress={() => selectTransaction(
+                                <TouchableOpacity key={item.id} style={[styles.itemContainer, { backgroundColor: "white" }]} onPress={() => selectTransaction(
                                     merchant?.image ?? '',
                                     merchant?.name ?? 'Unknown',
                                     merchant?.id ?? '',
@@ -254,13 +250,12 @@ const transaction = () => {
                                     date
                                 )}>
 
-                                    <View style={[styles.iconContainer, { backgroundColor: "#333" }]}>
+                                    <View style={[styles.iconContainer, { backgroundColor: "#ddd" }]}>
+                                        
                                         {merchant && merchant.url ? (
-                                            // <Image
-                                            //     source={{ uri: merchant.url }}
-                                            //     style={{ width: 50, height: 50, borderRadius: 10 }}/>
-                                            undefined
-
+                                            <Image
+                                                source={{ uri: merchant.url }}
+                                                style={{ width: 50, height: 50, borderRadius: 10 }}/>
                                         ) : (
                                             <Foundation name="dollar" size={22} color={theme.textColor} />
                                         )

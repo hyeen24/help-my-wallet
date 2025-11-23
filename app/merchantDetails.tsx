@@ -7,6 +7,8 @@ import { useLocalSearchParams } from "expo-router";
 import { toTitleCase } from "@/utils/stringUtils";
 import { BarChart } from "react-native-gifted-charts";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { generateClient } from "aws-amplify/api";
+import { listMerchantTransactions, listTransactions } from "@/src/graphql/queries";
 
 const merchantDetails = () => {
   const [merchantData, setMerchantData] = useState<any>({});
@@ -15,68 +17,67 @@ const merchantDetails = () => {
   const [chartData, setChartData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { merchantId, merchantIcon } = useLocalSearchParams();
-//   const merchantId = 1;
-//   const merchantIcon =
-//     "http://192.168.0.129:8000/media/hyeen24%40gmail.com/merchants/1c3bf150-9a4d-4d28-8ad6-f02bed17750a.png";
+  const client = generateClient();
+
+  console.log("merchantDetails.tsx :",merchantId)
 
   const fetchData = async () => {
-    // try {
-    //   const response = await api.get(
-    //     `api/transactions/?merchant=${merchantId}`
-    //   );
-    //   setTransactions(response.data);
-    // } catch (err) {
-    //   console.error("API fetch error:", err);
-    // }
+    const [ merchantTransaction, transactions ] = await Promise.all([
+      client.graphql({
+            query: listMerchantTransactions,
+            variables: {
+              filter: {
+                merchant_id: {
+                  eq: merchantId
+                }
+              }
+            },
+            authMode: 'userPool'
+          }),
+      client.graphql({
+        query: listTransactions,
+        authMode: 'userPool'
+      })
+      
+    ])
 
-    // try {
-    //   const response = await api.get(`api/merchant/${merchantId}/`);
-    //   setMerchantData(response.data);
-    //   setMerchantName(toTitleCase(response.data.name));
-    // } catch (err) {
-    //   console.error("API fetch error:", err);
-    // }
+    const merchantTransactions = merchantTransaction?.data?.listMerchantTransactions?.items
+    const allTransactions = transactions?.data?.listTransactions?.items
+    const transactionsId = merchantTransactions.map((item: any) => item.transaction_id)
+    const allTransactionsWithMerchant = allTransactions.filter((t: any) =>
+        transactionsId.includes(t.id)
+      );
+    console.log("merchantDetails.tsx - transactionId:",allTransactionsWithMerchant)
+
+    setTransactions(allTransactionsWithMerchant)
 
     setLoading(false);
   };
 
   const groupByYearMonth = (transactions: any[]) => {
-    const result: Record<string, Record<string, number>> = {};
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    transactions.forEach(({ amount, trans_date }) => {
-      // Parse the date string, e.g. "21 Apr 2025"
-      const [day, monthStr, year] = trans_date.split(" ");
-      const monthIndex = months.indexOf(monthStr);
-      if (monthIndex === -1) {
-        // Invalid month string, skip or handle error here
-        return;
-      }
+  const result: Record<string, Record<string, number>> = {};
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-      if (!result[year]) {
-        // Initialize all months with 0
-        result[year] = {};
-        for (const m of months) {
-          result[year][m] = 0;
-        }
-      }
+  transactions.forEach(({ amount, post_date }) => {
+    if (!post_date) return;
 
-      result[year][monthStr] += parseFloat(amount);
-    });
-    return result;
-  };
+    const date = new Date(post_date);
+    const year = date.getFullYear().toString();
+    const monthStr = months[date.getMonth()]; // 0-based month index (0=Jan)
+
+    if (!result[year]) {
+      result[year] = {};
+      for (const m of months) {
+        result[year][m] = 0;
+      }
+    }
+
+    result[year][monthStr] += parseFloat(amount);
+  });
+
+  return result;
+};
+
 
   useEffect(() => {
     fetchData();

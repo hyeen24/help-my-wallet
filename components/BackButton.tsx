@@ -17,7 +17,7 @@ const BackButton = ({
   return (
     <TouchableOpacity onPress={()=> router.back()} style={[styles.button, style]}>
         <AntDesign name='left' size={iconSize}
-        color={theme.textColor}
+        color={Colors.white}
         weight="bold"
         />
     </TouchableOpacity>

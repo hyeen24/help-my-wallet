@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { router, Stack, useLocalSearchParams } from 'expo-router'
 import PageHeader from '@/components/PageHeader'
 import { AntDesign, Entypo, FontAwesome, Fontisto, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
@@ -7,14 +7,15 @@ import  Colors from '@/constants/Colors'
 import ButtonSpaceBetweenTwoItem from '@/components/ButtonSpaceBetweenTwoItem'
 import { toTitleCase } from '@/utils/stringUtils'
 import { useTheme } from '@/contexts/ThemeContext'
+import { getUrl } from 'aws-amplify/storage'
 
 
 
 const transactionDetails = () => {
   const { theme } = useTheme();
   const { merchantIcon, merchantName, merchantId, itemAmount,itemTitle, itemDescription, transactionId, transactionDate} = useLocalSearchParams();
-  console.log("Merchant Name",merchantName)
-  console.log("Merchant Icon", merchantIcon)
+  const [ merchantImageUrl, setMerchantImageUrl ]  = useState("")
+
 
   const moveToMerchant = (merchantId : string)=> {
     console.log("Merchant ID:", merchantId);
@@ -36,6 +37,28 @@ const transactionDetails = () => {
     }
   };
 
+  const getMerchantUrl = async () => {
+    const res = await getUrl({
+          key: merchantIcon, // your S3 key
+          options: { accessLevel: "private" }, // or "public"
+      })
+      
+    const url = res.url
+    // console.log(url)
+    setMerchantImageUrl(url.toString())
+    
+  }
+    
+    useEffect(()=> {
+      if (merchantIcon !== "") {
+        getMerchantUrl()
+      }
+      // setMerchantImageUrl(url)
+    },[])
+
+          // Return a new object with a `url` property
+      
+
   return (
     <View style={{ flex: 1, backgroundColor: theme.backgroundColor}}>
         <PageHeader
@@ -45,22 +68,17 @@ const transactionDetails = () => {
         
         <View style={styles.container}>
           {
-            merchantIcon === '' ? (
+            merchantImageUrl === '' ? (
               <Fontisto name="shopping-store" size={50} color={theme.textColor}/>
             ) : (
               <Image
-            source={{
-              uri:
-                typeof merchantIcon === 'string'
-                  ? merchantIcon.replace('/media', '/api/media')
-                  : undefined,
-            }}
-            style={styles.merchantImage}
-          />
+            source={{ uri :  merchantImageUrl}}
+                        style={styles.merchantImage}
+                      />
             ) 
           }  
           <View style={{alignItems: 'center', gap: 4}}>
-                <Text style={styles.amountTxt}>${itemAmount}</Text>
+                <Text style={[styles.amountTxt, { color: theme.textColor}]}>${itemAmount}</Text>
                 <Text style={{ color: theme.textColor , fontWeight: 700 , fontSize: 16}}>{itemTitle}</Text>
                 <Text style={{ color: theme.textColor }}>{itemDescription}</Text>
           </View>

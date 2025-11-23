@@ -186,3 +186,9 @@ export type FilterProps = {
     setDisplayFilterModal: (value: boolean) => void,
     merchantData: Merchant[],
 }
+
+export type profileOptionsType = {
+  title: string;
+  icon: React.ReactNode;
+  bgColor: string;
+}

@@ -67,7 +67,8 @@ const AddNewMerchant = () => {
       
       const response = await client.graphql({
               query: mutations.createMerchant,
-              variables: { input: payload }
+              variables: { input: payload },
+              authMode: 'userPool'
             });
 
         Alert.alert("New Merchant Added", "Your merchant has been added successfully.", [
@@ -89,7 +90,7 @@ const AddNewMerchant = () => {
     
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
           <View>
-            <Text style={styles.pageTitleTxt}>Add a New Merchant</Text>
+            <Text style={[styles.pageTitleTxt, { color: theme.textColor}]}>Add a New Merchant</Text>
             <Text style={[styles.pageTxt, {marginLeft: 20, color:theme.textColor}]}>Let's add a new merchant to your <Text style={{ fontWeight: 600 }}>account</Text>.</Text>
           </View>
           <View style={ {gap: 16}}>
@@ -112,7 +113,7 @@ const AddNewMerchant = () => {
                   borderWidth: 0.7,
                   borderColor: Colors.gray,
                   borderStyle: 'dashed',
-                  backgroundColor: Colors.neutral200}}>  
+                  backgroundColor: "#333"}}>  
                   { image ? (
                       <Image source={{ uri: image }} style={{ width: '100%', height: '100%', borderRadius: 10 }}/>
                   ): 

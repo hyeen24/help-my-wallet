@@ -23,7 +23,7 @@ const TransactionBlock = ({transactionList, incomeList}: {transactionList: Trans
             {   
                 transactionList.length > 0 ?
                 (<TouchableOpacity onPress={() => {router.push('/transaction')}}>
-                    <Text style={{ color: theme.textColor, fontSize: 14}}>See all</Text>
+                    <Text style={{ color: '#777', fontSize: 14}}>See all</Text>
                 </TouchableOpacity>) : 
                 null
             }
@@ -39,16 +39,16 @@ const TransactionBlock = ({transactionList, incomeList}: {transactionList: Trans
 
                     const isIncome = incomeList.some((income) => income.id === item.category_id);
                     return (
-                        <View key={item.id} style={[styles.transactionContainer, {backgroundColor: theme.backgroundColor}]}>
+                        <View key={item.id} style={[styles.transactionContainer, {backgroundColor: 'white'}]}>
                             <View style={styles.iconContainer}>
                                 <Foundation name="dollar" size={22} color={theme.textColor}/>
                             </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' , backgroundColor: 'transparent'}}>
                                 <View style={{ gap: 5 }}>
                                     <Text style={{color:theme.textColor, fontWeight: 700 }}>{item.description? item.title+" - "+item.description : item.title }</Text>
-                                    <Text style={{color:theme.textColor}}>{formattedDate}</Text>
+                                    <Text style={{color:'#777', fontWeight: 500}}>{formattedDate}</Text>
                                 </View>
-                                <Text style={{ fontWeight: 700 , color: isIncome? Colors.green : theme.textColor}}>{isIncome? "+ " : "- "}${Number(item.amount).toFixed(2)}</Text>
+                                <Text style={{ fontWeight: 700 , color: isIncome? Colors.green : Colors.lightRed}}>{isIncome? "+ " : "- "}${Number(item.amount).toFixed(2)}</Text>
                             </View>      
                         </View>  
                     )
@@ -56,7 +56,7 @@ const TransactionBlock = ({transactionList, incomeList}: {transactionList: Trans
                 })      
             ) : (
                 <View style={{ justifyContent:'center', alignItems:'center'}}>
-                    <Text style={{ fontWeight: 400, color: Colors.white }}>No transaction record.</Text>
+                    <Text style={{ fontWeight: 400, color: theme.textColor }}>No transaction record.</Text>
                 </View>
             )
             
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
             fontSize: 16,
     },
     iconContainer : {
-        backgroundColor: Colors.neutral800,
+        backgroundColor: '#eee',
         width:40, 
         height:40, 
         padding: 10 , 
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
         margin: 2,
         alignItems:'center', 
         borderRadius: 16,
-        height: 70,
-        paddingHorizontal: 10
+        height: 60,
+        paddingHorizontal: 8
         },
 
 })

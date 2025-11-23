@@ -13,7 +13,7 @@ const index = () => {
     const router = useRouter();
     useEffect(() => {
         setTimeout(() => {
-                router.push("/(tabs)/home");
+                router.push("/(tabs)/profile");
                 // router.push("/addCategory");
             }, 2000);
     },[])
