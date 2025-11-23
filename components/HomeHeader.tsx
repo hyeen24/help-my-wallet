@@ -10,6 +10,7 @@ import { useTheme } from '@/contexts/ThemeContext'
 const HomeHeader = ({ budget }: { budget: number }) => {
     const { user, signOutUser, userAttributes } = useAuth();
     const name = userAttributes?.name || user?.name || "User";
+    const userImage = userAttributes?.picture || user?.picture || "Default";
     const { theme } = useTheme();   
 
   return (
@@ -17,12 +18,12 @@ const HomeHeader = ({ budget }: { budget: number }) => {
         <View style={[styles.leftContainer, { backgroundColor: theme.headerBackground}]}>
             <View style={{ flexDirection: 'row', alignItems: 'center'}}>     
                 <Image
-                    source={require('../assets/images/react-logo.png')}
+                    source={userImage === "Default"  ? require('../assets/images/profile-circle-svgrepo-com.png') : { uri: userImage }} 
                     style={{ height: 50, width: 50, borderRadius: 30 }}
                 />
                 <View style={{ marginLeft: 10}}>
-                    <Text style={{ color: Colors.white,  fontSize: 12}}>Hi, {toTitleCase(name)}</Text>
-                    <Text style={{ color: Colors.white, fontSize: 16}}>Budget : ${budget}</Text>
+                    <Text style={{ color: Colors.white,  fontSize: 12}}>Hi,</Text>
+                    <Text style={{ color: Colors.white, fontSize: 16}}>{toTitleCase(name)}</Text>
                 </View>
             </View >
             <TouchableOpacity onPress={signOutUser} style={{ 
