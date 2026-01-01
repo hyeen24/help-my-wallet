@@ -1,4 +1,4 @@
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Colors from '@/constants/Colors'
 import { router, Stack } from 'expo-router';
@@ -26,6 +26,7 @@ const home = () => {
   const [ currentMonthName, setCurrentMonthName ] = useState(new Date().toLocaleString("en-US", { month: "long" }))
   const [ currentYear, setCurrentYear ] = useState(new Date().getFullYear())
   const [ currentMonth, setCurrentMonth ] = useState(new Date().getMonth() + 1)
+  const [ balance, setBalance ] = useState(1234.56)
 
   useEffect(() => {
     fetchData();
@@ -90,8 +91,9 @@ const home = () => {
         const expenses = expenseResult.data?.listExpenses?.items ?? [];
         const transactions = transactionResult.data?.listTransactions?.items ?? [];
 
-        // console.log("Incomes fetched:", incomes);
-        // console.log("Expenses fetched:", expenses);
+        console.log("Incomes fetched:", incomes);
+        console.log("Expenses fetched:", expenses);
+        console.log("Transactions:",transactions)
         // console.log(expenses)
 
         setIncomes(incomes);
@@ -147,51 +149,22 @@ const home = () => {
     );
   };
 
-  const renderIncomes = () => {
-    const incomeTotals: IncomeTotals = {};
+ const renderIncomes = () => {
+  let incomeTotals = 0;
 
-    // Group & sum
-    incomes.forEach((income) => {
-      const total = transactionList
-        .filter((tx) => tx.category_id === income.id)
-        .reduce((sum, tx) => sum + Number(tx.amount), 0);
+  incomes.forEach((income) => {
+    const total = transactionList
+      .filter((tx) => tx.category_id === income.id)
+      .reduce((sum, tx) => sum + Number(tx.amount), 0);
 
-        // console.log(income)
+    incomeTotals += total;
+  });
 
-      incomeTotals[income.name] = {
-        total,
-        icon_name: income.icon?.icon_name ?? null, // default icon
-        icon_type: income.icon?.icon_type ?? null // default type
-      };
-    });
-
-    // console.log(incomeTotals)
-    const hasNonZero = Object.values(incomeTotals).some(item => item.total !== 0);
-    // console.log("HASNONZERO",hasNonZero)
-    if (hasNonZero) {
-      return Object.entries(incomeTotals).map(([source, info]) => (
-        <View key={source} style={{flexDirection: "row", justifyContent: "space-between", marginVertical: 8}}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8}}>
-            { info.icon_type &&  info.icon_type=== "MaterialCommunityIcons" ?
-                <MaterialCommunityIcons name={info.icon_name ?? "help"} size={20} color={theme.textColor}/>
-                : <FontAwesome6 name={info.icon_name ?? "question"} size={20} color={theme.textColor}/>
-              }
-            <Text style={{ color : theme.textColor}}>{source}</Text>
-          </View>
-          <Text style={{ color : theme.textColor }}>{info.total}</Text>
-        </View>
-      ));
-    } else {
-      return (
-        <View style={{flexDirection: "row", justifyContent: "center",height: 50, alignItems : "center"}}>
-            <Text style={{ color : "#bbb" }}>No Transactions</Text>
-        </View>
-      )
-    }
-  }
+  return incomeTotals;
+};
 
 const renderExpenses = () => {
-  const expenseTotals: { [incomeId: string]: number } = {};
+  const expenseTotals = 0;
 
   // Group & sum
   expenseList.forEach((expense) => {
@@ -199,65 +172,16 @@ const renderExpenses = () => {
       .filter((tx) => tx.category_id === expense.id)
       .reduce((sum, tx) => sum + Number(tx.amount), 0);
 
-    expenseTotals[expense.title] = total;
+    expenseTotals
   });
 
-  // Handle uncategorized
-  const othersTotal = transactionList
-    .filter((tx) => tx.category_id === "")
-    .reduce((sum, tx) => sum + Number(tx.amount), 0);
-
-  const hasNonZeroExpenses = Object.values(expenseTotals).some(
-    (total) => total !== 0
-  );
+    return expenseTotals
+}
   
   // console.log("Has Zero Expense:",hasNonZeroExpenses)
   // console.log("OtherS:", othersTotal)
-  if (hasNonZeroExpenses || othersTotal) {
-    return (
-      <>
-        {Object.entries(expenseTotals).map(([source, amount]) => (
-          <View
-            key={source}
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text style={{ color: "#bbb" }}>{source}</Text>
-            <Text style={{ color: "#bbb" }}>{amount}</Text>
-          </View>
-        ))}
+  
 
-        {othersTotal !== 0 && (
-          <View
-            key="others"
-            style={{ flexDirection: "row", justifyContent: "space-between" , marginVertical: 6}}
-          >
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              {renderDot("#fff")}
-              <Text style={{ color: "#fff" }}>Others</Text>
-            </View>
-            <Text style={{ color: "#fff" }}>${Number(othersTotal).toFixed(2)}</Text>
-          </View>
-        )}
-      </>
-    );
-  } else {
-    return (
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          height: 50,
-          alignItems: "center",
-        }}
-      >
-        <Text style={{ color: "#bbb" }}>No Transactions</Text>
-      </View>
-    );
-  }
-};
 
 
   
@@ -317,104 +241,51 @@ const renderExpenses = () => {
                   <AntDesign name="right" size={16} color={theme.textColor} />
                 </Button>
               </View>
-              <View
-                style={{
-                  marginTop: 20,
-                  marginLeft: 8,
-                  padding: 16,
-                  borderRadius: 20,
-                  backgroundColor: "white",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: theme.altTextColor,
-                  }}
-                >
-                  {currentMonthName} Summary
-                </Text>
-                <View style={{ alignItems: "center" , marginTop:8}}>
-                  {/* <PieChart
-                    data={pieData}
-                    donut
-                    showGradient
-                    sectionAutoFocus
-                    focusOnPress
-                    radius={90}
-                    innerRadius={60}
-                    innerCircleColor={"#232B5D"}
-                    centerLabelComponent={() => {
-                      return (
-                        <View
-                          style={{
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Text
-                            style={{
-                              fontSize: 22,
-                              color: "white",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            47%
-                          </Text>
-                          <Text style={{ fontSize: 14, color: "white" }}>
-                            Excellent
-                          </Text>
+                <ImageBackground
+                  source={require('../../assets/images/CardBackground.png')}
+                  resizeMode='stretch'
+                  style={{width: '100%', height:200}}
+                  >
+                    <View style={{marginHorizontal: 50, marginTop: 40}}>
+                      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={{color: Colors.white, fontSize: 14, fontWeight: 400}}>Total Balance</Text>
+                         <Feather name="more-horizontal" size={20} color={Colors.white} />
+                      </View>
+                      <Text style={{fontSize:26, fontWeight: 700, color: Colors.white}}>${balance.toLocaleString('en-US')}</Text>
+                      {/* Income & Expense Container*/}
+                      <View style={{flexDirection: 'row', justifyContent:'space-between', marginTop: 8}}>
+                        {/* Income section in card*/}
+                        <View style={{flex: 1}}>
+                          <View style={{flexDirection: 'row', alignItems:'center'}}>
+                            <View style={{backgroundColor: '#555', padding:5, borderRadius: 15}}>
+                              <FontAwesome6 name="circle-dollar-to-slot" size={12} color={Colors.white}/>
+                            </View>
+                            <Text style={{fontWeight: 400, fontSize:14, color:Colors.white, marginLeft: 8}}>Cash In</Text>
+                          </View>
+                          <Text>{JSON.stringify(renderIncomes())}</Text>
                         </View>
-                      );
-                    }}
-                  /> */}
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 16}}>
-                  <View style={[styles.line, {backgroundColor : theme.altTextColor}]}/>
-                  <Text style={{ fontSize: 14, fontWeight: 700, color: theme.altTextColor }}> Cash In </Text>
-                  <View style={[styles.line, {backgroundColor : theme.altTextColor}]}/>
-                </View>
-                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                    <Text style={{ color : "#bbb" }}>Source</Text>
-                    <Text style={{ color : "#bbb" }}>Amount</Text>
-                </View>
-                {
-                  renderIncomes()
-                }
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16}}>
-                  <View style={[styles.line, {backgroundColor : theme.altTextColor}]}/>
-                  <Text style={{ fontSize: 14, fontWeight: 700, color: theme.altTextColor }}> Cash Out </Text>
-                  <View style={[styles.line, {backgroundColor : theme.altTextColor}]}/>
-                </View>
-                  <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                    <Text style={{ color : "#bbb" }}>Top Categories</Text>
-                    <Text style={{ color : "#bbb" }}>Amount Spent</Text>
-                  </View>
-                  {
-                    renderExpenses()
-                  }
-                
-              </View>
+
+                        {/* Expense section in card*/}
+                        <View>
+                          <View style={{flexDirection: 'row', alignItems:'center',marginRight:8 }}>
+                            <View style={{backgroundColor: '#555', padding:5, borderRadius: 15}}>
+                              <MaterialCommunityIcons name="cash-fast" size={12} color={Colors.white}/>
+                            </View>
+                            <Text style={{fontWeight: 400, fontSize:14, color:Colors.white, marginLeft: 8}}>Cash Out</Text>
+                          </View>
+                        </View>
+                      </View>
+                      
+                    </View>
+                 
+                </ImageBackground>
+
+             
             </View>
             {/* <ExpenseBlock expenseList={expenseList} transactionList={transactionList} incomeList={incomes}/> */}
             <IncomeBlock incomeList={incomes} onRefresh={fetchData} />
             <TransactionBlock transactionList={transactionList} incomeList={incomes}/>
           </ScrollView>
-          <TouchableOpacity
-            style={styles.floatingAddBtn}
-            onPress={() => {router.push({
-              pathname: "/addCategory",
-            params: {
-              expenseList : JSON.stringify(expenseList)
-            }})}}
-          >
-            <Feather
-              name="plus"
-              size={22}
-              color={Colors.white}
-            />
-          </TouchableOpacity>
         </View>
       )}
     </>
